@@ -8,7 +8,6 @@ const itemSchema = new Schema({
    },
    description : {
       type : String,
-      required : true,
       default : `no description given`
    },
    price : {

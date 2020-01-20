@@ -14,14 +14,23 @@ class ItemController {
       }
       Item.create(newData)
          .then (data => {
-            console.log(data, `INI BENTUK DATA DI CONTROLLERRRRRRRRRRRRRRRRRRRRRRRRRR`);       
             res.status(201).json(data)
          })
          .catch (err => {
-            console.log(err, `INI ERRORRR DI CONTROLLERRRRRRRRRRRRRRRRRRRRRR`);            
+            // console.log(err, `INI ERRORRR DI CONTROLLERRRRRRRRRRRRRRRRRRRRRR`);            
             next (err)
          })
    } 
+
+   static getAll (req, res, next) {
+      Item.find()
+         .then(data => {            
+            res.status(200).json(data)
+         })
+         .catch (err => {
+            next(err)
+         })
+   }
 }
 
 module.exports = ItemController

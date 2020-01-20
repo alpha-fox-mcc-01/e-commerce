@@ -68,6 +68,8 @@ describe(`User routing`, () => {
                password: '12345'
             })
             .end((err, res) => {
+               // console.log(res.body);
+               
                expect(err).to.be.null
                expect(res).to.have.status(400)
                expect(res.body).to.have.own.property('msg').to.equal('Validation Error')
