@@ -58,6 +58,7 @@ describe('product routing', function() {
                 .send({
                     name: "Panasonic AC",
                     description: "good and cheap",
+                    category: "Electronics",
                     price: 2500000,
                     featured_image: null,
                     stocks: 40
@@ -74,6 +75,7 @@ describe('product routing', function() {
                 .send({
                     name: "Panasonic AC",
                     description: "good and cheap",
+                    category: "Electronics",
                     price: 2500000,
                     featured_image: null,
                     stocks: 40
@@ -91,6 +93,7 @@ describe('product routing', function() {
                 .send({
                     name: "Panasonic AC",
                     description: "good and cheap",
+                    category: "Electronics",
                     price: 2500000,
                     featured_image: null,
                     stocks: 40
@@ -109,6 +112,7 @@ describe('product routing', function() {
                     name: "Panasonic AC",
                     description: "good and cheap",
                     price: 2500000,
+                    category: "Electronics",
                     featured_image: null,
                     stocks: 40
                 })
@@ -130,6 +134,7 @@ describe('product routing', function() {
                     name: "",
                     description: "good and cheap",
                     price: 2500000,
+                    category: "Electronics",
                     featured_image: null,
                     stocks: 40
                 })
@@ -149,6 +154,7 @@ describe('product routing', function() {
                     description: "good and cheap",
                     price: 2,
                     featured_image: null,
+                    category: "Electronics",
                     stocks: 40
                 })
                 .end((err, res) => {
@@ -167,6 +173,7 @@ describe('product routing', function() {
                     description: "good but not cheap",
                     price: 2500000,
                     featured_image: null,
+                    category: "Electronics",
                     stocks: -1
                 })
                 .end((err, res) => {
@@ -184,6 +191,7 @@ describe('product routing', function() {
                     name: "Panasonic AC",
                     description: "good but not cheap",
                     price: 2500000,
+                    category: "Electronics",
                     featured_image: null,
                     stocks: 10
                 })

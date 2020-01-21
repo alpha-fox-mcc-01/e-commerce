@@ -15,6 +15,9 @@ const productSchema = new Schema({
         required: true,
         match: [/^[a-z\d\-_\s]+$/i, "Product Name Invalid"]
     },
+    category: {
+        type: String
+    },
     description: {
         type: String,
         required: true

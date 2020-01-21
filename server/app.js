@@ -4,6 +4,7 @@ const app = express();
 const routes = require('./routes')
 const mongoose = require('mongoose')
 const errorHandler = require('./middlewares/errorHandler')
+const cors = require('cors')
 
 mongoose.connect('mongodb://localhost/ecommerce', {useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify:true});
 
@@ -14,6 +15,7 @@ db.once('open', function() {
   console.log('Database Connection is Successful')
 });
 
+app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
