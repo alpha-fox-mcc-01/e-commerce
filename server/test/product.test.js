@@ -8,7 +8,7 @@ chai.use(chaiHttp)
 
 describe('Product Routing', function () {
     // hooks buat menjalankan function sebelum / sesudah testing
-    describe('post /product', function () {
+    describe.only('post /product', function () {
       beforeEach(function(done) {
         Product.deleteMany()
           .then(_ => {
