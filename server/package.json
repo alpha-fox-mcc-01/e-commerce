@@ -1,0 +1,34 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "**REGISTER USER** ----",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "NODE_ENV='testing' mocha --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaniairnanda/e-commerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaniairnanda/e-commerce/issues"
+  },
+  "homepage": "https://github.com/vaniairnanda/e-commerce#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^7.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.9"
+  }
+}
