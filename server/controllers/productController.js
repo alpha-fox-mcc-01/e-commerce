@@ -31,6 +31,7 @@ module.exports = {
     getProductDetail(req, res, next) {
         Product.findOne({_id: req.params.id})
                 .then(result => {
+                    console.log('getproductdetail', result)
                     res.status(200).json({result: result})
                 })
                 .catch(err => {
