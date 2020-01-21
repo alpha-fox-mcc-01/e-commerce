@@ -29,7 +29,7 @@
           </b-form-group>
         <b-button type="submit" variant="primary">Submit</b-button>
         <div class="mt-2">
-          <small>Don't have an account? <router-link to="/register">Register here</router-link></small>
+          <small>Don't have an account? <a href="#" @click.prevent="toRegister">Register here</a></small>
         </div>
       </b-form>
     </b-card>
@@ -80,6 +80,13 @@ export default {
         .catch(err => {
           console.log(err.response)
         })
+    },
+    toRegister () {
+      let loader = this.$loading.show({ loader: 'dots' })
+      setTimeout(() => {
+        loader.hide()
+        this.$router.push({ name: 'register' })
+      }, 500)
     }
   }
 }

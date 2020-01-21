@@ -40,7 +40,7 @@
 
         <b-button type="submit" variant="primary">Submit</b-button>
         <div class="mt-2">
-          <small>Have an account? <router-link to="/login">Login here</router-link></small>
+          <small>Have an account? <a href="#" @click.prevent="toLogin">Login here</a></small>
         </div>
       </b-form>
     </b-card>
@@ -55,6 +55,7 @@
         <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close</b-button>
       </b-modal>
     </div>
+
   </div>
 </template>
 
@@ -98,6 +99,13 @@ export default {
         .catch(err => {
           console.log(err.response)
         })
+    },
+    toLogin () {
+      let loader = this.$loading.show({ loader: 'dots' })
+      setTimeout(() => {
+        loader.hide()
+        this.$router.push({ name: 'login' })
+      }, 500)
     }
   }
 }
