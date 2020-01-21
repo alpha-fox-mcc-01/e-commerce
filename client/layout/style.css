@@ -1,0 +1,51 @@
+html {
+   font-family: 'Roboto', sans-serif;
+}
+body {
+   background-color: #FEE9E1
+}
+header {
+   justify-content: center;
+   display: flex;
+   height: 150px;
+   align-items: center;
+   text-align: center;
+}
+a {
+   color: #917C78;
+}
+a:hover {
+   text-decoration: none;
+   scroll-behavior: smooth;
+}
+
+
+
+.login-icon {
+   max-width: 200px;
+   align-items: center;
+}
+.navbar {
+   background-color: transparent;;
+}
+
+.navbar-toggler i {
+   color: whitesmoke;
+   font-size: 25px;
+}
+
+.navbar-nav {
+   padding: 4;
+}
+
+.nav-link {
+   color: rgb(94, 88, 86);
+   text-transform: uppercase;
+   font-family: 'Playfair Display SC', sans-serif;
+   
+}
+
+.nav-link:hover {
+   opacity: 0.5;    
+   color: rgb(233, 32, 65); 
+}
