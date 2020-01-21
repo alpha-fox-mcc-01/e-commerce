@@ -5,6 +5,8 @@ const authentication = require('../middlewares/authentication');
 const authorization = require('../middlewares/authorization');
 
 router.get('/', ProductController.showAll);
+router.get('/starter', ProductController.homeProducts);
+router.get('/:id', ProductController.showProduct);
 
 router.use('/', authentication);
 

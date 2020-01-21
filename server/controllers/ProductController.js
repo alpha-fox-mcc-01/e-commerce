@@ -24,6 +24,22 @@ class ProductController {
       .catch(next)
   }
 
+  static homeProducts(req, res, next) {
+    Product.find().limit(12)
+      .then(products => {
+        res.status(200).json(products)
+      })
+      .catch(next)
+  }
+
+  static showProduct(req, res, next) {
+    Product.findById({_id: req.params.id})
+      .then(product => {
+        res.status(200).json(product)
+      })
+      .catch(next)
+  }
+
   static editProduct(req, res, next) {
     const {name, description, image, price, stock} = req.body;
     Product.findOneAndUpdate({_id: req.params.id}, {

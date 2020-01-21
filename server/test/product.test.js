@@ -10,7 +10,7 @@ describe.only('Product Routing', function() {
   describe('/product', function() {
 
     // Case add product
-    it.only('should have status 201 and return new Product data (_id, name, description, image, price, stock)', function(done) {
+    it('should have status 201 and return new Product data (_id, name, description, image, price, stock)', function(done) {
       chai.request(app)
         .post('/product')
         .set({

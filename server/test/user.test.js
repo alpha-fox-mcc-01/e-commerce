@@ -6,17 +6,17 @@ const { User } = require('../models');
 
 chai.use(chaiHttp);
 
-describe('User Routing', function() {
+describe.only('User Routing', function() {
   describe('/user/register', function() {
-    // after(function(done) {
-    //   User.deleteMany()
-    //     .then(_ => {
-    //       done()
-    //     })
-    //     .catch(err => {
-    //       done(err)
-    //     })
-    // })
+    after(function(done) {
+      User.deleteMany()
+        .then(_ => {
+          done()
+        })
+        .catch(err => {
+          done(err)
+        })
+    })
 
     // Case Success Register
     it('should have status 201 and return new User data (_id, name, email)', function(done) {
@@ -39,7 +39,7 @@ describe('User Routing', function() {
     })
 
     // Case email is not unique
-    it.only('should have status 400 and return error message if email is already used', function(done) {
+    it('should have status 400 and return error message if email is already used', function(done) {
       chai.request(app)
         .post('/user/register')
         .send({
@@ -158,29 +158,29 @@ describe('User Routing', function() {
   })
 
   describe('/user/login', function() {
-    // before(() => {
-    //   User.create({
-    //     name: 'test',
-    //     email: 'test@test.com',
-    //     password: '12345678'
-    //   })
-    //     .then(user => {
-    //       console.log(user, 'create user for login')
-    //     })
-    //     .catch(err => {
-    //       console.log(err, 'before login error')
-    //     })
-    // })
+    before(() => {
+      User.create({
+        name: 'test',
+        email: 'test@test.com',
+        password: '12345678'
+      })
+        .then(user => {
+          console.log(user, 'create user for login')
+        })
+        .catch(err => {
+          console.log(err, 'before login error')
+        })
+    })
 
-    // after(function(done) {
-    //   User.deleteMany()
-    //     .then(_ => {
-    //       done()
-    //     })
-    //     .catch(err => {
-    //       done(err)
-    //     })
-    // })
+    after(function(done) {
+      User.deleteMany()
+        .then(_ => {
+          done()
+        })
+        .catch(err => {
+          done(err)
+        })
+    })
 
     // Case login return access_token
     it('should have status 200 and return access_token', function(done) {
