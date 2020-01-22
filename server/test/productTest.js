@@ -33,27 +33,35 @@ describe('Product Routing', function () {
 
     it('Should return status 201 and new added product (name, description, category, price, stock)', function (done) {
       chai.request(app)
-        .post('/api/product')
+        .post('/login')
         .send({
-          name: "Ini namanya barang",
-          description: "Aku deskripsinya",
-          category: "Kategorinya apa ya",
-          price: "100000",
-          stock: "10",
-          imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71FX4921zZL._AC_SL1500_.jpg'
+          email: 'ahmad@ahmad.com',
+          password: 'ahmadahmad'
         })
         .end((err, res) => {
-
-          expect(err).to.be.null;
-          expect(res).to.have.status(201);
-          expect(res.body).to.have.property('_id')
-          expect(res.body).to.have.property('name')
-          expect(res.body).to.have.property('description')
-          expect(res.body).to.have.property('category')
-          expect(res.body).to.have.property('price')
-          expect(res.body).to.have.property('stock')
-          expect(res.body).to.have.property('imageUrl')
-          done()
+          chai.request(app)
+            .post('/api/product')
+            .send({
+              name: "Ini namanya barang",
+              description: "Aku deskripsinya",
+              category: "Kategorinya apa ya",
+              price: "100000",
+              stock: "10",
+              imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71FX4921zZL._AC_SL1500_.jpg'
+            })
+            .set('access_token', res.body.access_token)
+            .end((err, res) => {
+              expect(err).to.be.null;
+              expect(res).to.have.status(201);
+              expect(res.body).to.have.property('_id')
+              expect(res.body).to.have.property('name')
+              expect(res.body).to.have.property('description')
+              expect(res.body).to.have.property('category')
+              expect(res.body).to.have.property('price')
+              expect(res.body).to.have.property('stock')
+              expect(res.body).to.have.property('imageUrl')
+              done()
+            })
         })
     })
 
@@ -99,43 +107,62 @@ describe('Product Routing', function () {
 
     it('Should return status 200 and a message about update success', function (done) {
       chai.request(app)
-        .get('/api/product')
+        .post('/login')
+        .send({
+          email: 'ahmad@ahmad.com',
+          password: 'ahmadahmad'
+        })
         .end((err, res) => {
-          const id = res.body[0]._id
+          const token = res.body.access_token
           chai.request(app)
-            .put(`/api/product/${id}`)
-            .send({
-              name: "Ini namanya barang (baru loh)",
-              description: "Aku deskripsinya",
-              category: "Kategorinya apa ya",
-              price: "100000",
-              stock: "10",
-              imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71FX4921zZL._AC_SL1500_.jpg'
-            })
+            .get('/api/product')
             .end((err, res) => {
-              expect(err).to.be.null;
-              expect(res).to.have.status(200);
-              expect(res.body.msg).to.equal('This product updated successfully')
-              done()
+              const id = res.body[0]._id
+              chai.request(app)
+                .put(`/api/product/${id}`)
+                .send({
+                  name: "Ini namanya barang (baru loh)",
+                  description: "Aku deskripsinya",
+                  category: "Kategorinya apa ya",
+                  price: "100000",
+                  stock: "10",
+                  imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71FX4921zZL._AC_SL1500_.jpg'
+                })
+                .set('access_token', token)
+                .end((err, res) => {
+                  expect(err).to.be.null;
+                  expect(res).to.have.status(200);
+                  expect(res.body.msg).to.equal('This product updated successfully')
+                  done()
+                })
             })
         })
     })
 
     it('Should return status 200 and a message about delete success', function (done) {
       chai.request(app)
-        .get('/api/product')
+        .post('/login')
+        .send({
+          email: 'ahmad@ahmad.com',
+          password: 'ahmadahmad'
+        })
         .end((err, res) => {
-          const id = res.body[0]._id
+          const token = res.body.access_token
           chai.request(app)
-            .delete(`/api/product/${id}`)
+            .get('/api/product')
             .end((err, res) => {
-              expect(err).to.be.null;
-              expect(res).to.have.status(200);
-              expect(res.body.msg).to.equal('This product deleted successfully')
-              done()
+              const id = res.body[0]._id
+              chai.request(app)
+                .delete(`/api/product/${id}`)
+                .set('access_token', token)
+                .end((err, res) => {
+                  expect(err).to.be.null;
+                  expect(res).to.have.status(200);
+                  expect(res.body.msg).to.equal('This product deleted successfully')
+                  done()
+                })
             })
         })
     })
-
   })
 })

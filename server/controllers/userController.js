@@ -1,12 +1,14 @@
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
   register(req, res, next) {
-    const { username, email, password } = req.body
+    const { username, email, password, role } = req.body
     User.create({
       username,
       email,
-      password
+      password,
+      role
     })
       .then(user => {
         res
@@ -14,7 +16,8 @@ module.exports = {
           .json({
             _id: user._id,
             username: user.username,
-            email: user.email
+            email: user.email,
+            role: user.role
           })
       })
       .catch(err => {
@@ -38,9 +41,11 @@ module.exports = {
           } else {
             const valid = user.password === password
             if (valid) {
+              const token = jwt.sign({ _id: user._id, role: user.role }, process.env.SECRET)
+              req.headers.access_token = token
               res
                 .status(200)
-                .json({ msg: 'Login success' })
+                .json({ msg: 'Login success', access_token: token })
             } else {
               res
                 .status(403)

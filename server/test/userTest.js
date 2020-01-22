@@ -8,16 +8,16 @@ chai.use(chaiHttp)
 
 describe('User Routing', function () {
 
-  // HOOKS AFTER TESTING
-  after(function (done) {
-    User.deleteMany()
-      .then(() => {
-        done()
-      })
-      .catch(err => {
-        done(err)
-      })
-  })
+  // HOOKS AFTER  <<= di nonaktifin dulu supaya bisa ngetes produk
+  // after(function (done) {
+  //   User.deleteMany()
+  //     .then(() => {
+  //       done()
+  //     })
+  //     .catch(err => {
+  //       done(err)
+  //     })
+  // })
 
   describe('/register', function () {
     // HOOKS BEFORE EVERY SINGLE TESTING ==> beforeEach
@@ -37,10 +37,10 @@ describe('User Routing', function () {
         .send({
           username: 'ahmadahmad',
           email: 'ahmad@ahmad.com',
-          password: 'ahmadahmad'
+          password: 'ahmadahmad',
+          role: 'admin'
         })
         .end((err, res) => {
-          console.log(res.body)
           expect(err).to.be.null;
           expect(res).to.have.status(201);
           expect(res.body).to.have.property('email').to.equal('ahmad@ahmad.com')
@@ -58,8 +58,6 @@ describe('User Routing', function () {
           password: 'ahmadahmad'
         })
         .end((err, res) => {
-          console.log(res.body)
-          console.log(res.body)
           expect(err).to.be.null;
           expect(res).to.have.status(400);
           expect(res.body).to.have.own.property('errors').to.be.an('array');

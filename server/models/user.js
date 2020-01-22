@@ -20,7 +20,8 @@ const userSchema = new Schema({
     required: 'This field is absolutely required',
     minlength: [10, 'Minimum length of password is 10'],
     unique: true
-  }
+  },
+  role: String
 })
 
 userSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
