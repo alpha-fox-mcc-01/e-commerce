@@ -3,6 +3,7 @@ const expect = chai.expect
 const chaiHttp = require('chai-http')
 const app = require('../app')
 const Item = require('../models/itemModel')
+const User = require('../models/userModel')
 
 
 chai.use(chaiHttp)
@@ -10,7 +11,7 @@ chai.use(chaiHttp)
 describe(`Item routing`, () => {
 
    describe(`create`, () => {
-      // <================= dibawah ini <adala  hooks =================>
+      // <================= dibawah ini adalah hooks =================>
       after(function (done) {
          Item.deleteMany()
             .then(_ => {
@@ -74,9 +75,7 @@ describe(`Item routing`, () => {
                stock: 5
             })
             .end((err, res) => {
-
                // console.log(res.body, `ini di tesssttttttttttttttttt`);
-
                expect(err).to.be.null
                expect(res).to.have.status(400)
                expect(res.body).to.have.property('msg').to.equal('Validation Error')
@@ -136,12 +135,11 @@ describe(`Item routing`, () => {
       })
       // <=== dibawah ini adalah condition testing ===>
       // ============ SUCCESS ================
-      it('should status 200 and return blablabla', (done) => {
+      it('should have status 200 and return array of data', (done) => {
          chai.request(app)
             .get('/items')
             .end((err, res) => {
-               // console.log(res.status);
-               
+               // console.log(res.body);           
                expect(err).to.be.null
                expect(res).to.have.status(200)
                expect(res.body).to.be.an('array')
@@ -150,7 +148,54 @@ describe(`Item routing`, () => {
       })
    })
 
-   describe(`read particular data`, () => {
-      
+   describe.only(`read particular data`, () => {
+      // ================== HOOKS =========================
+      before((done) => {
+         User.create({
+            name : `dummy`,
+            email : `dummy@dummy.com`,
+            password : `12345`
+         })
+            .then (_ => {
+               done()
+            })
+            .catch(err => {
+               done(err)
+            })
+      }) 
+      after((done) => {
+         Item.deleteMany()
+            .then(_ => {
+               done()
+            })
+            .catch(err => {
+               done(err)
+            })
+      })
+      after((done) => {
+         User.deleteMany()
+            .then(_ => {
+               done()
+            })
+            .catch(err => {
+               done(err)
+            })
+      })
+      // <=== dibawah ini adalah condition testing ===>
+      // ============ SUCCESS ================
+      it(`should have status 200 and should return particular item data`, (done) => {
+         chai.request(app)
+            .post(`/users/login`)
+            .send({
+               email: `dummy@dummy.com`,
+               password: `12345`,
+            })
+            .end((err, res) => {
+               console.log(res.body);
+               // not done yet
+               done()
+            })
+      })
    })
+
 })

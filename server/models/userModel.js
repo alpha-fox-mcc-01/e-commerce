@@ -7,14 +7,26 @@ const userSchema = new Schema({
    email: {
       type: String,
       unique: true,
-      match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Invalid Email Format']
+      match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Invalid Email Format'],
+      required : true
    },
    password: {
       type: String,
-      minlength: [5, `password minimum is 5`]
+      minlength: [5, `password minimum is 5`],
+      required : true
    },
-   admin: Boolean,
-   // cart : lanjut nanti
+   admin: {
+      type : Boolean,
+      default : false,
+      required : true
+   },
+   cart : [{
+      item : {
+         type : Schema.Types.ObjectId,
+         ref : `Item`
+      },
+      quantity : Number
+   }]
 })
 
 userSchema.pre('save', function () {
