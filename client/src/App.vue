@@ -2,7 +2,9 @@
   <div id="app">
     <Navbar />
     <div class="mt-5 pt-3">
-      <router-view />
+      <router-view
+      :products="products"
+      />
     </div>
     <Footer/>
   </div>
@@ -11,11 +13,35 @@
 <script>
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import axios from 'axios'
 export default {
   name: 'App',
+  data () {
+    return {
+      products: []
+    }
+  },
   components: {
     Navbar,
     Footer
+  },
+  methods: {
+    getAllProducts () {
+      axios({
+        method: 'GET',
+        url: 'http://localhost:3000/products'
+      })
+        .then(({ data }) => {
+          console.log(data)
+          this.products = data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  },
+  created () {
+    this.getAllProducts()
   }
 }
 </script>

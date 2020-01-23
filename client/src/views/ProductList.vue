@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div class="container">
     <h1>This is POST PAGES</h1>
     <div class="row">
       <div class="col-3">
-        <Sidebar />
+        <Sidebar :products="products"/>
       </div>
-      <router-view></router-view>
+      <div class="col-8">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +16,9 @@
 import Sidebar from '../components/Sidebar'
 export default {
   name: 'ProductList',
+  props: {
+    products: Array
+  },
   components: {
     Sidebar
   }

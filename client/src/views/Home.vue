@@ -1,17 +1,28 @@
 <template>
   <div class="home">
     <Slider />
-    <img alt="Vue logo" src="../assets/logo.png">
+    <div class="row">
+      <ProductCard
+        v-for="product in products"
+        :key="product._id"
+        :product="product"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Slider from '../components/Carousel'
+import ProductCard from '../components/ProductCard'
 export default {
   name: 'home',
+  props: {
+    products: Array
+  },
   components: {
-    Slider
+    Slider,
+    ProductCard
   }
 }
 </script>

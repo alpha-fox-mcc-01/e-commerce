@@ -141,12 +141,12 @@
 </template>
 
 <script>
-export default {};
+export default {}
 </script>
 
 <style scoped>
-/*==================== 
-	Footer 
+/*====================
+Footer
 ====================== */
 
 /* Main Footer */
@@ -228,8 +228,8 @@ footer.light .footer-copyright {
   display: inline-block;
 }
 
-/*==================== 
-	Widgets 
+/*====================
+Widgets
 ====================== */
 .widget {
   padding: 20px;

@@ -2,7 +2,8 @@
   <div>
     <div>
     <b-card
-      img-src="https://picsum.photos/600/300/?image=25"
+      :title="product.name"
+      :img-src="product.imageUrl"
       img-alt="Image"
       img-top
       tag="article"
@@ -10,10 +11,10 @@
       class="mb-2"
     >
       <b-card-text>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, minima?
+        {{product.descriptions}}
       </b-card-text>
 
-      <b-button :to="`/posts/`" variant="primary">See More</b-button>
+      <b-button :to="`/products/${product._id}`" variant="primary">See More</b-button>
     </b-card>
   </div>
   </div>
@@ -21,7 +22,10 @@
 
 <script>
 export default {
-  name: 'ProductCard'
+  name: 'ProductCard',
+  props: {
+    product: Object
+  }
 }
 </script>
 
