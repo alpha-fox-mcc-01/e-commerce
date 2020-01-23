@@ -4,9 +4,29 @@ const chaiHttp = require('chai-http')
 const app = require('../app')
 
 chai.use(chaiHttp)
+let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTI5NDBmYjM0NzkwNzNjNThjMTBiOGMiLCJpYXQiOjE1Nzk3NjE5MTV9.M4EKxlchCk-B-cBakwF4tycGmCpojMiFB4uLCA8pAjY'
 
 describe('product routing', function(){
     describe('/product', function(){
+
+        it('has to have status of 400 and return error access_token not found', function(done){
+            chai.request(app)
+              .post('/product/add')
+              .send({
+                  name: 'sabun',
+                  stock: 5,
+                  desc:'tikus makan sabun',
+                  price:200
+              })
+              .end((err, res)=>{
+  
+                  console.log(res.body, 'masuk kesini');
+                  
+                expect(res).to.have.status(400)
+                expect(res.body).to.have.own.property('msg').to.equal('Access token not found')
+                done()
+              })
+          })
 
         it('has to have status of 200 and return new product data(_id, name, stock, desc)', function(done){
           chai.request(app)
@@ -17,6 +37,7 @@ describe('product routing', function(){
                 desc:'tikus makan sabun',
                 price:2000
             })
+            .set('access_token', 'token')
             .end((err, res)=>{
 
                 console.log(res.body, '{}{}{}}{}');
@@ -98,7 +119,7 @@ describe('product routing', function(){
 
     })
 
-    describe.only('/product/delete/:id', function(){
+    describe('/product/delete/:id', function(){
         it('has to have status of 200 and return object with property deletedcount: 1', function(done){
             chai.request(app)
               .delete('/product/delete/5e269109b307d11389ac55cb')
@@ -113,7 +134,7 @@ describe('product routing', function(){
               })
           })
 
-          it.only('has to have status of 404 and item not found', function(done){
+          it('has to have status of 404 and item not found', function(done){
             chai.request(app)
               .delete('/product/delete/55cbasgegsgsegsfa')
               .end((err, res)=>{

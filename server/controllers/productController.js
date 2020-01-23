@@ -15,18 +15,30 @@ class productController{
 
 
     static add(req, res, next){
+        console.log(req.body, 'masuk add');
+        console.log(req.file.cloudStoragePublicUrl, '{}{}{}')
 
+            
+        // res.status(200).json({ 
+        //     status: 200,
+        //     message: 'Your file is successfully uploaded',
+        //     link: req.file.cloudStoragePublicUrl,
+        //     })
+        
         Product.create({
             name: req.body.name,
             stock: req.body.stock,
             desc: req.body.desc,
             price: req.body.price,
+            img: req.file.cloudStoragePublicUrl
         })
         .then(data =>{
             res.status(200).json(data)
         })
         .catch(err =>{
             next(err)
+            console.log(err);
+            
         })
 
     }

@@ -65,20 +65,24 @@ class userController {
         let tambah={
             jumlah: +1
         }
-        console.log(req.currentUserid, '======');
+        // console.log(req.currentUserid, '======');
 
         User.findOne({
             _id:req.currentUserid
         })
         .then(user =>{
             const result = user.cart.filter(item => item.product == req.body.product);
-
-            if(result){
-                console.log(result, "[][][][][]");
-                User.updateOne({ 'cart._id': result[0]._id },
+            
+            // console.log(result.length, 'ini result');
+            if(result.length > 0){
+                console.log(result[0].jumlah, "[][][][][]");
+                let plus = result[0].jumlah +=1
+                console.log(plus, 'ini plus');
+                
+                User.updateOne({ 'cart.product': result[0].product },
                 {
                     '$set': {
-                        'cart.$.jumlah': +1,
+                        'cart.$.jumlah': plus,
                     }
                 })
                 .then((data) =>{
@@ -91,7 +95,9 @@ class userController {
                     next(err)
                 })
 
-            }else{
+            }else if(result.length == 0){
+                console.log('masuk kesini ke else');
+                
                 User.updateOne(
                     { _id: req.currentUserid },
                     { $push: { cart: obj } }
@@ -114,6 +120,39 @@ class userController {
         })
 
        
+    }
+
+    static delete (req, res, next){
+        let pr = req.params.targetid
+        // console.log(req.currentUserid);
+        
+        User.findByIdAndUpdate(
+            req.currentUserid,
+            { $pull: { 'cart': { _id: pr }
+             } })
+            .then(data => {
+                res.status(200).json({ data })
+
+            })
+            .catch(err => {
+                next(err)
+
+            })
+    }
+
+    static getCart (req, res, next){
+
+        User.findById({
+            _id:req.currentUserid
+        }).populate('cart.product')
+        .then(data => {
+            res.status(200).json({ data })
+
+        })
+        .catch(err => {
+            next(err)
+
+        })
     }
 }
 

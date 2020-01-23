@@ -9,18 +9,18 @@ module.exports =
         if (access_token) {
             const authenticated = jwt.verify(access_token, process.env.SECRET);
             if (authenticated) {
-                req.currentUserid = authenticated;
-                // console.log(req.currentUserid, 'dari authenticated');
+                req.currentUserid = authenticated._id;
+                // console.log( authenticated,'dari authenticated');
                 
                 //FIND email
-                User.findOne({ _id: authenticated })
-                .then(data =>{
-                    // console.log(data, '[][][[][][');
+                User.findOne({ _id: authenticated._id })
+                .then(user =>{
                     
-                    if(data.admin == true){
+                    if(user.admin == true){
+                        // console.log(User, 'masuk true');
                         next();
                     }else{
-                        res.status(400).json({
+                        res.status(401).json({
                             msg: `unauthorized`
                         })
                     }
