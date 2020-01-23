@@ -1,12 +1,9 @@
 const User = require ('../models/userModel')
 
 module.exports = (req, res, next) => {
-   // console.log(`masuk authorization`);
-   
    User.findOne({_id : req.currentUserId})
       .then (data => {
          if (data) {
-            // console.log(data, `INI DATA DI AUTOHORIZATIONNNNNNNNNNNNN`);
             if (data.admin) {
                next()
             }

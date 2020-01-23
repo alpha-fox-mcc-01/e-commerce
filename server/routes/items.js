@@ -8,5 +8,6 @@ router.post('/', authentication, authorization, ItemController.add)
 router.get('/', ItemController.getAll)
 router.get('/:itemId', ItemController.getOne)
 router.delete('/:itemId', authentication, authorization, ItemController.delete)
+router.put('/:itemId', authentication, authorization, ItemController.update)
 
 module.exports = router

@@ -378,7 +378,7 @@ describe(`Item routing`, () => {
             })
             .end((err, res) => {
                token = res.body.token
-               
+
                chai.request(app)
                   .post('/items')
                   .send({
@@ -390,15 +390,95 @@ describe(`Item routing`, () => {
                   .set({ token: token })
                   .end((err, res) => {
                      const id = res.body._id
-                     
+
                      chai.request(app)
                         .delete(`/items/${id}`)
-                        .set({token : token})
+                        .set({ token: token })
                         .end((err, res) => {
                            expect(err).to.be.null
                            expect(res).to.have.status(200)
                            expect(res.body).to.have.property('msg').to.equal('deleted')
-                           expect(res.body).to.have.property('data')                           
+                           expect(res.body).to.have.property('data')
+                           done()
+                        })
+                  })
+            })
+      })
+   })
+
+   describe('update', () => {
+      // =======================HOOOKS===================
+      before((done) => {
+         User.create({
+            name: `dummy`,
+            email: `dummy@dummy.com`,
+            password: `12345`,
+            admin: true
+         })
+            .then(_ => {
+               done()
+            })
+            .catch(err => {
+               done(err)
+            })
+      })
+      after((done) => {
+         Item.deleteMany()
+            .then(_ => {
+               done()
+            })
+            .catch(err => {
+               done(err)
+            })
+      })
+      after((done) => {
+         User.deleteMany()
+            .then(_ => {
+               done()
+            })
+            .catch(err => {
+               done(err)
+            })
+      })
+      // <=== dibawah ini adalah condition testing ===>
+      // ============ SUCCESS ================
+
+      it(`should have status 201 and should return something validation message and the updated data`, (done) => {
+         let token
+         chai.request(app)
+            .post('/users/login')
+            .send({
+               email: `dummy@dummy.com`,
+               password: `12345`
+            })
+            .end((err, res) => {
+               token = res.body.token
+
+               chai.request(app)
+                  .post('/items')
+                  .send({
+                     name: `sarung`,
+                     description: `sarung ini bekas punya saya`,
+                     price: 5000,
+                     stock: 5
+                  })
+                  .set({ token: token })
+                  .end((err, res) => {
+                     const id = res.body._id
+
+                     chai.request(app)
+                        .put(`/items/${id}`)
+                        .send({
+                           name: `sarung wadimor`,
+                           description: `sarung istimewa`,
+                           price: 5000000000,
+                           stock: 1
+                        })
+                        .set({ token: token })
+                        .end((err, res) => {
+                           expect(err).to.be.null
+                           expect(res).to.have.status(201)
+                           expect(res.body).to.have.property('msg').to.equal(`updated`)
                            done()
                         })
                   })
