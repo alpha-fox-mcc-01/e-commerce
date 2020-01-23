@@ -1,21 +1,21 @@
 <template>
   <div id="app">
     <Navbar />
-    <div class="container mt-5 pt-3">
-      <Slider />
+    <div class="mt-5 pt-3">
       <router-view />
     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar'
-import Slider from './components/Carousel'
+import Footer from './components/Footer'
 export default {
   name: 'App',
   components: {
     Navbar,
-    Slider
+    Footer
   }
 }
 </script>
@@ -35,5 +35,8 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.mt-5 {
+  min-height: 100vh;
 }
 </style>

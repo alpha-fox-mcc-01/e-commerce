@@ -40,5 +40,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#nav {
+ background-color: aliceblue;
+}
 </style>
