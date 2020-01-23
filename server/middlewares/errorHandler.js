@@ -2,7 +2,7 @@ module.exports = (err, req, res, next) => {
   let status = 500
   let message = 'Internal Server Error'
   let errors 
-  console.log(err, 'ini di error handler')
+  // console.log(err, 'ini di error handler')
 
   if(err.name === 'ValidationError') {
     status = 400
@@ -31,7 +31,12 @@ module.exports = (err, req, res, next) => {
           err
         })
       }
-  } else {
+  } else if (err.msg === 'Not Authorized') {
+    res.status(401).json({
+      error: err.msg,
+      msg: 'You don\'t have access to modify product data'
+    })
+  } else{
     res.status(status).json({
       msg: message
     })
