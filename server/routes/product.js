@@ -1,7 +1,9 @@
 const router = require('express').Router()
 const Product = require('../models/Product')
+const authentication = require('../middlewares/authentication')
+const authorization = require('../middlewares/authorization')
 
-router.post('/', (req, res, next)=>{
+router.post('/', authentication,(req, res, next)=>{
     const {name, price, stock, description, featured_image} = req.body
     Product.create({
         name,

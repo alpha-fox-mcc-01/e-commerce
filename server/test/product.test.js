@@ -3,23 +3,41 @@ const expect = chai.expect
 const chaiHttp = require('chai-http')
 const app = require('../app')
 const Product = require('../models/Product')
+const User = require('../models/User')
+const jwt = require('jsonwebtoken')
 
 chai.use(chaiHttp)
 
 describe('Product Routing', function () {
     // hooks buat menjalankan function sebelum / sesudah testing
-    after(function(done) {
-      Product.deleteMany()
-        .then(_ => {
-          done()
-        })
-        .catch(err => {
-          done(err)
-        })
-    })
     describe('post /product', function () {
+      let token
       before(function(done) {
+        User.create({
+          name: 'nafies',
+          email: 'nafies@nafies.id',
+          password: 'mantapjiwa',
+          cartLists : [],
+          adminRole: true
+        })
+          .then(user => {
+            token = jwt.sign({ id: user._id }, 'Kucinglucu');
+            return Product.deleteMany()
+          })
+          .then(_ => {
+            console.log('Initial delete product success')
+            done()
+          })
+          .catch(err => {
+            done(err)
+          })
+      })
+
+      after(function(done) {
         Product.deleteMany()
+          .then(_ => {
+            return User.deleteMany()
+          })
           .then(_ => {
             done()
           })
@@ -27,9 +45,11 @@ describe('Product Routing', function () {
             done(err)
           })
       })
-      it('should have status 201 and return new Product data (_id, name, price, stock, description, featured_image)', function(done) {
+
+      it.only('should have status 201 and return new Product data (_id, name, price, stock, description, featured_image)', function(done) {
         chai.request(app)
           .post('/product')
+          .set('token', token)
           .send({
             name: 'sepatu',
             price: 200000,
@@ -85,7 +105,6 @@ describe('Product Routing', function () {
           })
           .end((err, res) => {
             console.log(res.body);
-            
             expect(err).to.be.null
             expect(res).to.have.status(400)
             expect(res.body).to.have.own.property('errors').to.be.an('array')
@@ -180,15 +199,15 @@ describe('Product Routing', function () {
           })
       })
   
-      // after(function(done) {
-      //   Product.deleteMany()
-      //     .then(_ => {
-      //       done()
-      //     })
-      //     .catch(err => {
-      //       done(err)
-      //     })
-      // })
+      after(function(done) {
+        Product.deleteMany()
+          .then(_ => {
+            done()
+          })
+          .catch(err => {
+            done(err)
+          })
+      })
       it('should have status 200 and return Product data (_id, name, price, stock, description, featured_image)', function(done) {
         chai.request(app)
           .get('/product')
@@ -227,7 +246,7 @@ describe('Product Routing', function () {
           })
       })
 
-      it.only('should have status 200 and return Product data (_id, name, price, stock, description, featured_image)', function(done) {
+      it('should have status 200 and return Product data (_id, name, price, stock, description, featured_image)', function(done) {
         chai.request(app)
           .get(`/product/${id}`)
           .end((err, res) => {
@@ -243,5 +262,28 @@ describe('Product Routing', function () {
             done()
           })
       })
+
+      it('should have status 200 and return null', function(done) {
+        chai.request(app)
+          .get(`/product/5e29288fe840d71ba4c82e02`)
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null
+            expect(res.body).to.be.null
+            done()
+          })
+      })
+
+      it('should have status 400 and return invalid id product', function(done) {
+        chai.request(app)
+          .get(`/product/osdjnfknsdcklwldc`)
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null
+            expect(res.body).to.have.property('msg').to.equal('Id is invalid')
+            done()
+          })
+      })
+
     })
   })

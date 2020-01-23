@@ -28,7 +28,30 @@ describe('User Routing', function () {
           done(err)
         })
     })
-    it('should have status 201 and return new User data (_id, name, email, cartLists)', function(done) {
+    it('should have status 201 and return new User data (_id, name, email, cartLists, adminRole)', function(done) {
+      chai.request(app)
+        .post('/user/register')
+        .send({
+          name: 'master',
+          email: 'd@mail.com',
+          password: '123456789',
+          adminRole: true
+        })
+        .end((err, res) => {
+          console.log(res.body)
+          expect(err).to.be.null;
+          expect(res).to.have.status(201);
+          expect(res.body).to.have.property('email').to.equal('d@mail.com')
+          expect(res.body).to.have.property('name').to.equal('master')
+          expect(res.body).to.have.property('_id')
+          expect(res.body).to.have.property('cartLists')
+          expect(res.body).to.have.property('adminRole').to.equal(true)
+          expect(res.body).to.have.property('token')
+          done()
+        })
+    })
+
+    it('should have status 201 and return new User data with adminRole = false', function(done) {
       chai.request(app)
         .post('/user/register')
         .send({
@@ -44,6 +67,7 @@ describe('User Routing', function () {
           expect(res.body).to.have.property('name').to.equal('master')
           expect(res.body).to.have.property('_id')
           expect(res.body).to.have.property('cartLists')
+          expect(res.body).to.have.property('adminRole').to.equal(false)
           expect(res.body).to.have.property('token')
           done()
         })
