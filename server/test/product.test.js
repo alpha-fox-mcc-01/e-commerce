@@ -8,18 +8,17 @@ chai.use(chaiHttp)
 
 describe('Product Routing', function () {
     // hooks buat menjalankan function sebelum / sesudah testing
-    describe.only('post /product', function () {
-      beforeEach(function(done) {
-        Product.deleteMany()
-          .then(_ => {
-            done()
-          })
-          .catch(err => {
-            done(err)
-          })
-      })
-  
-      after(function(done) {
+    after(function(done) {
+      Product.deleteMany()
+        .then(_ => {
+          done()
+        })
+        .catch(err => {
+          done(err)
+        })
+    })
+    describe('post /product', function () {
+      before(function(done) {
         Product.deleteMany()
           .then(_ => {
             done()
@@ -129,7 +128,7 @@ describe('Product Routing', function () {
             featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
-            console.log(res.body);
+            console.log(res.body)
             
             expect(err).to.be.null
             expect(res).to.have.status(400)
@@ -164,4 +163,85 @@ describe('Product Routing', function () {
 
     })
 
+    describe('get /product', function () {
+      beforeEach(function(done) {
+        Product.create({
+          name: 'sepatu',
+          price: 200000,
+          stock: 10,
+          description: 'Sepatu lari',
+          featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+        })
+          .then(_ => {
+            done()
+          })
+          .catch(err => {
+            done(err)
+          })
+      })
+  
+      // after(function(done) {
+      //   Product.deleteMany()
+      //     .then(_ => {
+      //       done()
+      //     })
+      //     .catch(err => {
+      //       done(err)
+      //     })
+      // })
+      it('should have status 200 and return Product data (_id, name, price, stock, description, featured_image)', function(done) {
+        chai.request(app)
+          .get('/product')
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null;
+            expect(res).to.have.status(200)
+            expect(res.body).to.be.an('Array').to.have.length(1)
+            expect(res.body[0]).to.have.property('name').to.equal('sepatu')
+            expect(res.body[0]).to.have.property('price').to.be.a('Number'), //.to.equal(200000),
+            expect(res.body[0]).to.have.property('stock').to.equal(10)
+            expect(res.body[0]).to.have.property('description').to.equal('Sepatu lari')
+            expect(res.body[0]).to.have.property('_id')
+            expect(res.body[0]).to.have.property('featured_image')
+            done()
+          })
+      })
+    })
+
+    describe('get /product/:id', function () {
+      let id
+      before(function(done) {
+        Product.create({
+          name: 'sepatu',
+          price: 200000,
+          stock: 10,
+          description: 'Sepatu lari',
+          featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+        })
+          .then( product => {
+            id = product._id
+            done()
+          })
+          .catch(err => {
+            done(err)
+          })
+      })
+
+      it.only('should have status 200 and return Product data (_id, name, price, stock, description, featured_image)', function(done) {
+        chai.request(app)
+          .get(`/product/${id}`)
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null;
+            expect(res).to.have.status(200)
+            expect(res.body).to.have.property('name').to.equal('sepatu')
+            expect(res.body).to.have.property('price').to.be.a('Number'),
+            expect(res.body).to.have.property('stock').to.equal(10)
+            expect(res.body).to.have.property('description').to.equal('Sepatu lari')
+            expect(res.body).to.have.property('_id')
+            expect(res.body).to.have.property('featured_image')
+            done()
+          })
+      })
+    })
   })
