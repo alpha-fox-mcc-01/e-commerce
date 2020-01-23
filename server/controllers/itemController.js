@@ -14,6 +14,8 @@ class ItemController {
       }
       Item.create(newData)
          .then (data => {
+            // console.log(data);
+            
             res.status(201).json(data)
          })
          .catch (err => {
@@ -29,6 +31,30 @@ class ItemController {
          })
          .catch (err => {
             next(err)
+         })
+   }
+
+   static getOne (req, res, next) {
+      Item.findOne({_id : req.params.itemId})
+         .then((data) => {
+            // console.log(data, `ini di controllerrrrrrrrrrrrrrrrrrrrrrrrrrrrrr`);
+            res.status(200).json(data)      
+         })
+         .catch (err => {
+            next(err)
+         })
+   }
+
+   static delete (req, res, next) {
+      
+      Item.findOneAndDelete({_id : req.params.itemId})
+         .then((data) => {
+            console.log(data);
+            
+            res.status(200).json({msg : `deleted`, data})
+         })
+         .catch (err => {            
+            next (err)
          })
    }
 }

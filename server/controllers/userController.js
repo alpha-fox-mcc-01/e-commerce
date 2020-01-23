@@ -41,7 +41,8 @@ class UserController {
                      token, 
                      name : data.name, 
                      userId : data._id,
-                     email : data.email
+                     email : data.email,
+                     // admin : data.admin
                   })
                }
                else {

@@ -3,7 +3,7 @@ module.exports = (err, req, res, next) => {
   let message = 'Internal Server Error'
   let errors
 
-  // console.log(err)
+  // console.log(err, `INI LOG ERR DI ERRORHANDLERRRRRRRRRRRRRRRRRRRRR`)
   // console.log("------------")
 
   if (err.name === 'ValidationError') {
