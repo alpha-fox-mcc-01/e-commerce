@@ -42,7 +42,7 @@ class ItemController {
 
       Item.findOneAndDelete({ _id: req.params.itemId })
          .then((data) => {
-            console.log(data)
+            // console.log(data)
             res.status(200).json({ msg: `deleted`, data })
          })
          .catch(err => {

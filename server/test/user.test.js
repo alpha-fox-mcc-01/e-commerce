@@ -31,6 +31,8 @@ describe(`User routing`, () => {
                admin: true
             })
             .end((err, res) => {
+               console.log(res.body, `haloooooooooooooooooooooo`);
+               
                expect(err).to.be.null
                expect(res).to.have.status(201)
                expect(res.body).to.have.property('name').to.equal(`dummy`)
@@ -50,9 +52,6 @@ describe(`User routing`, () => {
                admin: true
             })
             .end((err, res) => {
-               // console.log(err);
-               // console.log(res.body, `ini res.body kawanku======================`);
-
                expect(err).to.be.null
                expect(res).to.have.status(400)
                expect(res.body).to.have.property('msg').to.equal(`Email already used`)
@@ -68,8 +67,6 @@ describe(`User routing`, () => {
                password: '12345'
             })
             .end((err, res) => {
-               // console.log(res.body);
-               
                expect(err).to.be.null
                expect(res).to.have.status(400)
                expect(res.body).to.have.own.property('msg').to.equal('Validation Error')
@@ -174,5 +171,9 @@ describe(`User routing`, () => {
                done()
             })
       })
+   })
+
+   describe(`update cart`, () => {
+      // ===================HOOKS==================================
    })
 })

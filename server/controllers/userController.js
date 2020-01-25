@@ -8,18 +8,18 @@ class UserController {
       let newData = {
          name : req.body.name,
          email : req.body.email,
-         password : req.body.password
+         password : req.body.password,
+         admin : req.body.admin
       }
 
       User.create(newData)
          .then(data => {
-            // console.log(data);
-            
             res.status(201).json({
                name : data.name,
                email : data.email,
                _id : data._id,
-               admin : data.admin
+               admin : data.admin,
+               cart : data.cart
             })
          })
          .catch(err => {

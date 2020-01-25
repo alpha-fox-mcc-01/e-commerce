@@ -80,7 +80,7 @@ describe(`Item routing`, () => {
                   })
                   .set({ token: token })
                   .end((err, res) => {
-                     console.log(res.body);
+                     // console.log(res.body);
 
                      expect(err).to.be.null
                      expect(res).to.have.status(201)
@@ -113,9 +113,6 @@ describe(`Item routing`, () => {
                   })
                   .set({ token: token })
                   .end((err, res) => {
-
-                     console.log(res.body, `ini di tesssttttttttttttttttt`);
-
                      expect(err).to.be.null
                      expect(res).to.have.status(400)
                      expect(res.body).to.have.property('msg').to.equal('Validation Error')
@@ -133,7 +130,6 @@ describe(`Item routing`, () => {
                password: `12345`
             })
             .end((err, res) => {
-               // console.log(res.body);
                const token = res.body.token
                chai.request(app)
                   .post('/items')
