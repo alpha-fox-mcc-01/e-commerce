@@ -201,4 +201,52 @@ describe('User Routes', function () {
           })
       })
     })
+    describe('/users/logout', function () {
+      let access_token
+      before(function(done) {
+        User.findOne({email : 'newbaby@gmail.com'}) 
+        .then(user => {
+            if (user) {
+                var checkPassword = bcrypt.compareSync('12345678', user.password)
+                if (checkPassword) {
+                    var access_tokenOld = jwt.sign({ _id: user._id}, process.env.SECRET)
+                    access_token = access_tokenOld
+                    done()
+                } else {
+                    console.log('password mismatched1')
+                    done()
+                }
+            } else {
+                console.log('user does not exist')
+                done()
+            }
+        })
+        .catch(err => {
+            done(err)
+        })
+      })
+
+      it ('should have status 200 and message Logout successful', function(done) {
+        chai.request(app)
+            .delete('/users/logout')
+            .set('access_token', access_token)
+            .end((err, res) => {
+              expect(res).to.have.status(200)
+              console.log(res.body)
+              expect(res.body).to.have.property('message').to.equal('Logout successful!')
+              done()
+            })
+      })
+
+      it.only ('should return status 401 and message `You are not authenticated, please log in`', function(done) {
+        chai.request(app)
+            .delete('/users/logout')
+            .end((err, res) => {
+              expect(res).to.have.status(401)
+              console.log(res.body)
+              expect(res.body).to.have.property('message').to.equal('You are not authenticated, please log in')
+              done()
+          })
+      })
+    })
 })
