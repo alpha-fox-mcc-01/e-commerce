@@ -37,5 +37,6 @@ img {
 div {
   align-items: center;
   padding: 1em;
+  font-family: 'Open Sans', sans-serif;
 }
 </style>

@@ -29,6 +29,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  font-family: 'Open Sans', sans-serif;
+}
 #top {
   background-color: rgb(245, 227, 231); text-align: center;
 }

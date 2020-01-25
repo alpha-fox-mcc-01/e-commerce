@@ -32,7 +32,7 @@ div {
 }
 a {
   text-align: center;
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   font-size: 18px;
 }
