@@ -34,7 +34,15 @@ module.exports =  {
         .catch(err => {
             next(err)
         })
+    },
+    addCart(req, res, next) {
+        let input = {
+            product: req.body.product,
+            quantity: 1,
+        }
+
     }
+
 
     
 
