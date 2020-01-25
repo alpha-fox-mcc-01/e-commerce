@@ -41,13 +41,14 @@ router.get('/:id', (req, res, next)=>{
 })
 
 router.put('/:id', authentication, authorization,(req, res, next)=>{
-    const {name, price, stock, description, image} = req.body
+    const {name, price, stock, description, image, cartLists} = req.body
     Product.findByIdAndUpdate(req.params.id, {
         name,
         price,
         stock,
         description,
-        image
+        image,
+        cartLists
     })
       .then(product=>{
           res.status(200).json({msg : `Product with id ${product._id} updated successfully`})

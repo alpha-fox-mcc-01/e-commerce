@@ -6,6 +6,7 @@ module.exports = (req, res, next) => {
   User.findById(decoded.id)
     .then(user => {
       req.admin = user.adminRole
+      req.idUser = user._id
       next()
     })
     .catch(err => {
