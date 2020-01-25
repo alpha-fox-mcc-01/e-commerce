@@ -1,21 +1,29 @@
 <template>
   <div id="app">
-    <!-- <navbarHome />
-    <Home />
-    <footerHome />-->
+
+    <navbarHome/>
+    {{test}}
+
     <router-view />
+   
+    <footerHome/>
+
   </div>
 </template>
 <script>
-// @ is an alias to /src
-// import navbarHome from "@/components/navbarHome.vue";
-// import footerHome from "@/components/footerHome";
-// import Home from "./views/Home";
+
+import navbarHome from '@/components/navbarHome.vue'
+import footerHome from '@/components/footerHome'
 export default {
   components: {
-    // navbarHome,
-    // footerHome,
-    // Home,
+    navbarHome,
+    footerHome,
+    
+  },
+  computed:{
+    test () {
+      return this.$store.state.bobby
+    }
   }
 }
 </script>
