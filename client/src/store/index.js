@@ -6,11 +6,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    product: {}
   },
   mutations: {
     insertAllProducts (state, payload) {
       state.products = payload
+    },
+    insertProductDetail (state, payload) {
+      state.product = payload
     }
   },
   actions: {
@@ -19,6 +23,15 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data)
           context.commit('insertAllProducts', data.result)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getDetail (context, payload) {
+      axios.get(`http://localhost:3000/products/${payload}`)
+        .then(({ data }) => {
+          context.commit('insertProductDetail', data.result)
         })
         .catch(err => {
           console.log(err)

@@ -1,76 +1,55 @@
 <template>
-   <div id="box" class="flex mb-4">
+   <div id="box" class="flex mb-4 flex-shrink-0">
      <div class="w-1/4">
      </div>
      <div id="image" class="w-1/4">
       <img :src="product.image" alt="product image">
      </div>
-     <div id="description" class="w-1/3">
-      <h3> {{product.name}} </h3>
-      <p>{{product.description}}</p>
-      <p>{{product.price}}</p>
-      <div>
-      <button class='relative bg-blue-500 text-white p-6 rounded text-2xl font-bold overflow-visible'>
-        Example button
-        <div class="absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full">1</div>
-      </button>
-      <br/><br/><br/>
-      <button class='relative bg-blue-500 text-white p-6 rounded text-2xl font-bold overflow-visible'>
-        Example button
-        <div class="absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full">2000</div>
-      </button>
-</div>
+     <div id="description" class="w-1/4">
+        <h3> {{product.name}} </h3>
+        <p>{{product.description}}</p>
+        <p>IDR {{product.price}}</p>
+        <div>
+        <button class='relative bg-blue-500 text-white p-6 rounded font-bold overflow-visible'>
+          Add to cart
+          <div class="absolute top-0 right-0 -mt-4 -mr-4 px-4 py-1 bg-red-500 rounded-full">1</div>
+        </button>
+        <br/><br/><br/>
+        </div>
+     </div>
+     <div class="w-1/4">
      </div>
    </div>
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   name: 'ProductDetails',
-  data () {
-    return {
-      product: {}
-    }
-  },
-  methods: {
-    getDetail() {
-      let params = this.$route.params.id
-      console.log(params)
-      axios.get(`http://localhost:3000/products/${params}`)
-           .then(({data}) => {
-             console.log(data.result)
-             this.product = data.result
-           })
-           .catch(err => {
-            console.log(err)
-           })
+  computed: {
+    product () {
+      return this.$store.state.product
     }
   },
   created: function () {
-    this.getDetail()
+    this.$store.dispatch('getDetail', this.$route.params.id)
   }
 
 }
 </script>
 
 <style scoped>
-#box {
-
-
-}
 #image {
   flex-basis: 40%;
-  justify-content:last baseline;
+  justify-content: baseline;
 }
 #description {
-  flex-basis: 50%;
+  flex-basis: 40%;
   align-items: center;
-  
 }
 img {
-  max-width: 400px;
+  max-width: 300px;
+  max-width: 100%;
 }
 
 h3 {
