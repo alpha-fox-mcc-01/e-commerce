@@ -1,9 +1,9 @@
 <template>
     <div class="flex mb-4 flex-wrap" style="box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/register">Register</router-link> |
-      <router-link to="/checkout">Checkout</router-link> |
+      <router-link to="/">Home</router-link>
+      <router-link to="/login">Login</router-link>
+      <router-link to="/register">Register</router-link>
+      <router-link to="/checkout">Checkout</router-link>
       <router-link to="/cart">Cart</router-link>
       <div class="w-1/4 flex border-grey-light border">
       <input class="w-full rounded ml-1" type="text" placeholder="Search...">
@@ -33,11 +33,11 @@ div {
 a {
   text-align: center;
   font-family: sans-serif;
-  font-weight: 500;
-  font-size: 20px;
+  font-weight: 300;
+  font-size: 18px;
 }
 a:hover {
-  background-color: rgb(245, 227, 231); 
+  background-color: rgb(245, 227, 231);
 }
 
 li {

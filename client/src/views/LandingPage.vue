@@ -1,22 +1,18 @@
 <template>
   <div>
     <FrontBanner />
-    <ItemsDisplay :products="products"></ItemsDisplay>
+    <ItemsDisplay></ItemsDisplay>
   </div>
 </template>
 
-
 <script>
-import FrontBanner from "@/components/FrontBanner"
-import ItemsDisplay from "@/components/ItemsDisplay"
+import FrontBanner from '@/components/FrontBanner'
+import ItemsDisplay from '@/components/ItemsDisplay'
 export default {
-    name: 'LandingPage',
-    components: {
-        FrontBanner,
-        ItemsDisplay
-    },
-    props: {
-        products: Array
-    }
+  name: 'LandingPage',
+  components: {
+    FrontBanner,
+    ItemsDisplay
+  }
 }
 </script>

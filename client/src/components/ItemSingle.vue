@@ -1,8 +1,8 @@
 <template>
-    <div class="w-1/4 h-12">
-      <div class="w-full max-w-sm overflow-hidden rounded shadow-lg">
+    <div class="w-1/4">
+      <div class="w-full overflow-hidden rounded shadow-lg">
+        <div class="w-full">
         <img class="w-full" :src="product.image" alt="product image">
-        <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2">{{product.name}}</div>
             <p class="text-gray-700 text-base">
               {{product.category}}
@@ -17,12 +17,10 @@
 <script>
 export default {
   name: 'ItemSingle',
-  props: {
-    product: Object
-  },
+  props: ['product'],
   methods: {
-    getDetails(product_id) {
-      this.$router.push('/products/' + product_id)
+    getDetails (productId) {
+      this.$router.push('/products/' + productId)
     }
 
   }
@@ -31,12 +29,13 @@ export default {
 
 <style scoped>
 img {
-  width: 200px;
-  height: 300px;
+  width: 150px;
+  height: 200px;
   align-self: auto;
   margin: auto;
 }
 div {
   align-items: center;
+  padding: 1em;
 }
 </style>

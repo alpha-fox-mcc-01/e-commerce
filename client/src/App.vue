@@ -2,7 +2,7 @@
   <div id="app">
     <PinkHeader></PinkHeader>
     <NavBar></NavBar>
-    <router-view :products="products" />
+    <router-view/>
     <FootBar />
   </div>
 </template>
@@ -11,35 +11,15 @@
 import NavBar from './components/Navbar'
 import PinkHeader from './components/PinkHeader'
 import FootBar from './components/FootBar'
-import ItemsDisplay from './components/ItemsDisplay'
-import axios from 'axios'
 export default {
-  name : 'App',
+  name: 'App',
   components: {
     NavBar,
     PinkHeader,
-    FootBar,
-    ItemsDisplay
-  },
-  data () {
-    return {
-      products: []
-    }
-  },
-  methods: {
-    getProducts () {
-      axios.get('http://localhost:3000/products')
-            .then(({data}) => {
-              console.log(data)
-              this.products = data.result
-            })
-            .catch(err => {
-              console.log(err)
-            })
-    }
+    FootBar
   },
   created: function () {
-    this.getProducts()
+    this.$store.dispatch('getProducts')
   }
 }
 </script>

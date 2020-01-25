@@ -38,6 +38,10 @@ userSchema.pre('save', function() {
   this.password = hash
 })
 
+// userSchema.pre('update', function () {
+//   this.cart
+// })
+
 const User = mongoose.model('User', userSchema)
 
 
