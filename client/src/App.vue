@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container" id="home">
       <div class="card center" id='landing-card' style="width: 90rem; height: 80vh;">
-        <Navbar />
+        <Navbar @searchProducts="searchProducts"/>
         <router-view  :products='products' @getProducts='getProducts'/>
       </div>
     </div>
@@ -24,6 +24,18 @@ export default {
       axios({
         method: 'GET',
         url: 'http://localhost:3000/products'
+      })
+        .then(({ data }) => {
+          this.products = data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    searchProducts (keyword) {
+      axios({
+        method: 'GET',
+        url: 'http://localhost:3000/products/?keyword=' + keyword
       })
         .then(({ data }) => {
           this.products = data

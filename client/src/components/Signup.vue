@@ -28,7 +28,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -39,7 +39,24 @@ export default {
   },
   methods: {
     signUp () {
-      console.log('Success')
+      axios({
+        method: 'POST',
+        url: 'http://localhost:3000/users/signup',
+        data: {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        }
+      })
+        .then(() => {
+          this.username = ''
+          this.email = ''
+          this.password = ''
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

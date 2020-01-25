@@ -1,14 +1,14 @@
 <template>
   <div class='row' style="height:100vh;">
-    <div class='col-md-6' id='image-col'>
-      <img :src="`${this.product.featured_image}`" width="400" height="400" />
+    <div class='col-md-4' id='image-col'>
+      <img :src="`${this.product.featured_image}`" width="400" height="500" />
     </div>
-    <div class='col-md-6'>
+    <div class='col-md-8'>
       <div id='product-info'>
         <h1>{{ this.product.name }}</h1>
         <h6>{{ this.product.category }}</h6>
         <p>{{ this.product.description }}</p>
-        <h3>{{ this.product.price }}</h3>
+        <h3>Rp. {{ this.product.price.toLocaleString() }}</h3>
         <p>Stocks Remaining: {{ this.product.stocks }}</p>
         <button type='submit'>Add to Cart</button>
       </div>
@@ -61,12 +61,16 @@ img {
 #product-info {
   margin: 0 auto;
 }
-.col-md-6 {
+.col-md-4 {
+  display: flex;
+  align-items: top;
+}
+.col-md-8 {
   display: flex;
   align-items: center;
 }
 
 #image-col {
-  border-right: solid black;
+  border-right: solid grey;
 }
 </style>

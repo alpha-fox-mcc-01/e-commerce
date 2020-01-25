@@ -23,7 +23,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -33,7 +33,23 @@ export default {
   },
   methods: {
     signIn () {
-      console.log('Success')
+      axios({
+        method: 'POST',
+        url: 'http://localhost:3000/users/signin',
+        data: {
+          email: this.email,
+          password: this.password
+        }
+      })
+        .then(({ data }) => {
+          this.email = ''
+          this.password = ''
+          localStorage.setItem('access_token', data.access_token)
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }
