@@ -14,8 +14,10 @@ const userSchema = new Schema({
     minlength: [7, 'Password minimum length is 7']
   },
   cartLists: [{ 
-    type: Schema.Types.ObjectId, 
-    ref: 'Product',
+    productId: {
+      type: Schema.Types.ObjectId, 
+      ref: 'Product'
+    },
     quantity: Number
   }],
   adminRole: Boolean
