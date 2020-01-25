@@ -2,7 +2,7 @@ module.exports = (err, req, res, next) => {
   let status = 500
   let message = 'Internal Server Error'
   let errors 
-  // console.log(err, 'ini di error handler')
+  console.log(err, 'ini di error handler')
 
   if(err.name === 'ValidationError') {
     status = 400
@@ -26,8 +26,8 @@ module.exports = (err, req, res, next) => {
           msg: 'Id is invalid'
         })
       } else {
-        res.status(status).json({
-          msg: 'CastError',
+        res.status(400).json({
+          msg: 'Failed to read string as a number',
           err
         })
       }
@@ -41,14 +41,4 @@ module.exports = (err, req, res, next) => {
       msg: message
     })
   }
-  
 }
-
-// { stringValue: '"1"',
-//   kind: 'ObjectId',
-//   value: '1',
-//   path: '_id',
-//   reason: {},
-//   message:
-//    'Cast to ObjectId failed for value "1" at path "_id" for model "Product"',
-//   name: 'CastError' }

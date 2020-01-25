@@ -17,7 +17,7 @@ const productSchema = new Schema({
       required: [true, 'Stock is required']
     },
   description: String,
-  featured_image: String
+  image: String
 })
 
 const Product = mongoose.model('Product', productSchema)

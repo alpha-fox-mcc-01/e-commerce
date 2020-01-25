@@ -46,7 +46,7 @@ describe('Product Routing', function () {
           })
       })
 
-      it('should have status 201 and return new Product data (_id, name, price, stock, description, featured_image)', function(done) {
+      it('should have status 201 and return new Product data (_id, name, price, stock, description, image)', function(done) {
         chai.request(app)
           .post('/product')
           .set('token', token)
@@ -55,7 +55,7 @@ describe('Product Routing', function () {
             price: 200000,
             stock: 10,
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body)
@@ -66,12 +66,13 @@ describe('Product Routing', function () {
             expect(res.body).to.have.property('stock').to.equal(10)
             expect(res.body).to.have.property('description').to.equal('Sepatu lari')
             expect(res.body).to.have.property('_id')
-            expect(res.body).to.have.property('featured_image')
+            expect(res.body).to.have.property('image')
             done()
           })
       })
 
       it('should have status 401 and return error Not Authorized', function(done) {
+        let token1
         User.create({
           name: 'nafies',
           email: 'nafies@nafies.id',
@@ -79,16 +80,16 @@ describe('Product Routing', function () {
           cartLists : []
         })
         .then(user => {
-          token = jwt.sign({ id: user._id }, 'Kucinglucu')
+          token1 = jwt.sign({ id: user._id }, 'Kucinglucu')
           chai.request(app)
           .post('/product')
-          .set('token', token)
+          .set('token', token1)
           .send({
             name: 'sepatu',
             price: 200000,
             stock: 10,
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body)
@@ -113,7 +114,7 @@ describe('Product Routing', function () {
             price: 20000,
             stock: -10,
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body);
@@ -136,7 +137,7 @@ describe('Product Routing', function () {
             price: '20000m',
             stock: '10m',
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body);
@@ -158,7 +159,7 @@ describe('Product Routing', function () {
             price: 20000,
             stock: 10,
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body);
@@ -181,7 +182,7 @@ describe('Product Routing', function () {
             price: null,
             stock: 10,
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body)
@@ -204,7 +205,7 @@ describe('Product Routing', function () {
             price: 200000,
             stock: null,
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body);
@@ -227,7 +228,7 @@ describe('Product Routing', function () {
           price: 200000,
           stock: 10,
           description: 'Sepatu lari',
-          featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+          image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
         })
           .then(_ => {
             done()
@@ -246,7 +247,7 @@ describe('Product Routing', function () {
             done(err)
           })
       })
-      it('should have status 200 and return Product data (_id, name, price, stock, description, featured_image)', function(done) {
+      it('should have status 200 and return Product data (_id, name, price, stock, description, image)', function(done) {
         chai.request(app)
           .get('/product')
           .end((err, res) => {
@@ -259,7 +260,7 @@ describe('Product Routing', function () {
             expect(res.body[0]).to.have.property('stock').to.equal(10)
             expect(res.body[0]).to.have.property('description').to.equal('Sepatu lari')
             expect(res.body[0]).to.have.property('_id')
-            expect(res.body[0]).to.have.property('featured_image')
+            expect(res.body[0]).to.have.property('image')
             done()
           })
       })
@@ -273,7 +274,7 @@ describe('Product Routing', function () {
           price: 200000,
           stock: 10,
           description: 'Sepatu lari',
-          featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+          image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
         })
           .then( product => {
             id = product._id
@@ -284,7 +285,7 @@ describe('Product Routing', function () {
           })
       })
 
-      it('should have status 200 and return Product data (_id, name, price, stock, description, featured_image)', function(done) {
+      it('should have status 200 and return Product data (_id, name, price, stock, description, image)', function(done) {
         chai.request(app)
           .get(`/product/${id}`)
           .end((err, res) => {
@@ -296,7 +297,7 @@ describe('Product Routing', function () {
             expect(res.body).to.have.property('stock').to.equal(10)
             expect(res.body).to.have.property('description').to.equal('Sepatu lari')
             expect(res.body).to.have.property('_id')
-            expect(res.body).to.have.property('featured_image')
+            expect(res.body).to.have.property('image')
             done()
           })
       })
@@ -325,7 +326,7 @@ describe('Product Routing', function () {
 
     })
 
-    describe('update /product', function () {
+    describe('update /product/:id', function () {
       let token
       let idProduct
       before(function(done) {
@@ -347,7 +348,7 @@ describe('Product Routing', function () {
               price: 23000,
               stock: 20,
               description: 'sendal lari',
-              featured_image: 'https://pbs.twimg'
+              image: 'https://pbs.twimg'
             })
           })
           .then(product => {
@@ -382,7 +383,7 @@ describe('Product Routing', function () {
             price: 200000,
             stock: 10,
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body)
@@ -393,24 +394,24 @@ describe('Product Routing', function () {
           })
       })
 
-      it.only('should have status 401 and return error Not Authorized', function(done) {
+      it('should have status 401 and return error Not Authorized', function(done) {
         User.create({
-          name: 'nafies',
-          email: 'nafies@nafies.id',
+          name: 'nafies1',
+          email: 'nafies1@nafies.id',
           password: 'mantapjiwa',
           cartLists : []
         })
         .then(user => {
-          token = jwt.sign({ id: user._id }, 'Kucinglucu')
+          token1 = jwt.sign({ id: user._id }, 'Kucinglucu')
           chai.request(app)
-          .post('/product')
-          .set('token', token)
+          .put(`/product/${idProduct}`)
+          .set('token', token1)
           .send({
             name: 'sepatu',
             price: 200000,
             stock: 10,
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body)
@@ -426,120 +427,258 @@ describe('Product Routing', function () {
         })
       })
   
-      it('should have status 400 and return error validation if stock is less than 0', function(done) {
-        chai.request(app)
-          .post('/product')
-          .set('token', token)
-          .send({
-            name: 'sepatu',
-            price: 20000,
-            stock: -10,
-            description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
-          })
-          .end((err, res) => {
-            console.log(res.body);
-            
-            expect(err).to.be.null
-            expect(res).to.have.status(400)
-            expect(res.body).to.have.own.property('errors').to.be.an('array')
-            expect(res.body.errors[0]).to.equal('Minimal stock is 0')
-            expect(res.body).to.have.own.property('msg').to.equal('Validation Error')
-            done()
-          })
-      })
-
       it('should have status 400 and return error validation if price or stock entered is not a number', function(done) {
         chai.request(app)
-          .post('/product')
+          .put(`/product/${idProduct}`)
           .set('token', token)
           .send({
             name: 'sepatu',
             price: '20000m',
             stock: '10m',
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
             console.log(res.body);
             expect(err).to.be.null
             expect(res).to.have.status(400)
-            expect(res.body).to.have.own.property('errors').to.be.an('array')
-            expect(res.body.errors[0]).to.have.string('Cast to Number failed')
-            expect(res.body).to.have.own.property('msg').to.equal('Validation Error')
+            expect(res.body).to.have.own.property('err')
+            expect(res.body.err.message).to.have.string('Cast to number failed')
+            expect(res.body).to.have.own.property('msg').to.equal('Failed to read string as a number')
             done()
           })
       })
 
-      it('should have status 400 and return error validation if name is empty', function(done) {
+      it('should have status 400 and return invalid id product', function(done) {
         chai.request(app)
-          .post('/product')
-          .set('token', token)
-          .send({
-            name: '',
-            price: 20000,
-            stock: 10,
-            description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
-          })
-          .end((err, res) => {
-            console.log(res.body);
-            
-            expect(err).to.be.null
-            expect(res).to.have.status(400)
-            expect(res.body).to.have.own.property('errors').to.be.an('array')
-            expect(res.body.errors[0]).to.have.string('Name is required')
-            expect(res.body).to.have.own.property('msg').to.equal('Validation Error')
-            done()
-          })
-      })
-
-      it('should have status 400 and return error validation if price is empty', function(done) {
-        chai.request(app)
-          .post('/product')
-          .set('token', token)
-          .send({
-            name: 'sepatu',
-            price: null,
-            stock: 10,
-            description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
-          })
-          .end((err, res) => {
-            console.log(res.body)
-            
-            expect(err).to.be.null
-            expect(res).to.have.status(400)
-            expect(res.body).to.have.own.property('errors').to.be.an('array')
-            expect(res.body.errors[0]).to.have.string('Price is required')
-            expect(res.body).to.have.own.property('msg').to.equal('Validation Error')
-            done()
-          })
-      })
-
-      it('should have status 400 and return error validation if stock is empty', function(done) {
-        chai.request(app)
-          .post('/product')
+          .put(`/product/osdjnfknsdcklwldc`)
           .set('token', token)
           .send({
             name: 'sepatu',
             price: 200000,
-            stock: null,
+            stock: 10,
             description: 'Sepatu lari',
-            featured_image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
+            image: 'https://pbs.twimg.com/profile_images/725275730267926528/dGPyaQZ6_400x400.jpg'
           })
           .end((err, res) => {
-            console.log(res.body);
-            
+            console.log(res.body)
             expect(err).to.be.null
-            expect(res).to.have.status(400)
-            expect(res.body).to.have.own.property('errors').to.be.an('array')
-            expect(res.body.errors[0]).to.have.string('Stock is required')
-            expect(res.body).to.have.own.property('msg').to.equal('Validation Error')
+            expect(res.body).to.have.property('msg').to.equal('Id is invalid')
             done()
           })
       })
 
     })
-    
+
+    describe('updateStock /product/:id', function () {
+      let token
+      let idProduct
+      before(function(done) {
+        User.create({
+          name: 'nafies',
+          email: 'nafies@nafies.id',
+          password: 'mantapjiwa',
+          cartLists : [],
+          adminRole: true
+        })
+          .then(user => {
+            token = jwt.sign({ id: user._id }, 'Kucinglucu');
+            return Product.deleteMany()
+          })
+          .then(_ => {
+            console.log('Initial delete product success')
+            return Product.create({
+              name: 'sandal',
+              price: 23000,
+              stock: 20,
+              description: 'sendal lari',
+              image: 'https://pbs.twimg'
+            })
+          })
+          .then(product => {
+            idProduct = product._id
+            console.log(idProduct, 'initial product create success')
+            done()
+          })
+          .catch(err => {
+            done(err)
+          })
+      })
+
+      after(function(done) {
+        Product.deleteMany()
+          .then(_ => {
+            return User.deleteMany()
+          })
+          .then(_ => {
+            done()
+          })
+          .catch(err => {
+            done(err)
+          })
+      })
+
+      it('should have status 200 and return message product stock updated successfully', function(done) {
+        chai.request(app)
+          .patch(`/product/${idProduct}`)
+          .set('token', token)
+          .send({
+            stock: 9
+          })
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null
+            expect(res).to.have.status(200);
+            expect(res.body).to.have.property('msg').to.equal(`Product Stock with id ${idProduct} updated successfully`)
+            done()
+          })
+      })
+
+      it('should have status 401 and return error Not Authorized', function(done) {
+        User.create({
+          name: 'nafies1',
+          email: 'nafies1@nafies.id',
+          password: 'mantapjiwa',
+          cartLists : []
+        })
+        .then(user => {
+          token1 = jwt.sign({ id: user._id }, 'Kucinglucu')
+          chai.request(app)
+          .patch(`/product/${idProduct}`)
+          .set('token', token1)
+          .send({
+            stock: 10
+           })
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null
+            expect(res).to.have.status(401)
+            expect(res.body).to.have.property('error').to.equal('Not Authorized')
+            expect(res.body).to.have.property('msg')
+            done()
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      })
+
+      it('should have status 400 and return invalid id product', function(done) {
+        chai.request(app)
+          .patch(`/product/osdjnfknsdcklwldc`)
+          .set('token', token)
+          .send({
+            stock: 9
+          })
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null
+            expect(res.body).to.have.property('msg').to.equal('Id is invalid')
+            done()
+          })
+      })
+
+    })
+
+    describe('delete /product/:id', function () {
+      let token
+      let idProduct
+      before(function(done) {
+        User.create({
+          name: 'nafies',
+          email: 'nafies@nafies.id',
+          password: 'mantapjiwa',
+          cartLists : [],
+          adminRole: true
+        })
+          .then(user => {
+            token = jwt.sign({ id: user._id }, 'Kucinglucu');
+            return Product.deleteMany()
+          })
+          .then(_ => {
+            console.log('Initial delete product success')
+            return Product.create({
+              name: 'sandal',
+              price: 23000,
+              stock: 20,
+              description: 'sendal lari',
+              image: 'https://pbs.twimg'
+            })
+          })
+          .then(product => {
+            idProduct = product._id
+            console.log(idProduct, 'initial product create success')
+            done()
+          })
+          .catch(err => {
+            done(err)
+          })
+      })
+
+      after(function(done) {
+        Product.deleteMany()
+          .then(_ => {
+            return User.deleteMany()
+          })
+          .then(_ => {
+            done()
+          })
+          .catch(err => {
+            done(err)
+          })
+      })
+
+      it('should have status 200 and return message product deleted successfully', function(done) {
+        chai.request(app)
+          .delete(`/product/${idProduct}`)
+          .set('token', token)
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null
+            expect(res).to.have.status(200);
+            expect(res.body).to.have.property('msg').to.equal(`Product with id ${idProduct} deleted successfully`)
+            done()
+          })
+      })
+
+      it('should have status 401 and return error Not Authorized', function(done) {
+        User.create({
+          name: 'nafies1',
+          email: 'nafies1@nafies.id',
+          password: 'mantapjiwa',
+          cartLists : []
+        })
+        .then(user => {
+          token1 = jwt.sign({ id: user._id }, 'Kucinglucu')
+          chai.request(app)
+          .delete(`/product/${idProduct}`)
+          .set('token', token1)
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null
+            expect(res).to.have.status(401)
+            expect(res.body).to.have.property('error').to.equal('Not Authorized')
+            expect(res.body).to.have.property('msg')
+            done()
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      })
+
+      it('should have status 400 and return invalid id product', function(done) {
+        chai.request(app)
+          .delete(`/product/osdjnfknsdcklwldc`)
+          .set('token', token)
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null
+            expect(res.body).to.have.property('msg').to.equal('Id is invalid')
+            done()
+          })
+      })
+
+    })
+
   })

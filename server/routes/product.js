@@ -4,13 +4,13 @@ const authentication = require('../middlewares/authentication')
 const authorization = require('../middlewares/authorization')
 
 router.post('/', authentication, authorization,(req, res, next)=>{
-    const {name, price, stock, description, featured_image} = req.body
+    const {name, price, stock, description, image} = req.body
     Product.create({
         name,
         price,
         stock,
         description,
-        featured_image
+        image
     })
       .then(product=>{
           res.status(201).json(product)
@@ -41,18 +41,42 @@ router.get('/:id', (req, res, next)=>{
 })
 
 router.put('/:id', authentication, authorization,(req, res, next)=>{
-    const {name, price, stock, description, featured_image} = req.body
+    const {name, price, stock, description, image} = req.body
     Product.findByIdAndUpdate(req.params.id, {
         name,
         price,
         stock,
         description,
-        featured_image
+        image
     })
       .then(product=>{
           res.status(200).json({msg : `Product with id ${product._id} updated successfully`})
       })
       .catch(err=>{
+          next(err)
+      })
+})
+
+router.patch('/:id', authentication, authorization,(req, res, next)=>{
+    const { stock } = req.body
+    Product.findByIdAndUpdate(req.params.id, {
+        stock
+    })
+      .then(product=>{
+          res.status(200).json({msg : `Product Stock with id ${product._id} updated successfully`})
+      })
+      .catch(err=>{
+          next(err)
+      })
+})
+
+router.delete('/:id', authentication, authorization,(req, res, next)=>{
+    Product.findByIdAndDelete(req.params.id)
+      .then(product=>{
+          res.status(200).json({msg : `Product with id ${product._id} deleted successfully`})
+      })
+      .catch(err=>{
+          console.log(err)
           next(err)
       })
 })
