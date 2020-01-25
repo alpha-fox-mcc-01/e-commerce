@@ -38,7 +38,6 @@ export default {
   created: function () {
     this.$store.dispatch('getDetail', this.$route.params.id)
   }
-
 }
 </script>
 

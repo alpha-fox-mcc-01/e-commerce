@@ -24,9 +24,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "checkout" */ '../views/CheckoutPage.vue')
   },
   {
-    path: '/products/:id',
-    name: 'details',
-    component: () => import(/* webpackChunkName: "checkout" */ '../views/ProductDetail.vue')
+    path: '/products',
+    component: () => import(/* webpackChunkName: "allProduct" */ '../views/AllProductPage.vue'),
+    children: [{
+      path: '',
+      name: 'all',
+      component: () => import(/* webpackChunkName: "all" */ '../components/ItemsDisplay.vue')
+    },
+    {
+      path: ':id',
+      name: 'details',
+      component: () => import(/* webpackChunkName: "details" */ '../views/ProductDetail.vue')
+    }
+    ]
   },
   {
     path: '/cart',
