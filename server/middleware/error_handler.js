@@ -9,14 +9,25 @@ module.exports = (err, req, res, next) => {
       errors = []
       for(let key in err.errors) {
         errors.push(err.errors[key].message)
-      }
+      } 
       console.log(errors)
       console.log(message)
       res.status(status).json({
         msg: message,
         errors
       })
-    } else {
+    } else if (err.name === 'MongoError') {
+      res.status(err.statusCode).json({
+          status: 'fail',
+          message: err.message
+      })
+  } else if (err.name === 'JsonWebTokenError') {
+      res.status(401).json({
+          message: 'You are not authenticated, please log in'
+      })
+  } else if (err.name === 'Bad Request') {
+      res.status(err.statusCode).json({message: err.message})
+  }  else {
       res.status(status).json({
         msg: message
       })

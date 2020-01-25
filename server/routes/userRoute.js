@@ -7,6 +7,7 @@ router.post('/register', userController.register)
 router.post('/login', userController.login)
 router.use(authentication)
 router.post('/cart', userController.addCart)
+router.delete('/logout', userController.removeCart)
 
 
 

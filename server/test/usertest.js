@@ -4,6 +4,8 @@ const chaiHttp = require('chai-http')
 const app = require('../app')
 const User = require('../models/usermodel')
 chai.use(chaiHttp)
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 describe('User Routes', function () {
     describe('/users/register', function() {
@@ -146,7 +148,57 @@ describe('User Routes', function () {
         })
     })
 
-    // describe('/users/addCart', function () {
-    //   it ('should return ')
-    // })
+    describe('/users/addCart', function () {
+      let access_token
+      before(function(done) {
+        User.findOne({email : 'newbaby@gmail.com'}) 
+        .then(user => {
+            if (user) {
+                var checkPassword = bcrypt.compareSync('12345678', user.password)
+                if (checkPassword) {
+                    var access_tokenOld = jwt.sign({ _id: user._id}, process.env.SECRET)
+                    access_token = access_tokenOld
+                    done()
+                } else {
+                    console.log('password mismatched1')
+                    done()
+                }
+            } else {
+                console.log('user does not exist')
+                done()
+            }
+        })
+        .catch(err => {
+            done(err)
+        })
+      })
+      it ('should return status 200 and message `Product successfully added`', function(done) {
+        chai.request(app)
+            .post('/users/cart')
+            .set('access_token', `${access_token}`)
+            .send({
+              product: '5e265fd6b1b0e31c79f8ffb9'
+            })
+            .end((err, res) => {
+              expect(err).to.be.null
+              expect(res).to.have.status(200)
+              expect(res.body).to.have.property('message')
+              done()
+          })
+      })
+
+      it ('should return status 401 and message `You are not authenticated, please log in`', function(done) {
+        chai.request(app)
+            .post('/users/cart')
+            .send({
+              product: '5e265fd6b1b0e31c79f8ffb9'
+            })
+            .end((err, res) => {
+              expect(res).to.have.status(401)
+              console.log(res.body)
+              expect(res.body).to.have.property('message').to.equal('You are not authenticated, please log in')
+              done()
+          })
+      })
+    })
 })

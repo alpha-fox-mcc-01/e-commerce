@@ -272,7 +272,7 @@ describe('Product Routes', function() {
               })
         })
 
-        it.only ('should have status 200 and return message', function(done) {
+        it ('should have status 200 and return message', function(done) {
             chai.request(app)
                 .get('/products/search/balm')
                 .end((err, res) => {
@@ -283,7 +283,7 @@ describe('Product Routes', function() {
                 })
         })
 
-        it.only ('should have status 200 and return object Product Info', function(done) {
+        it ('should have status 200 and return object Product Info', function(done) {
             chai.request(app)
                 .get('/products/search/sticker')
                 .end((err, res) => {
