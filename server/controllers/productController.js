@@ -8,7 +8,7 @@ module.exports = {
             price: req.body.price,
             stock: req.body.stock,
             description: req.body.description,
-            image: req.body.image
+            image: req.file.cloudStoragePublicUrl
         })
         .then(result => {
             res.status(201).json({result: result})
@@ -58,6 +58,20 @@ module.exports = {
         Product.deleteOne({_id: req.params.id})
                 .then(_ => {
                     res.status(200).json({message: 'Delete successful'})
+                })
+                .catch(err => {
+                    next(err)
+                })
+    },
+    searchProduct(req, res, next) {
+        let keyword = req.params.name
+        Product.find({ $or: [ {name: {$regex : `${keyword}`, $options: 'gi'}}, {category: {$regex: `${keyword}`, $options: 'gi'}}]})
+                .then(result => {
+                    if(result.length === 0) {
+                       res.status(200).json({message: 'No such product, try another keyword'})
+                    } else {
+                       res.status(200).json({result})
+                    }
                 })
                 .catch(err => {
                     next(err)

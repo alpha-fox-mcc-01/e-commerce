@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const router = require('./routes')
 const errorHandler = require('./middleware/error_handler')
 const cors = require('cors')
+const logger = require('morgan')
 mongoose.connect('mongodb://localhost/ecommerce' + `${process.env.NODE_ENV}`, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 var db = mongoose.connection;
@@ -15,6 +16,7 @@ db.once('open', function() {
 });
 
 app.use(cors())
+app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use('/', router)

@@ -7,7 +7,7 @@
       <div class="w-1/3 h-12">
         <div class="hamburger"></div>
         <div class="hamburger"></div>
-        <div class="hamburger"></div>  
+        <div class="hamburger"></div>
       </div>
       <div class="w-1/3 h-12">
         <img id="logo" alt="fluffier logo" src="@/assets/imglogo.png">
@@ -19,7 +19,7 @@
         </ul>
       </div>
    </div>
-</div>    
+</div>
 </template>
 
 <script>
@@ -54,7 +54,6 @@ export default {
     margin-top: 10px;
     width: 24px;
     height: 28px;
-    
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1,9 +1,18 @@
 <template>
-    <div style="box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);">
+    <div class="flex mb-4 flex-wrap" style="box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);">
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/register">Register</router-link> |
-      <router-link to="/checkout">Checkout</router-link>
+      <router-link to="/checkout">Checkout</router-link> |
+      <router-link to="/cart">Cart</router-link>
+      <div class="w-1/4 flex border-grey-light border">
+      <input class="w-full rounded ml-1" type="text" placeholder="Search...">
+      <button class="bg-grey-lightest border-grey border-l shadow hover:bg-grey-lightest">
+        <span class="w-auto flex justify-end items-center text-grey p-2 hover:text-grey-darkest">
+          <i class="material-icons text-xs">search</i>
+        </span>
+      </button>
+      </div>
     </div>
 </template>
 
@@ -18,11 +27,17 @@ div {
   text-align: center;
   box-shadow: 0 10px 10px -2px rgba(0,0,0,.2);
   margin-bottom: 1em;
+  align-items: center;
+  justify-content: space-evenly;
 }
 a {
   text-align: center;
   font-family: sans-serif;
   font-weight: 500;
+  font-size: 20px;
+}
+a:hover {
+  background-color: rgb(245, 227, 231); 
 }
 
 li {

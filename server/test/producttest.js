@@ -272,6 +272,27 @@ describe('Product Routes', function() {
               })
         })
 
+        it.only ('should have status 200 and return message', function(done) {
+            chai.request(app)
+                .get('/products/search/balm')
+                .end((err, res) => {
+                    console.log(res.body, 'masuk mocha')
+                    expect(res).to.have.status(200)
+                    expect(res.body).to.have.own.property('message').to.equal('No such product, try another keyword')
+                    done()
+                })
+        })
+
+        it.only ('should have status 200 and return object Product Info', function(done) {
+            chai.request(app)
+                .get('/products/search/sticker')
+                .end((err, res) => {
+                    expect(res).to.have.status(200)
+                    expect(res.body).to.have.own.property('result')
+                    done()
+                })
+        })
+
 
     })
 })
