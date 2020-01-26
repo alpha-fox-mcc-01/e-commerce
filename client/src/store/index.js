@@ -31,18 +31,24 @@ export default new Vuex.Store({
       axios.get('http://localhost:3000/products')
         .then(({ data }) => {
           context.commit('insertAllProducts', data.result)
+          if (localStorage.getItem('access_token')) {
+            context.commit('setStatus', true)
+          }
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire('Oops', `An error occured : ${err}`, 'error')
         })
     },
     getDetail (context, payload) {
       axios.get(`http://localhost:3000/products/${payload}`)
         .then(({ data }) => {
           context.commit('insertProductDetail', data.result)
+          if (localStorage.getItem('access_token')) {
+            context.commit('setStatus', true)
+          }
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire('Oops', `An error occured : ${err}`, 'error')
         })
     },
     searchItem (context, payload) {
@@ -102,11 +108,9 @@ export default new Vuex.Store({
         })
     },
     logOut (context, payload) {
-      console.log(localStorage.getItem('access_token'))
       axios.delete('http://localhost:3000/users/logout', { headers: { access_token: localStorage.getItem('access_token') }
       })
         .then(({ data }) => {
-          console.log(data)
           context.commit('setStatus', false)
           Swal.fire('Success', 'You are now logged out', 'success')
         })
@@ -118,7 +122,6 @@ export default new Vuex.Store({
       axios.get('http://localhost:3000/users/cart', { headers: { access_token: localStorage.getItem('access_token') }
       })
         .then(({ data }) => {
-          console.log(data, 'ini data cart')
           context.commit('insertCart', data.cart)
           context.commit('setStatus', true)
         })
@@ -127,7 +130,6 @@ export default new Vuex.Store({
         })
     },
     reduceQty (context, payload) {
-      console.log('masuk store')
       axios.put('http://localhost:3000/users/cart', {
         product: payload
       }, { headers: { access_token: localStorage.getItem('access_token') }
@@ -139,13 +141,11 @@ export default new Vuex.Store({
         })
     },
     updateStock (context, payload) {
-      console.log(payload, 'masuk updatestock')
       axios.put('http://localhost:3000/products/' + payload.productId, {
         stock: payload.newStock
       }, { headers: { access_token: localStorage.getItem('access_token') }
       })
         .then(({ data }) => {
-          console.log(data, 'result update')
           router.push('/checkout')
         })
         .catch(err => {
@@ -154,6 +154,5 @@ export default new Vuex.Store({
     }
   },
   modules: {
-
   }
 })
