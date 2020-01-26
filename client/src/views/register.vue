@@ -81,7 +81,7 @@ export default {
       console.log(this.name)
       axios({
         method: 'post',
-        url: 'http://localhost:3000/users',
+        url: 'http://localhost:3000/user/register',
         data: {
           name: this.name,
           email: this.email,
@@ -89,8 +89,8 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(data)
-          localStorage.setItem('access_token', 'bismillah')
+          console.log(data.token)
+          localStorage.setItem('access_token', data.token)
           this.$bvModal.show('bv-modal-example')
           setTimeout(() => {
             this.$router.push({ name: 'home' })

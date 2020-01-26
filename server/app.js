@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const routes = require('./routes')
+const cors = require('cors')
 const errorHandler = require('./middlewares/errorHandler')
 const mongoose = require('mongoose')
 mongoose.connect(`mongodb+srv://nafies_beta1:bittaqwa@cluster0-hcptc.mongodb.net/e-commerce-${process.env.NODE_ENV}?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
@@ -10,6 +11,8 @@ mongoose.connect(`mongodb+srv://nafies_beta1:bittaqwa@cluster0-hcptc.mongodb.net
     console.log('connected to mongodb')
   }
 })
+
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/', routes)

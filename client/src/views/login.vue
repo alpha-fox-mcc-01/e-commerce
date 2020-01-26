@@ -53,29 +53,26 @@ export default {
   },
   methods: {
     onSubmit () {
-      console.log(this.email)
-      console.log(this.password)
       axios({
-        method: 'get',
-        url: 'http://localhost:3000/users'
+        method: 'post',
+        url: 'http://localhost:3000/user/login',
+        data: {
+          email: this.email,
+          password: this.password
+        }
       })
         .then(({ data }) => {
-          console.log(data)
-          data.forEach(user => {
-            if (user.email === this.email && user.password === this.password) {
-              localStorage.setItem('access_token', 'bismillah')
-              setTimeout(() => {
-                this.$router.push({ name: 'home' })
-              }, 1000)
-            } else {
-              setTimeout(() => {
-                this.alert = true
-              }, 1000)
-              setTimeout(() => {
-                this.alert = false
-              }, 3000)
-            }
-          })
+          console.log(data.token)
+          localStorage.setItem('access_token', data.token)
+          setTimeout(() => {
+            this.$router.push({ name: 'home' })
+          }, 1000)
+          //     setTimeout(() => {
+          //       this.alert = true
+          //     }, 1000)
+          //     setTimeout(() => {
+          //       this.alert = false
+          //     }, 3000)
         })
         .catch(err => {
           console.log(err.response)
