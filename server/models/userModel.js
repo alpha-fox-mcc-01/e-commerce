@@ -18,11 +18,10 @@ const userSchema = new Schema({
    admin: {
       type : Boolean,
       default : false,
-      required : true
    },
    cart : [{
       item : {
-         type : Schema.Types.ObjectId,
+         type : `ObjectId`,
          ref : `Item`
       },
       quantity : Number
