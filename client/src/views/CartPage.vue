@@ -20,11 +20,11 @@
       <td class="px-4 py-2"><img id="productimage" :src="item.product.image" alt="productimage">{{item.product.name}}</td>
       <td class="px-4 py-2">IDR{{item.product.price}}</td>
       <td class="px-4 py-2">
-        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" @click="minusQty(item.quantity, item.product.stock, item.product._id)">
         -
         </button>
         {{item.quantity}}
-        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" @click="addQty(item.quantity, item.product.stock, item.product._id)">
         +
         </button></td>
       <td class="px-4 py-2">IDR800000</td>
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'CartPage',
   created: function () {
@@ -75,10 +76,27 @@ export default {
   },
   computed: {
     cart () {
-      console.log(this.$store.state.cart)
       if (this.$store.state.cart.length > 0) {
         return this.$store.state.cart
       } 
+    }
+  },
+  methods: {
+    addQty (qty, stock, productId) {
+      if (stock >= (qty + 1)) {
+        console.log(qty, 
+      'vs', stock)
+        this.$store.dispatch('addToCart', productId)
+        this.$store.dispatch('fetchCart')
+      } else {
+       console.log(qty, 
+      'vs', stock)
+        Swal.fire('Oops..', 'Insufficient stock', 'error')
+      }
+      this.$store.dispatch('fetchCart')
+    },
+    minusQty (qty, stock, productId) {
+
     }
   }
 }

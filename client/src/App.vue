@@ -25,11 +25,7 @@ export default {
   },
   created: function () {
     this.$store.dispatch('getProducts')
-    if (localStorage.getItem('access_token')) {
-      this.loggedIn = true
-    } else {
-      this.loggedIn = false
-    }
+    this.$store.dispatch('fetchCart')
   }
 }
 </script>
