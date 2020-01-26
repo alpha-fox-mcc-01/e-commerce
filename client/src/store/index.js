@@ -112,7 +112,7 @@ export default new Vuex.Store({
           context.commit('insertCart', data.cart)
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire('Ooops', `An error occured ${err}`, 'error')
         })
     },
     reduceQty (context, payload) {
@@ -124,7 +124,21 @@ export default new Vuex.Store({
         .then(_ => {
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire('Ooops', `An error occured ${err}`, 'error')
+        })
+    },
+    updateStock (context, payload) {
+      console.log(payload, 'masuk updatestock')
+      axios.put('http://localhost:3000/products/' + payload.productId, {
+        stock: payload.newStock
+      }, { headers: { access_token: localStorage.getItem('access_token') }
+      })
+        .then(({ data }) => {
+          console.log(data, 'result update')
+          router.push('/checkout')
+        })
+        .catch(err => {
+          Swal.fire('Oops..', `An error occured: ${err}`, 'error')
         })
     }
 

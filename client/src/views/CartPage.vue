@@ -52,8 +52,8 @@
         </tr>
         <tr>
          <td class="px-4 py-2"></td>
-         <button class="bg-black hover:bg-red-200 text-white font-bold py-2 px-4 rounded">
-           <router-link to="/checkout">Checkout</router-link>
+         <button class="bg-black hover:bg-red-200 text-white font-bold py-2 px-4 rounded" @click="checkout">
+          Checkout
           </button>
         </tr>
       </tbody>
@@ -68,15 +68,13 @@ export default {
   name: 'CartPage',
   created: function () {
     this.$store.dispatch('fetchCart')
-    this.cart
   },
   computed: {
     cart () {
-        let sortedQty = this.$store.state.cart.filter(item => {
-          this.tempCart = this.$store.state.cart
-          return item.quantity > 0
-        })
-        return sortedQty
+      let sortedQty = this.$store.state.cart.filter(item => {
+        return item.quantity > 0
+      })
+      return sortedQty
     },
     totalCost () {
       let totalPrice = 0
@@ -117,6 +115,17 @@ export default {
         Swal.fire('Oops..', 'Insufficient stock', 'error')
       }
       this.$store.dispatch('fetchCart')
+    },
+    checkout () {
+      let payload = {
+        newStock: 0,
+        productId: ''
+      }
+      this.cart.forEach(item => {
+        payload.newStock = item.product.stock - item.quantity
+        payload.productId = item.product._id
+        this.$store.dispatch('updateStock', payload)
+      })
     }
   }
 }

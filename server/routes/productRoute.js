@@ -8,11 +8,11 @@ const uploadImage = require('../middleware/image_uploader.js')
 console.log('masuk route')
 router.get('/', 
 productController.getAllProduct)
-router.get('/:id', productController.getProductDetail)
 router.get('/search/:name', productController.searchProduct)
+router.get('/:id', productController.getProductDetail)
+router.put('/:id', authentication, productController.editProduct)
 router.use(authentication, authorization)
 router.post('/', uploadImage.multer.single('image'), uploadImage.sendUploadToGCS,productController.addProduct)
-router.put('/', productController.editProduct)
 router.delete('/:id', productController.removeProduct)
 
 

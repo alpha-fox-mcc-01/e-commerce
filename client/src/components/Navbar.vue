@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'NavBar',
   data () {
@@ -29,10 +30,29 @@ export default {
       this.$store.dispatch('searchItem', this.keyword)
     },
     signOut () {
-      this.$store.dispatch('logOut')
-      localStorage.removeItem('access_token')
-      localStorage.removeItem('username')
-      this.isLoggedIn()
+      Swal.fire({
+        title: 'Are you sure you want to log out?',
+        text: 'You will lose the items in your cart',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, log me out!',
+        cancelButtonText: 'No, keep me inside'
+      })
+      .then(result => {
+        if (result.value) {
+          this.$store.dispatch('logOut')
+          localStorage.removeItem('access_token')
+          localStorage.removeItem('username')
+          this.isLoggedIn()
+          this.$router.push('/')
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelled',
+            'Your items in cart are safe :)',
+            'error'
+          )
+        }
+      })
     },
     isLoggedIn () {
       if (localStorage.getItem('access_token')) {

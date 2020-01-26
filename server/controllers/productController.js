@@ -40,12 +40,7 @@ module.exports = {
     },
     editProduct(req, res, next) {
         Product.findOneAndUpdate({_id: req.params.id}, {
-            name: req.body.name,
-            category: req.body.category,
-            price: req.body.price,
             stock: req.body.stock,
-            description: req.body.description,
-            image: req.body.image
         }, {runValidators: true})
                 .then(_ => {
                     res.status(200).json({message: 'Product successfully updated'})
