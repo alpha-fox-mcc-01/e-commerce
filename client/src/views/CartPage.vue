@@ -13,14 +13,14 @@
      </tr>
   </thead>
   <tbody>
-    <tr>
-      <td class="px-4 py-2"><img id="productimage" src="https://media.glamour.com/photos/5bf6e17f4f736a2d2933191b/master/w_600,h_800,c_limit/Default-1.jpg" alt="productimage"></td>
-      <td class="px-4 py-2">IDR400000</td>
+    <tr v-for="item in cart" :key="item._id">
+      <td class="px-4 py-2"><img id="productimage" :src="item.image" alt="productimage"></td>
+      <td class="px-4 py-2">IDR{{item.price}}</td>
       <td class="px-4 py-2">
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
         -
         </button>
-        2
+        {{item.quantity}}
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
         +
         </button></td>
@@ -61,7 +61,15 @@
 
 <script>
 export default {
-  name: 'CartPage'
+  name: 'CartPage',
+  created: function () {
+    this.$store.dispatch('fetchCart')
+  },
+  computed: {
+    cart () {
+      return this.$store.state.cart
+    }
+  }
 }
 </script>
 

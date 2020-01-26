@@ -1,4 +1,5 @@
 const User = require('../models/usermodel')
+const Product = require('../models/productmodel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 module.exports =  {
@@ -108,6 +109,19 @@ module.exports =  {
         .catch(err => {
             next(err)
         })
+    },
+    fetchCart(req, res, next) {
+        User.findById({ _id: req.currentUserId }).populate({
+            path: 'cart.product',
+            model: 'Product'
+        })
+            .then(user => {
+                console.log(user, 'ini user di controller')
+                res.status(200).json({user: user})
+            })
+            .catch(err => {
+                next(err)
+            })
     }
 
 

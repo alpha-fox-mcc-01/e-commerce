@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    product: {}
+    product: {},
+    cart: []
   },
   mutations: {
     insertAllProducts (state, payload) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     insertProductDetail (state, payload) {
       state.product = payload
+    },
+    insertCart (state, payload) {
+      state.cart = payload
     }
   },
   actions: {
@@ -99,6 +103,17 @@ export default new Vuex.Store({
         .catch(err => {
           Swal.fire('Oops..', `${err}`, 'error')
         })
+    },
+    fetchCart (context, payload) {
+      axios.get('http://localhost:3000/users/cart', { headers: { access_token: localStorage.getItem('access_token')}
+      })
+          .then(({ data }) => {
+            console.log(data, 'ini data cart')
+            context.commit('insertCart', data.cart)
+          })
+          .catch(err => {
+            console.log(err)
+          })
     }
   },
   modules: {

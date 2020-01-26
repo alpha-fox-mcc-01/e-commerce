@@ -2,10 +2,7 @@ var jwt = require('jsonwebtoken')
 const User = require('../models/usermodel')
 
 module.exports = function(req, res, next) {
-    console.log('masuk authentication')
-    console.log(req.headers, 'ini headers')
     const token = req.headers.access_token
-    console.log(token, 'token di authen')
     try {
         let decoded = jwt.verify(token, process.env.SECRET)
         console.log(decoded._id, 'id')
@@ -13,7 +10,6 @@ module.exports = function(req, res, next) {
             _id: decoded._id
         })
             .then(result => {
-                console.log(result, 'ini result')
                 if (result) {
                     req.currentUserId = result._id
                     console.log(req.currentUserId)
