@@ -9,7 +9,6 @@
         <b-navbar-nav class="navMenuContainer">
           <router-link class="navMenu" to="/">Home</router-link>
           <router-link class="navMenu" to="/product">Product</router-link>
-          <router-link class="navMenu" to="/about">About</router-link>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

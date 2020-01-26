@@ -3,10 +3,6 @@
     <!-- <Navbar :access_token="access_token" @set-token="setAccessToken" /> -->
     <Navbar :access_token="access_token" @error-message="errorHandler" />
     <Error v-if="error" :error="error" />
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
-    </div>-->
     <router-view />
   </div>
 </template>

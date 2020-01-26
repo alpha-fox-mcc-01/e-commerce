@@ -5,7 +5,7 @@
       :title="title"
       :img-src="product.imageUrl"
       img-top
-      style="min-width: 15rem; max-width: 15rem; margin: 0 1.5rem 2rem 0; text-align: left"
+      style="min-width: 14rem; max-width: 14rem; margin: 0 1.5rem 2rem 0; text-align: left"
       class="productItem"
       title-class="prodTitle"
       header-class="prodTitle"
