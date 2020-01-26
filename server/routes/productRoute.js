@@ -3,11 +3,11 @@ const express = require('express')
 const router = express.Router()
 const authentication = require('../middlewares/authentication')
 const authorization = require('../middlewares/authorization')
+const files = require('../middlewares/files')
 
+router.post('/', authentication, authorization, files.multer.single('featured_image'), files.sendUploadToGCS, productController.newProduct)
 
-router.post('/', authentication, authorization, productController.newProduct)
-
-router.put('/:id', authentication, authorization, productController.editProduct)
+router.put('/:id', authentication, authorization, files.multer.single('featured_image'), files.sendUploadToGCS, productController.editProduct)
 
 router.get('/', productController.getProducts)
 

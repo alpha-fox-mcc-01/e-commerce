@@ -34,10 +34,11 @@ module.exports = {
             description: req.body.description,
             price: req.body.price,
             category: req.body.category,
-            featured_image: req.body.featured_image || 'http://cdn.onlinewebfonts.com/svg/img_519534.png',
+            featured_image: req.file.cloudStoragePublicUrl,
             stocks: req.body.stocks
         })
             .then(data => {
+                // next()
                 res.status(201).json(data)
             })
             .catch(err => {
