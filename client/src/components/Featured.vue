@@ -7,7 +7,13 @@
   >
     <b-card-text>
       <b-card-group deck style="justify-content: center">
-        <FeaturedCard v-for="item in arrObj" :title="item.title" />
+        <FeaturedCard
+          v-for="(product, i) in products"
+          :key="i"
+          :title="product.name"
+          :product="product"
+          v-if="i <=3"
+        />
       </b-card-group>
     </b-card-text>
   </b-card>
@@ -16,13 +22,11 @@
 <script>
 import FeaturedCard from '@/components/FeaturedCard.vue'
 export default {
-  data () {
-    return {
-      arrObj: [{ title: 'A' }, { title: 'B' }, { title: 'C' }, { title: 'D' }]
-    }
-  },
   components: {
     FeaturedCard
+  },
+  props: {
+    products: Array
   }
 }
 </script>

@@ -1,8 +1,9 @@
 <template>
   <div class="home">
-    <HomeHeader />
-    <HomeFeatured />
-    <RegisterForm />
+    <Error v-if="error" :error="error" />
+    <HomeHeader :access_token="access_token" />
+    <HomeFeatured :products="products" />
+    <RegisterForm @error-message="errorHandler" :error="error" />
     <img
       v-if="!access_token"
       src="@/assets/registernow.png"
@@ -18,13 +19,29 @@
 import HomeHeader from '@/components/Header.vue'
 import HomeFeatured from '@/components/Featured.vue'
 import RegisterForm from '@/components/Register.vue'
+import Error from '@/components/Error.vue'
+import axios from 'axios'
 
 export default {
   name: 'home',
+  data () {
+    return {
+      error: ''
+    }
+  },
+  computed: {
+    access_token () {
+      return this.$store.state.access_token
+    },
+    products () {
+      return this.$store.state.products
+    }
+  },
   components: {
     HomeHeader,
     HomeFeatured,
-    RegisterForm
+    RegisterForm,
+    Error
   },
   methods: {
     show () {
@@ -32,7 +49,16 @@ export default {
     },
     hide () {
       this.$modal.hide('register')
+    },
+    errorHandler(err) {
+      this.error = err;
+      setTimeout(() => {
+        this.error = "";
+      }, 2500);
     }
+  },
+  created() {
+    this.$store.dispatch('fetchProducts')
   }
 }
 </script>

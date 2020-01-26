@@ -1,52 +1,34 @@
 <template>
   <div class="product">
-    <ItemDetail />
+    <router-view />
     <div>
-      <b-card no-body class="catNavigator" @click="show">
+      <b-card no-body class="catNavigator">
         <b-tabs pills card vertical style="display: flex; justify-content: flex-start">
           <b-tab title="Computer" active>
             <b-card-body>
-              <!-- AKAN DIGANTI DENGAN DATA DARI DATABASE -->
               <b-row>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
-                <b-col-3>
-                  <ProductItem />
-                </b-col-3>
+                <b-col
+                  v-for="(product, i) in products"
+                  :key="i"
+                  v-if="product.category === 'computer'"
+                >
+                  <ProductItem :product="product" :title="product.name" />
+                </b-col>
               </b-row>
-              <!-- ---- -->
             </b-card-body>
           </b-tab>
-          <b-tab title="Tab 2">
-            <b-card-text>Tab contents 2</b-card-text>
+          <b-tab title="Smartphone">
+            <b-card-body>
+              <b-row>
+                <b-col
+                  v-for="(product, i) in products"
+                  :key="i"
+                  v-if="product.category === 'smartphone'"
+                >
+                  <ProductItem :product="product" :title="product.name" />
+                </b-col>
+              </b-row>
+            </b-card-body>
           </b-tab>
           <b-tab title="Tab 3">
             <b-card-text>Tab contents 3</b-card-text>
@@ -58,28 +40,30 @@
 </template>
 
 <script>
-import ProductItem from '@/components/ProductItem.vue'
-import ItemDetail from '@/components/ItemDetail'
+import ProductItem from '@/components/ProductItem'
+
 export default {
   components: {
-    ProductItem,
-    ItemDetail
+    ProductItem
   },
-  methods: {
-    show () {
-      this.$modal.show('item-detail');
-    },
-    hide () {
-      this.$modal.hide('item-detail');
+  computed: {
+    products () {
+      return this.$store.state.products
     }
+  },
+  created() {
+    this.$store.dispatch('fetchProducts')
   }
 }
 </script>
 
-<style>
+<style scoped>
+body {
+  background-color: white;
+}
 .catNavigator {
-  margin: 2%;
-  background-color: rgba(255, 255, 255, 0.7);
-  min-height: 60vh;
+  background-color: rgba(255, 255, 255, 1);
+  min-height: 100vh;
+  border-radius: 0;
 }
 </style>

@@ -9,7 +9,7 @@
           </b-col>
           <b-col md="4">
             <b-card-body title="Nama Produk">
-              <b-card-text>Deskripsi</b-card-text>
+              <!-- <b-card-text>Deskripsi</b-card-text> -->
               <table>
                 <tr>
                   <th width="100px">Category</th>

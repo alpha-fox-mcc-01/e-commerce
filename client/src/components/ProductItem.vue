@@ -1,20 +1,40 @@
 <template>
-  <b-card
-    title="Title"
-    img-src="https://placekitten.com/500/350"
-    img-top
-    style="min-width: 15rem; max-width: 15rem; margin: 0 1.5rem 2rem 0; text-align: left"
-    class="productItem"
-    title-class="prodTitle"
-    header-class="prodTitle"
-  >
-    <b-card-text>Rp 1.000.000</b-card-text>
-  </b-card>
+  <div>
+    <ItemDetail />
+    <b-card
+      :title="title"
+      :img-src="product.imageUrl"
+      img-top
+      style="min-width: 15rem; max-width: 15rem; margin: 0 1.5rem 2rem 0; text-align: left"
+      class="productItem"
+      title-class="prodTitle"
+      header-class="prodTitle"
+    >
+      <b-card-text>Rp {{ product.price.toLocaleString() }}</b-card-text>
+      <b-button :to="`/product/${product._id}`" variant="primary">See More</b-button>
+    </b-card>
+  </div>
 </template>
 
 <script>
-export default {
+import ItemDetail from '@/components/ItemDetail'
 
+export default {
+  props: {
+    title: String,
+    product: Object
+  },
+  components: {
+    ItemDetail
+  },
+  methods: {
+    show () {
+      this.$modal.show('item-detail')
+    },
+    hide () {
+      this.$modal.hide('item-detail')
+    }
+  }
 }
 </script>
 
