@@ -37,6 +37,13 @@ export default {
       }
       this.$store.dispatch('userRegister', input)
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    if (localStorage.getItem('access_token')) {
+      next('/')
+    } else {
+      next()
+    }
   }
 }
 </script>

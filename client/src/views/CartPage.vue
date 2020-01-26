@@ -92,7 +92,6 @@ export default {
       })
       return totalQty
     }
-
   },
   methods: {
     addQty (qty, stock, productId) {
@@ -123,16 +122,17 @@ export default {
         payload.newStock = item.product.stock - item.quantity
         payload.productId = item.product._id
         this.$store.dispatch('updateStock', payload)
+        Swal.fire('Hang on!', `You're almost there, fill in your payment info`, '')
       })
     }
   },
-  beforeRouteEnter(to, from, next) {
-  if(localStorage.getItem('access_token')) {
-    next()
-  } else {
-    next('/login')
+  beforeRouteEnter (to, from, next) {
+    if (localStorage.getItem('access_token')) {
+      next()
+    } else {
+      next('/login')
+    }
   }
-}
 }
 </script>
 

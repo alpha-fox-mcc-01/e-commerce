@@ -22,7 +22,7 @@ export default new Vuex.Store({
     insertCart (state, payload) {
       state.cart = payload
     },
-    setStatus(state, payload) {
+    setStatus (state, payload) {
       state.isLoggedIn = payload
     }
   },
@@ -48,15 +48,14 @@ export default new Vuex.Store({
     searchItem (context, payload) {
       axios.get(`http://localhost:3000/products/search/${payload}`)
         .then(({ data }) => {
-          if(data.result.length > 0 || data.result) {
+          if (data.result.length > 0 || data.result) {
             router.push('/products/' + data.result[0]._id)
           } else {
             Swal.fire('Oops', `We can't find what you're looking for`, 'error')
           }
-         
         })
         .catch(err => {
-          Swal.fire('Oops', `Product not found, try another keyword`, 'error')
+          Swal.fire('Oops', `Product not found, try another keyword: ${err}`, 'error')
         })
     },
     userLogin (context, payload) {
@@ -153,7 +152,6 @@ export default new Vuex.Store({
           Swal.fire('Oops..', `An error occured: ${err}`, 'error')
         })
     }
-
   },
   modules: {
 
