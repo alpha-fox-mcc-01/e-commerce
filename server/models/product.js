@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-// const uniqueValidator = require('mongoose-unique-validator')
 
 const productSchema = new Schema({
   name: {
@@ -28,7 +27,5 @@ const productSchema = new Schema({
     required: 'Please enter stock of this product',
   }
 })
-
-// userSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
 module.exports = mongoose.model('Product', productSchema)

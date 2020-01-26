@@ -68,6 +68,20 @@ module.exports = {
       })
   },
 
+  updateProductStock(req, res, next) {
+    const id = req.params.id
+    const { stock } = req.body
+    Product.updateOne({ _id: id }, { $set: { stock } })
+      .then(() => {
+        res
+          .status(200)
+          .json({ msg: "This product updated successfully" })
+      })
+      .catch(err => {
+        next(err)
+      })
+  },
+
   deleteProduct(req, res, next) {
     const id = req.params.id
     Product.deleteOne({ _id: id })

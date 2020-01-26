@@ -18,8 +18,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: 'This field is absolutely required',
-    minlength: [10, 'Minimum length of password is 10'],
-    unique: true
+    minlength: [10, 'Minimum length of password is 10']
   },
   role: String
 })

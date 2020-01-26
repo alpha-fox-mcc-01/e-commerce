@@ -1,13 +1,14 @@
 const express = require('express')
 const productRouter = express.Router()
 const productController = require('../controllers/productController')
-const authenticated = require('../middlewares/authentication')
-const authorized = require('../middlewares/authorization')
+const authentication = require('../middlewares/authentication')
+const authorization = require('../middlewares/authorization')
 
-productRouter.post('/', authenticated, authorized, productController.addProduct)
+productRouter.post('/', authentication, authorization, productController.addProduct)
 productRouter.get('/', productController.getProduct)
 productRouter.get('/:id', productController.getById)
-productRouter.put('/:id', authenticated, authorized, productController.updateProduct)
-productRouter.delete('/:id', authenticated, authorized, productController.deleteProduct)
+productRouter.patch('/:id', authentication, productController.updateProductStock)
+productRouter.put('/:id', authentication, authorization, productController.updateProduct)
+productRouter.delete('/:id', authentication, authorization, productController.deleteProduct)
 
 module.exports = productRouter

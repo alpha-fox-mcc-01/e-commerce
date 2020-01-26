@@ -45,7 +45,7 @@ module.exports = {
               req.headers.access_token = token
               res
                 .status(200)
-                .json({ msg: 'Login success', access_token: token })
+                .json({ msg: 'Login success', access_token: token, userId: user._id })
             } else {
               res
                 .status(403)
