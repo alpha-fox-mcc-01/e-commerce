@@ -2,7 +2,10 @@
 <div class="flex mb-4">
   <div class="w-1/2">
   <h2>Cart</h2>
-  <table class="table-auto">
+  <div v-if="isEmpty">
+    <p>Your cart is empty</p>
+  </div>
+  <table v-if="!isEmpty" class="table-auto">
   <thead>
     <tr>
       <th class="px-4 py-2">Item</th>
@@ -14,8 +17,8 @@
   </thead>
   <tbody>
     <tr v-for="item in cart" :key="item._id">
-      <td class="px-4 py-2"><img id="productimage" :src="item.image" alt="productimage"></td>
-      <td class="px-4 py-2">IDR{{item.price}}</td>
+      <td class="px-4 py-2"><img id="productimage" :src="item.product.image" alt="productimage">{{item.product.name}}</td>
+      <td class="px-4 py-2">IDR{{item.product.price}}</td>
       <td class="px-4 py-2">
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
         -
@@ -65,9 +68,17 @@ export default {
   created: function () {
     this.$store.dispatch('fetchCart')
   },
+  data () {
+    return {
+      isEmpty: false
+    }
+  },
   computed: {
     cart () {
-      return this.$store.state.cart
+      console.log(this.$store.state.cart)
+      if (this.$store.state.cart.length > 0) {
+        return this.$store.state.cart
+      } 
     }
   }
 }

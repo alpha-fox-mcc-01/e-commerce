@@ -116,8 +116,7 @@ module.exports =  {
             model: 'Product'
         })
             .then(user => {
-                console.log(user, 'ini user di controller')
-                res.status(200).json({user: user})
+                res.status(200).json({cart: user.cart})
             })
             .catch(err => {
                 next(err)
