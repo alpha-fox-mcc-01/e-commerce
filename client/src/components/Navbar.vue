@@ -57,16 +57,6 @@ export default {
         }
       })
     }
-    // isLoggedIn () {
-    //   if (localStorage.getItem('access_token')) {
-    //     this.loggedIn = true
-    //   } else {
-    //     this.loggedIn = false
-    //   }
-    // }
-  },
-  created: function () {
-    this.isLoggedIn()
   }
 }
 </script>

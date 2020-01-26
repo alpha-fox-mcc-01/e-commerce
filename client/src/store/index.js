@@ -10,7 +10,7 @@ export default new Vuex.Store({
     products: [],
     product: {},
     cart: [],
-    isLoggedIn: false,
+    isLoggedIn: ''
   },
   mutations: {
     insertAllProducts (state, payload) {
@@ -121,6 +121,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data, 'ini data cart')
           context.commit('insertCart', data.cart)
+          context.commit('setStatus', true)
         })
         .catch(err => {
           Swal.fire('Ooops', `An error occured ${err}`, 'error')

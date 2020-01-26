@@ -12,7 +12,6 @@
       <th class="px-4 py-2">Price</th>
       <th class="px-4 py-2">Quantity</th>
       <th class="px-4 py-2">Subtotal</th>
-      <th class="px-4 py-2">Action</th>
      </tr>
   </thead>
   <tbody>
@@ -28,7 +27,6 @@
         +
         </button></td>
       <td class="px-4 py-2">IDR {{(item.quantity * item.product.price)}}</td>
-      <td class="px-4 py-2"><img id="trashicon" src="https://cdn1.iconfinder.com/data/icons/interface-line-3/64/Interface_Outline-39-512.png"></td>
     </tr>
   </tbody>
 </table>
