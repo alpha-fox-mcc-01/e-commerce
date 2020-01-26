@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <PinkHeader></PinkHeader>
+    <h1 v-if="loggedIn">Welcome back, {{username}}</h1>
     <NavBar></NavBar>
     <router-view/>
     <FootBar />
@@ -13,6 +14,11 @@ import PinkHeader from './components/PinkHeader'
 import FootBar from './components/FootBar'
 export default {
   name: 'App',
+  data () {
+    return {
+      username : ''
+    }
+  },
   components: {
     NavBar,
     PinkHeader,
@@ -20,6 +26,12 @@ export default {
   },
   created: function () {
     this.$store.dispatch('getProducts')
+    if (localStorage.getItem('access_token')) {
+      this.loggedIn = true
+      this.username = localStorage.getItem('username')
+    } else {
+      this.loggedIn = false
+    }
   }
 }
 </script>

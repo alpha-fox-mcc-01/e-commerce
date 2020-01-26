@@ -54,12 +54,27 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
+          localStorage.setItem('username', data.username)
           Swal.fire('Logged In', 'You have successfully logged in', 'success')
           router.push('/')
         })
         .catch(err => {
           Swal.fire('Login failed', `Username/password wrong: ${err}`, 'error')
         })
+    },
+    userRegister(context, payload) {
+      axios.post('http://localhost:3000/users/register', {
+        username: payload.username,
+        email: payload.email,
+        password: payload.password
+      })
+          .then(({ data }) => {
+            Swal.fire('Register successful', 'You are now registered, please login', 'success')
+            router.push('/login')
+          })
+          .catch((err) => {
+            Swal.fire('Failed to register', `${err}`, 'error')
+          })
     }
   },
   modules: {

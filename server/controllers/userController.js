@@ -17,13 +17,15 @@ module.exports =  {
             })
     },
     login(req, res, next) {
+        let username
         User.findOne({email : req.body.email}) 
         .then(user => {
             if (user) {
+                username = user.username
                 var checkPassword = bcrypt.compareSync(req.body.password, user.password)
                 if (checkPassword) {
                     var access_token = jwt.sign({ _id: user._id}, process.env.SECRET)
-                    res.status(200).json({access_token : access_token})
+                    res.status(200).json({access_token : access_token, username: username})
                 } else {
                     res.status(400).json({error: 'Username/password wrong'})
                 }
