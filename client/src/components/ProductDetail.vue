@@ -38,6 +38,21 @@
               <p>{{ product.stock }}</p>
             </div>
           </div>
+          <div class="row border-bottom">
+            <div class="col-4 text-left">
+              <form>
+                <div class="form-group p-4">
+                  <label for="quantity">Quantity</label>
+                  <input type="number" class="form-control" id="quantity"
+                    min="1"
+                    :max="product.stock"
+                    v-model="quantity"
+                  >
+                  <input class="btn btn-dark mt-3" type="submit">
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -52,6 +67,7 @@ export default {
   data() {
     return {
       product: {},
+      quantity: 1,
     };
   },
   methods: {
