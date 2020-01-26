@@ -1,6 +1,7 @@
 <template>
    <div id="box" class="flex mb-4 flex-shrink-0">
      <div class="w-1/4">
+     <a href="/products" class="previous">&laquo; Back to Products</a>
      </div>
      <div id="image" class="w-1/4">
      <p id="category">home/ products / {{product.category}} / {{product.name.toLowerCase()}}</p>
@@ -16,18 +17,19 @@
         <p> hypoallergenic, dermatologist tested, paraben free, alcohol free, cruelty free, vegan, non-irritating</p>
         <div>
         <br/><br/><br/>
-        <button class="bg-black hover:bg-red-200 text-white font-bold py-2 px-4 rounded">
+        <button @click="addToCart(product._id)" class="bg-black hover:bg-red-200 text-white font-bold py-2 px-4 rounded">
           ADD TO CART -- IDR {{product.price}}
         </button>
         </div>
      </div>
      <div class="w-1/4">
+     <a href="/cart" class="next">Go to cart &raquo;</a>
      </div>
    </div>
 </template>
 
 <script>
-
+import Swal from 'sweetalert2'
 export default {
   name: 'ProductDetails',
   computed: {
@@ -37,6 +39,15 @@ export default {
   },
   created: function () {
     this.$store.dispatch('getDetail', this.$route.params.id)
+  },
+  methods: {
+    addToCart (productId) {
+      if (!localStorage.getItem('access_token')) {
+        Swal.fire('Oops..', 'You have to be logged in to add this item to cart', 'error')
+      } else {
+        this.$store.dispatch('addToCart', productId)
+      }
+    }
   }
 }
 </script>

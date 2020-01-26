@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <PinkHeader></PinkHeader>
-    <h1 v-if="loggedIn">Welcome back, {{username}}</h1>
     <NavBar></NavBar>
     <router-view/>
     <FootBar />
@@ -16,7 +15,7 @@ export default {
   name: 'App',
   data () {
     return {
-      username : ''
+      loggedIn: false
     }
   },
   components: {
@@ -28,7 +27,6 @@ export default {
     this.$store.dispatch('getProducts')
     if (localStorage.getItem('access_token')) {
       this.loggedIn = true
-      this.username = localStorage.getItem('username')
     } else {
       this.loggedIn = false
     }

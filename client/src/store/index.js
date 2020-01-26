@@ -22,7 +22,6 @@ export default new Vuex.Store({
     getProducts (context) {
       axios.get('http://localhost:3000/products')
         .then(({ data }) => {
-          console.log(data)
           context.commit('insertAllProducts', data.result)
         })
         .catch(err => {
@@ -56,7 +55,7 @@ export default new Vuex.Store({
           localStorage.setItem('access_token', data.access_token)
           localStorage.setItem('username', data.username)
           Swal.fire('Logged In', 'You have successfully logged in', 'success')
-          router.push('/')
+          router.push('/products')
         })
         .catch(err => {
           Swal.fire('Login failed', `Username/password wrong: ${err}`, 'error')
@@ -75,6 +74,19 @@ export default new Vuex.Store({
           .catch((err) => {
             Swal.fire('Failed to register', `${err}`, 'error')
           })
+    },
+    addToCart (context, payload) {
+      axios.post('http://localhost:3000/users/cart', {
+        product: payload
+      }, {headers: {
+        access_token: localStorage.getItem('access_token')
+      }})
+            .then(({ data }) => {
+              Swal.fire('Yay!', 'Item successfully added to your cart', 'success')
+            })
+            .catch(err => {
+              Swal.fire('Oops..', `${err}`, 'error')
+            })
     }
   },
   modules: {
