@@ -4,7 +4,7 @@
     <div>
       <b-card no-body class="catNavigator">
         <b-tabs pills card vertical style="display: flex; justify-content: flex-start">
-          <b-tab title="Computer" active>
+          <b-tab title="PC / Laptop" active>
             <b-card-body>
               <b-row>
                 <b-col v-for="(product, i) in filteredProduct('computer')" :key="i">
@@ -16,18 +16,20 @@
           <b-tab title="Smartphone">
             <b-card-body>
               <b-row>
-                <b-col
-                  v-for="(product, i) in products"
-                  :key="i"
-                  v-if="product.category === 'smartphone'"
-                >
+                <b-col v-for="(product, i) in filteredProduct('smartphone')" :key="i">
                   <ProductItem :product="product" :title="product.name" />
                 </b-col>
               </b-row>
             </b-card-body>
           </b-tab>
-          <b-tab title="Tab 3">
-            <b-card-text>Tab contents 3</b-card-text>
+          <b-tab title="Accessories">
+            <b-card-body>
+              <b-row>
+                <b-col v-for="(product, i) in filteredProduct('accessories')" :key="i">
+                  <ProductItem :product="product" :title="product.name" />
+                </b-col>
+              </b-row>
+            </b-card-body>
           </b-tab>
         </b-tabs>
       </b-card>
@@ -52,7 +54,8 @@ export default {
   },
   methods: {
     filteredProduct(category) {
-      return products.filter(product => product.category === 'category')
+      console.log(category)
+      return this.products.filter(product => product.category === category)
     }
   }
 }

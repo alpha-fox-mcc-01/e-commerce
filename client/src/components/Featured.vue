@@ -8,11 +8,10 @@
     <b-card-text>
       <b-card-group deck style="justify-content: center">
         <FeaturedCard
-          v-for="(product, i) in products"
+          v-for="(product, i) in filteredProduct()"
           :key="i"
           :title="product.name"
           :product="product"
-          v-if="i <=3"
         />
       </b-card-group>
     </b-card-text>
@@ -27,6 +26,11 @@ export default {
   },
   props: {
     products: Array
+  },
+  methods: {
+    filteredProduct() {
+      return this.products.slice(0,4)
+    }
   }
 }
 </script>
