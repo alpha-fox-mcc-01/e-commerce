@@ -17,6 +17,8 @@ export default {
   methods: {
     deleteItem(id) {
       this.$emit('remove-item', id)
+      const stock = this.item.ProductId.stock + this.item.quantity
+      this.$store.dispatch('updateOneProductStock', {id, stock})
     }
   }
 }

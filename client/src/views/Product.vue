@@ -7,7 +7,7 @@
           <b-tab title="PC / Laptop" active>
             <b-card-body>
               <b-row>
-                <b-col v-for="(product, i) in filteredProduct('computer')" :key="i">
+                <b-col v-for="(product, i) in filteredProduct('Computer')" :key="i">
                   <ProductItem :product="product" :title="product.name" />
                 </b-col>
               </b-row>
@@ -16,7 +16,7 @@
           <b-tab title="Smartphone">
             <b-card-body>
               <b-row>
-                <b-col v-for="(product, i) in filteredProduct('smartphone')" :key="i">
+                <b-col v-for="(product, i) in filteredProduct('Smartphone')" :key="i">
                   <ProductItem :product="product" :title="product.name" />
                 </b-col>
               </b-row>
@@ -25,7 +25,7 @@
           <b-tab title="Accessories">
             <b-card-body>
               <b-row>
-                <b-col v-for="(product, i) in filteredProduct('accessories')" :key="i">
+                <b-col v-for="(product, i) in filteredProduct('Accessories')" :key="i">
                   <ProductItem :product="product" :title="product.name" />
                 </b-col>
               </b-row>
@@ -41,6 +41,11 @@
 import ProductItem from '@/components/ProductItem'
 
 export default {
+  data () {
+    return {
+      error: ''
+    }
+  },
   components: {
     ProductItem
   },

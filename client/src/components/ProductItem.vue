@@ -11,7 +11,7 @@
       header-class="prodTitle"
     >
       <b-card-text>Rp {{ product.price.toLocaleString() }}</b-card-text>
-      <b-button :to="`/product/${product._id}`" variant="primary">See More</b-button>
+      <b-button :to="`/product/${product._id}`" variant="primary">Detail</b-button>
     </b-card>
   </div>
 </template>

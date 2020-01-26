@@ -50,7 +50,7 @@ export default new Vuex.Store({
         method: 'patch',
         url: 'http://localhost:3000/api/product/' + data.id,
         data: {
-          stock: data.oldStock - data.sub
+          stock: data.stock
         },
         headers: {
           "access_token": localStorage.getItem('access_token')

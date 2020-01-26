@@ -1,5 +1,8 @@
 <template>
   <div class="detail">
+    <div>
+      <Error v-if="error" :error="error" />
+    </div>
     <b-card no-body class="overflow-hidden container" style="max-width: 1000px;">
       <b-row no-gutters>
         <b-col md="6">
@@ -19,7 +22,7 @@
                 </tr>
                 <tr>
                   <th>Price</th>
-                  <td>{{product.price}}</td>
+                  <td>Rp {{product.price.toLocaleString()}}</td>
                 </tr>
                 <tr>
                   <th>Quantity</th>
@@ -42,12 +45,13 @@
 </template>
 
 <script>
-import axios from 'axios'
+import Error from '@/components/Error'
 export default {
   data () {
     return {
       product: {},
-      qty: 0
+      qty: 1,
+      error: ''
     }
   },
   methods: {
@@ -61,7 +65,23 @@ export default {
         })
     },
     addToCart () {
-      this.$store.dispatch('addToCart', {id: this.$route.params.id, qty: this.qty})
+      if (this.product.stock >= this.qty) {
+        this.$store.dispatch('addToCart', {id: this.$route.params.id, qty: this.qty})
+        .then(() => {
+          this.errorHandler('Added to cart.')
+          this.qty=1
+        })
+        const stock = this.product.stock - this.qty
+        this.$store.dispatch('updateOneProductStock', {id: this.$route.params.id, stock})
+      } else {
+        this.errorHandler('Sorry, that\'s too much for us.')
+      }
+    },
+    errorHandler(err) {
+      this.error = err;
+      setTimeout(() => {
+        this.error = "";
+      }, 2500);
     }
   },
   created () {
@@ -72,6 +92,9 @@ export default {
     '$route.params.id': function () {
       this.fetchProduct()
     }
+  },
+  components: {
+    Error
   }
 }
 </script>
