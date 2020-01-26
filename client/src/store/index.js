@@ -94,7 +94,7 @@ export default new Vuex.Store({
     },
     logOut (context, payload) {
       console.log(localStorage.getItem('access_token'))
-      axios.delete('http://localhost:3000/users/logout', { headers: { access_token: localStorage.getItem('access_token')}
+      axios.delete('http://localhost:3000/users/logout', { headers: { access_token: localStorage.getItem('access_token') }
       })
         .then(({ data }) => {
           console.log(data)
@@ -105,24 +105,23 @@ export default new Vuex.Store({
         })
     },
     fetchCart (context, payload) {
-      axios.get('http://localhost:3000/users/cart', { headers: { access_token: localStorage.getItem('access_token')}
+      axios.get('http://localhost:3000/users/cart', { headers: { access_token: localStorage.getItem('access_token') }
       })
-          .then(({ data }) => {
-            console.log(data, 'ini data cart')
-            context.commit('insertCart', data.cart)
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        .then(({ data }) => {
+          console.log(data, 'ini data cart')
+          context.commit('insertCart', data.cart)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    reduceQty(context, payload) {
+    reduceQty (context, payload) {
       console.log('masuk store')
       axios.put('http://localhost:3000/users/cart', {
         product: payload
-      }, { headers: { access_token: localStorage.getItem('access_token')}
-    })
-        .then(({ data }) => {
-          context.commit('insertCart', data.cart)
+      }, { headers: { access_token: localStorage.getItem('access_token') }
+      })
+        .then(_ => {
         })
         .catch(err => {
           console.log(err)

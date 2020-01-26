@@ -68,11 +68,15 @@ export default {
   name: 'CartPage',
   created: function () {
     this.$store.dispatch('fetchCart')
-    this.total()
+    this.cart
   },
   computed: {
     cart () {
-      return this.$store.state.cart
+        let sortedQty = this.$store.state.cart.filter(item => {
+          this.tempCart = this.$store.state.cart
+          return item.quantity > 0
+        })
+        return sortedQty
     },
     totalCost () {
       let totalPrice = 0
@@ -105,10 +109,15 @@ export default {
       this.$store.dispatch('fetchCart')
     },
     minusQty (qty, stock, productId) {
-      this.$store.dispatch('reduceQty', productId)
+      if (stock >= (qty - 1)) {
+        this.$store.dispatch('reduceQty', productId)
+        this.$store.dispatch('fetchCart')
+        Swal.fire('Nice', 'Quantity -1', 'success')
+      } else {
+        Swal.fire('Oops..', 'Insufficient stock', 'error')
+      }
       this.$store.dispatch('fetchCart')
-      Swal.fire('Nice', 'Quantity -1', 'success')
-    },
+    }
   }
 }
 </script>
