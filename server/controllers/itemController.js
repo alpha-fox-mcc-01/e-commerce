@@ -1,8 +1,11 @@
 const Item = require('../models/itemModel')
 
 class ItemController {
-
    static add(req, res, next) {
+      // console.log(req.file.cloudStoragePublicUrl, '{}{}{}')
+      console.log(req.body);
+      
+      
       let newData = {
          name: req.body.name,
          description: req.body.description,

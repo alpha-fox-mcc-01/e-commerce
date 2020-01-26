@@ -1,8 +1,9 @@
-const express = require ('express')
+const express = require('express')
 const router = express.Router()
-const ItemController = require ('../controllers/itemController')
+const ItemController = require('../controllers/itemController')
 const authentication = require('../middlewares/authentication')
-const authorization = require ('../middlewares/authorization')
+const authorization = require('../middlewares/authorization')
+const images = require('../middlewares/images')
 
 router.post('/', authentication, authorization, ItemController.add)
 router.get('/', ItemController.getAll)
