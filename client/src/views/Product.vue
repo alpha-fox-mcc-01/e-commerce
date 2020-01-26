@@ -7,11 +7,7 @@
           <b-tab title="Computer" active>
             <b-card-body>
               <b-row>
-                <b-col
-                  v-for="(product, i) in products"
-                  :key="i"
-                  v-if="product.category === 'computer'"
-                >
+                <b-col v-for="(product, i) in filteredProduct('computer')" :key="i">
                   <ProductItem :product="product" :title="product.name" />
                 </b-col>
               </b-row>
@@ -53,6 +49,11 @@ export default {
   },
   created() {
     this.$store.dispatch('fetchProducts')
+  },
+  methods: {
+    filteredProduct(category) {
+      return products.filter(product => product.category === 'category')
+    }
   }
 }
 </script>
