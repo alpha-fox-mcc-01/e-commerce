@@ -2,7 +2,7 @@ module.exports = (err, req, res, next) => {
   let status = 500
   let message = 'Internal Server Error'
   let errors 
-  // console.log(err, 'ini di error handler')
+  console.log(err.name, 'ini di error handler')
 
   if(err.name === 'ValidationError') {
     status = 400
@@ -35,6 +35,11 @@ module.exports = (err, req, res, next) => {
     res.status(401).json({
       error: err.msg,
       msg: `You don\'t have access to modify ${err.desc} data`
+    })
+  } else if (err.name === 'JsonWebTokenError') {
+    res.status(401).json({
+      error: err.message,
+      msg: `Please input token to input product`
     })
   } else{
     res.status(status).json({

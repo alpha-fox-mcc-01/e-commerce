@@ -75,7 +75,7 @@ export default {
           //     }, 3000)
         })
         .catch(err => {
-          console.log(err.response)
+          console.log(err.response.data)
         })
     },
     toRegister () {

@@ -16,7 +16,15 @@ export default {
     carousel,
     product,
     'n-navbar': navbar
-  }
+  },
+  created() {
+    this.$store.dispatch('fetchProduct')
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  },
 }
 </script>
 
