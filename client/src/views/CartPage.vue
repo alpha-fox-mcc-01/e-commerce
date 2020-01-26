@@ -76,9 +76,7 @@ export default {
   },
   computed: {
     cart () {
-      if (this.$store.state.cart.length > 0) {
-        return this.$store.state.cart
-      } 
+      return this.$store.state.cart
     }
   },
   methods: {
@@ -96,7 +94,9 @@ export default {
       this.$store.dispatch('fetchCart')
     },
     minusQty (qty, stock, productId) {
-
+      this.$store.dispatch('reduceQty', productId)
+      this.$store.dispatch('fetchCart')
+      Swal.fire('Nice', 'Quantity -1', 'success')
     }
   }
 }

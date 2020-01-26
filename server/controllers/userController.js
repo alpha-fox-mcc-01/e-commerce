@@ -121,9 +121,33 @@ module.exports =  {
             .catch(err => {
                 next(err)
             })
+    },
+    editCart(req, res, next) {
+        User.findOne({ _id: req.currentUserId})
+            .then(user => {
+                console.log(user, 'masuk editCart')
+                user.cart.forEach(item => {
+                    console.log(item.product,'item' , req.body.product, 'dari payload')
+                    if (item.product == req.body.product) {
+                        let newQty = item.quantity -= 1
+                        User.updateOne({
+                          'cart.product': item.product
+                        }, {
+                            '$set': {
+                                'cart.$.quantity': newQty,
+                            }
+                        })
+                        .then((data) =>{
+                            res.status(200).json({message: 'Quantity successfully substracted!'})
+                         })
+                         .catch(err =>{
+                             next(err)
+                         })
+                    }
+                })
+            })
+            .catch(err =>{
+                next(err)
+            })
     }
-
-
-    
-
 }

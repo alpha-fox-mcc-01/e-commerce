@@ -12,7 +12,7 @@ router.get('/:id', productController.getProductDetail)
 router.get('/search/:name', productController.searchProduct)
 router.use(authentication, authorization)
 router.post('/', uploadImage.multer.single('image'), uploadImage.sendUploadToGCS,productController.addProduct)
-router.put('/:id', productController.editProduct)
+router.put('/', productController.editProduct)
 router.delete('/:id', productController.removeProduct)
 
 

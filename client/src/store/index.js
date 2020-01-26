@@ -114,7 +114,21 @@ export default new Vuex.Store({
           .catch(err => {
             console.log(err)
           })
+    },
+    reduceQty(context, payload) {
+      console.log('masuk store')
+      axios.put('http://localhost:3000/users/cart', {
+        product: payload
+      }, { headers: { access_token: localStorage.getItem('access_token')}
+    })
+        .then(({ data }) => {
+          context.commit('insertCart', data.cart)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
+
   },
   modules: {
 

@@ -9,6 +9,7 @@ router.use(authentication)
 router.post('/cart', userController.addCart)
 router.delete('/logout', userController.removeCart)
 router.get('/cart', userController.fetchCart)
+router.put('/cart', userController.editCart)
 
 
 
