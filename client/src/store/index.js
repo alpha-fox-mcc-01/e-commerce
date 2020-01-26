@@ -41,8 +41,20 @@ export default new Vuex.Store({
     },
     fetchOneProduct({ commit }, id) {
       return axios({
-        method: 'GET',
+        method: 'get',
         url: 'http://localhost:3000/api/product/' + id
+      })
+    },
+    updateOneProductStock({ commit }, data) {
+      return axios({
+        method: 'patch',
+        url: 'http://localhost:3000/api/product/' + data.id,
+        data: {
+          stock: data.oldStock - data.sub
+        },
+        headers: {
+          "access_token": localStorage.getItem('access_token')
+        }
       })
     },
     login({ commit }, user) {

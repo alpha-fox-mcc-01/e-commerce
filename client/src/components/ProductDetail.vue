@@ -61,14 +61,9 @@ export default {
         })
     },
     addToCart () {
-      return this.$store.dispatch('addToCart', {id: this.$route.params.id, qty: this.qty})
+      this.$store.dispatch('addToCart', {id: this.$route.params.id, qty: this.qty})
     }
   },
-  // computed: {
-  //   UserId() {
-  //     return this.$store.state.userId
-  //   }
-  // },
   created () {
     this.fetchProduct()
     console.log(this.$route.params.id)
