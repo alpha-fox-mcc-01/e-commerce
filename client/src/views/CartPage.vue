@@ -70,47 +70,45 @@ export default {
     this.$store.dispatch('fetchCart')
     this.total()
   },
-  data () {
-    return {
-      totalCost: '',
-      totalItem: ''
-    }
-  },
   computed: {
     cart () {
       return this.$store.state.cart
+    },
+    totalCost () {
+      let totalPrice = 0
+      this.cart.forEach(item => {
+        if (item.quantity > 0) {
+          totalPrice += (Number(item.product.price) * Number(item.quantity))
+        }
+      })
+      return totalPrice
+    },
+    totalItem () {
+      let totalQty = 0
+      this.cart.forEach(item => {
+        if (item.quantity > 0) {
+          totalQty += Number(item.quantity)
+        }
+      })
+      return totalQty
     }
+
   },
   methods: {
     addQty (qty, stock, productId) {
       if (stock >= (qty + 1)) {
         this.$store.dispatch('addToCart', productId)
         this.$store.dispatch('fetchCart')
-        this.total()
       } else {
         Swal.fire('Oops..', 'Insufficient stock', 'error')
       }
       this.$store.dispatch('fetchCart')
-      this.total()
     },
     minusQty (qty, stock, productId) {
       this.$store.dispatch('reduceQty', productId)
       this.$store.dispatch('fetchCart')
       Swal.fire('Nice', 'Quantity -1', 'success')
-      this.total()
     },
-    total () {
-      let totalPrice = 0
-      let totalQty = 0
-      this.cart.forEach(item => {
-        if (item.quantity > 0) {
-          totalPrice += (Number(item.product.price) * Number(item.quantity))
-        }
-        totalQty += Number(item.quantity)
-      })
-      this.totalCost = totalPrice
-      this.totalItem = totalQty
-    }
   }
 }
 </script>
