@@ -96,6 +96,7 @@ export default {
             console.log(data);
             this.email = "";
             this.password = "";
+            this.$store.commit('checkLogin')
             this.$router.push('/')
             // this.changePage("home");
           }

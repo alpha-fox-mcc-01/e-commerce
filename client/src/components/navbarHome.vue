@@ -26,10 +26,11 @@
     <li class="nav-item mr-3  ">
      <router-link to="cart">Cart</router-link>
     </li>
-    <li class="nav-item" v-if="page == 'login'"> 
+    <li class="nav-item" v-if="check"> 
      <router-link to="login" >logIn</router-link>
     </li>
   </ul>
+
 </nav>
 </div>
 </div>
@@ -41,16 +42,18 @@ export default {
   name: 'navbarhome', 
   data () {
     return {
-      page: ''
+      page: true
     }
   },
   computed:{
     check(){
-      if (localStorage.getItem('access_token')) {
-      return this.page = ''
-    } else {
-      return this.page = 'login'
-    }
+    // if (localStorage.getItem('access_token')) {
+    //   return false
+    // } else {
+    //   return true
+    // } 
+    console.log(this.$store.state.isLogin, '{}{}{}{}{');
+     return this.$store.state.isLogin
     }
   },
   created: function(){

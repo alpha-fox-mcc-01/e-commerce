@@ -6,7 +6,8 @@ import axios from '../api/axiosInstance'
 export default new Vuex.Store({
   state: {
     cartData: [],
-    userData: {}
+    userData: {},
+    isLogin: true
   },
   mutations: {
     setUserData(state, payload){
@@ -14,7 +15,13 @@ export default new Vuex.Store({
       state.userData = payload
       state.cartData = payload.cart
       console.log(state.userData)
+    },
+    checkLogin(state){
+        state.isLogin = false
+        console.log('sampe mutation');
+        
     }
+
   },
   actions: {
     getUser(context){

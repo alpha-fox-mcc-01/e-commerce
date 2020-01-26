@@ -101,7 +101,7 @@ class userController {
                 })
 
             }else if(result.length == 0){
-                console.log('masuk kesini ke else');
+                console.log('masuk ke else product blm ada');
                 
                 User.updateOne(
                     { _id: req.currentUserid },

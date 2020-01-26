@@ -10,3 +10,6 @@ router.get('/cart', authenticatedUser, userController.getCart)
 
 
 module.exports = router
+
+//verifikasi stock di add langsung
+//node mailer kalo sempet
