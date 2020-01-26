@@ -5,6 +5,8 @@ const authenticated = require ('../middlewares/authentication')
 
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
-router.post('/addCart', authenticated, UserController.addCart)
+router.post('/addcart', authenticated, UserController.addCart)
+router.delete('/delete/:cartId', authenticated, UserController.deleteCart)
+router.get('/getcart', authenticated, UserController.getCart)
 
 module.exports = router

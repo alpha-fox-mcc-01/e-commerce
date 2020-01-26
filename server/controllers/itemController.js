@@ -7,7 +7,8 @@ class ItemController {
          name: req.body.name,
          description: req.body.description,
          price: req.body.price,
-         stock: req.body.stock
+         stock: req.body.stock,
+         image: req.body.image
       }
       Item.create(newData)
          .then(data => {

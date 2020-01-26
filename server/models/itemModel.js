@@ -14,6 +14,9 @@ const itemSchema = new Schema({
       type : Number,
       required : true
    },
+   image : {
+      type :String
+   },
    stock : {
       type : Number,
       required : true,

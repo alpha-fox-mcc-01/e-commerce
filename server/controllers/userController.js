@@ -115,6 +115,31 @@ class UserController {
          })
    }
 
+   static deleteCart (req, res, next) {
+      const idCart = req.params.cartId
+      User.findOneAndUpdate({
+         _id : req.currentUserId
+      }, {
+        $pull : {'cart': {_id : idCart}} 
+      })
+         .then(data => {
+            res.status(200).json(data)
+         })
+         .catch (err => {
+            // console.log(err);
+            next(err)
+         })
+   }
+
+   static getCart (req, res, next) {
+      User.findOne ({_id : req.currentUserId}).populate('cart.item')
+         .then(data => {
+            res.status(200).json(data)
+         })
+         .catch (err => {
+            next(err)
+         })
+   }
 }
 
 module.exports = UserController
