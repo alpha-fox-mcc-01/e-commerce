@@ -3,28 +3,33 @@ const expect = chai.expect;
 const chaiHttp = require('chai-http');
 const app = require('../app');
 const { Product } = require('../models');
+const { User } = require('../models');
+const jwt = require('jsonwebtoken');
 
 chai.use(chaiHttp);
 
-describe.only('Product Routing', function() {
-  describe('/product', function() {
+describe('Product Routing', function() {
+  describe.only('/product', function() {
+    let access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTI3MWI4Y2UxZWNkZjdiYzQwNDMzZTciLCJpYXQiOjE1Nzk2MjE0Mjd9.-2M-nVCambGvFHlqekXFDCNEN2ZOpVTyLJ3rDrEmGTc";
+    let false_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTI3MWJlMmUxYmJhMzdiZWFhOTdjZWEiLCJpYXQiOjE1Nzk2MjEzNzN9.Ctb9dtSy4_1NoFkiG3O7ckKI7R393GsiNI5GidAyDpA";
 
     // Case add product
     it('should have status 201 and return new Product data (_id, name, description, image, price, stock)', function(done) {
       chai.request(app)
         .post('/product')
         .set({
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTI1Y2JlMTg5NjJiOTRmNWNiOTNkNGUiLCJpYXQiOjE1Nzk1MzU1ODh9.rlKG4YHuTe6M4xjq_VSurj26TxoUcO0YhpVbm8aihKg'
+          access_token: access_token
         })
         .send({
-          name: 'jam tangan',
-          description: 'Barang untuk menunjukan waktu',
-          image: 'https://i.pinimg.com/originals/33/b8/69/33b869f90619e81763dbf1fccc896d8d.jpg',
+          name: 'barang bagus',
+          description: 'Barang yang sangat bagus',
+          image: 'https://www.freelogodesign.org/Content/img/logo-samples/celtica.png',
           price: 10000,
           stock: 1
         })
         .end((err, res) => {
           console.log(res.body);
+          productId = res.body._id;
           expect(err).to.be.null;
           expect(res).to.have.status(201);
           expect(res.body).to.have.property('_id');
@@ -37,10 +42,36 @@ describe.only('Product Routing', function() {
         })
     })
 
+    // Case add product but not an admin and return unauthorized error
+    it('should have status 401 and return error unauthorized if invalid access_token', function(done) {
+      chai.request(app)
+        .post('/product')
+        .set({
+          access_token: false_token
+        })
+        .send({
+          name: 'jam tangan',
+          description: 'Barang untuk menunjukan waktu',
+          image: 'https://i.pinimg.com/originals/33/b8/69/33b869f90619e81763dbf1fccc896d8d.jpg',
+          price: 10000,
+          stock: 1
+        })
+        .end((err, res) => {
+          console.log(res.body);
+          expect(err).to.be.null;
+          expect(res).to.have.status(401);
+          expect(res.body).to.have.own.property('msg').to.equal('You are not authorized to take this action');
+          done();
+        })
+    })
+
     // Case stock below 1
     it('should have status 400 and return error validation if stock < 1', function(done) {
       chai.request(app)
         .post('/product')
+        .set({
+          access_token: access_token
+        })
         .send({
           name: 'jam tangan',
           description: 'Barang untuk menunjukan waktu',
@@ -63,6 +94,9 @@ describe.only('Product Routing', function() {
     it('should have status 400 and return error validation if stock < 1', function(done) {
       chai.request(app)
         .post('/product')
+        .set({
+          access_token: access_token
+        })
         .send({
           name: 'jam tangan',
           description: 'Barang untuk menunjukan waktu',
@@ -84,6 +118,9 @@ describe.only('Product Routing', function() {
     it('should have status 400 and return error validation if required field left empty', function(done) {
       chai.request(app)
         .post('/product')
+        .set({
+          access_token: access_token
+        })
         .send({
           name: '',
           description: '',
@@ -105,6 +142,7 @@ describe.only('Product Routing', function() {
         })
     })
 
+    // Case fetch all product
     it('should have status 200 and return all Products data', function(done) {
       chai.request(app)
         .get('/product')
@@ -121,6 +159,9 @@ describe.only('Product Routing', function() {
     
   })
 
+
+  // =========================
+  // Product Update and delete
   describe('/product/:id', function() {
 
     // Case update a product successfully
@@ -157,7 +198,7 @@ describe.only('Product Routing', function() {
     })
 
     // Case delete product that doesn't exist
-    it.only('should have status 400 and return error bad request if product does not exist', function(done) {
+    it('should have status 400 and return error bad request if product does not exist', function(done) {
       chai.request(app)
         .delete('/product/5e25c6fc062fe04d56446694')
         .end((err, res) => {

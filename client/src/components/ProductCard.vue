@@ -4,7 +4,7 @@
       <img class="card-img-top" :src="product.image" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ product.price }}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Rp {{ productPrice }}</h6>
       </div>
     </div>
   </div>
@@ -15,6 +15,11 @@ export default {
   name: 'ProductCard',
   props: {
     product: Object,
+  },
+  computed: {
+    productPrice() {
+      return new Intl.NumberFormat(['ban', 'id']).format(this.product.price);
+    },
   },
   methods: {
     showDetail(id) {
@@ -27,9 +32,16 @@ export default {
 <style scoped>
   .card{
     max-width: 100%;
+    max-height: 40vw;
   }
 
   .pointer{
     cursor: pointer;
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: 20vw;
+    object-fit: cover;
   }
 </style>

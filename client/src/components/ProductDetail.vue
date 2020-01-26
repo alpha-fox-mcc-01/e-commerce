@@ -1,32 +1,40 @@
 <template>
-  <div class="container mt-5">
+  <div class="container mt-5 mb-5">
     <div class="row">
-      <div class="col-lg-6 border">
+      <div class="col-lg-6 border mb-4 p-5 shadow">
         <img :src="product.image" alt="Product image">
       </div>
       <div class="col-lg-6 justify-content-center flex-row">
         <div class="container-fluid">
-          <div class="row justify-content-end">
-            <div class="col-4">
-              <h3>Nama</h3>
+          <div class="row border-bottom">
+            <div class="col-4 text-left">
+              <h4>Nama</h4>
             </div>
-            <div class="col-8">
+            <div class="col-8 text-left product-name">
               <h3>{{ product.name }}</h3>
             </div>
           </div>
-          <div class="row">
-            <div class="col-4">
-              <h3>Harga</h3>
+          <div class="row border-bottom">
+            <div class="col-4 text-left">
+              <h6>Description</h6>
             </div>
-            <div class="col-8">
+            <div class="col-8 text-left">
+              <p>{{ product.description }}</p>
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <div class="col-4 text-left">
+              <h6>Price</h6>
+            </div>
+            <div class="col-8 text-left">
               <p>{{ product.price }}</p>
             </div>
           </div>
-          <div class="row">
-            <div class="col-4">
-              <h3>Stock</h3>
+          <div class="row border-bottom">
+            <div class="col-4 text-left">
+              <h6>Stock</h6>
             </div>
-            <div class="col-8">
+            <div class="col-8 text-left">
               <p>{{ product.stock }}</p>
             </div>
           </div>
@@ -69,5 +77,9 @@ export default {
 <style scoped>
   img {
     max-width: 100%;
+  }
+
+  .product-name {
+    color: red;
   }
 </style>

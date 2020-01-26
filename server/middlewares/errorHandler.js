@@ -3,7 +3,7 @@ module.exports = (err, req, res, next) => {
   let status = 500;
   let message = 'Internal Server Error';
   let errors = [];
-  console.log(err.name)
+  console.log(err)
 
   if(err.name === 'ValidationError') {
     status = 400

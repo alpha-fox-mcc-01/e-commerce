@@ -21,13 +21,22 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
   },
   {
+    path: '/cart',
+    name: 'cart',
+    component: () => import(/* webpackChunkName: "cart" */ '../views/Cart.vue'),
+  },
+  {
     path: '/product',
     name: 'product',
     component: () => import(/* webpackChunkName: "product" */ '../views/Product.vue'),
     children: [
       {
+        path: '',
+        component: () => import(/* webpackChunkName: "product" */ '../components/AllCard.vue'),
+      },
+      {
         path: ':id',
-        component: () => import(/* webpackChunkName: "ProductDetail" */ '../views/ProductDetail.vue'),
+        component: () => import(/* webpackChunkName: "ProductDetail" */ '../components/ProductDetail.vue'),
       },
     ],
   },

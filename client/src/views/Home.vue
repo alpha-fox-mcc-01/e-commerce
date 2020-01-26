@@ -4,7 +4,7 @@
     </div>
     <h1 class="display-4">New Year 2020 SALE</h1>
     <div class="container">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center mb-5">
         <ProductCard
           v-for="product in productsStarter" :key="product._id"
           :product="product"/>
@@ -29,6 +29,11 @@ export default {
   },
   components: {
     ProductCard,
+  },
+  created() {
+    if (localStorage.getItem('access_token')) {
+      this.$store.commit('changeIsLogin', true);
+    }
   },
 };
 </script>

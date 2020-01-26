@@ -24,7 +24,7 @@ const productSchema = new Schema({
     required: 'Product stock is required',
     min: [1, 'Minimum stock is 1']
   }
-})
+}, { timestamps: true })
 
 
 const Product = mongoose.model('Product', productSchema);

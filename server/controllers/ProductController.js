@@ -17,7 +17,7 @@ class ProductController {
   }
 
   static showAll(req, res, next) {
-    Product.find()
+    Product.find().sort({ createdAt: -1 })
       .then(products => {
         res.status(200).json(products)
       })
@@ -25,7 +25,7 @@ class ProductController {
   }
 
   static homeProducts(req, res, next) {
-    Product.find().limit(12)
+    Product.find().sort({ createdAt: -1 }).limit(12)
       .then(products => {
         res.status(200).json(products)
       })

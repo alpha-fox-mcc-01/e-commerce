@@ -1,24 +1,16 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <nav class="navbar navbar-light bg-light justify-content-start">
-        <div class="container">
-          <a class="navbar-brand" href="#">VAN</a>
-          <router-link class="nav-link" to="/">Home</router-link>
-          <router-link class="nav-link ml-auto" to="/login">Sign In</router-link>
-        </div>
-      </nav>
-    </div>
+    <Navbar />
     <router-view
       :products="products"
       :productsStarter="productsStarter"
-      @fetchProducts="fetchProducts"
     />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Navbar from './components/Navbar.vue';
 
 export default {
   data() {
@@ -28,19 +20,10 @@ export default {
       product: {},
     };
   },
+  components: {
+    Navbar,
+  },
   methods: {
-    fetchProducts() {
-      axios({
-        method: 'GET',
-        url: 'http://localhost:3000/product',
-      })
-        .then(({ data }) => {
-          this.products = data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     homeProducts() {
       axios({
         method: 'GET',
@@ -56,7 +39,6 @@ export default {
   },
   created() {
     this.homeProducts();
-    this.fetchProducts();
   },
 };
 </script>

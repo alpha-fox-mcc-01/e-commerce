@@ -2,6 +2,7 @@ const { User } = require('../models');
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
+  console.log(req.headers.access_token)
   const userToken = req.headers.access_token;
   if(userToken) {
     const authenticated = jwt.verify(userToken, process.env.SECRET)
@@ -25,7 +26,7 @@ module.exports = (req, res, next) => {
       next({
         name: "Bad Request",
         message: 'Invalid token',
-        status: 401
+        status: 400
       })
     }
   }
