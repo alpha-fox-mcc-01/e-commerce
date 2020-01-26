@@ -1,15 +1,21 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm">
-        <wineItem v-for="wine in wines" :key="wine.id" />
-      </div>
-    </div>
+  <div class="container mt-5">
+
+    <h1>our products</h1>
+    <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, perspiciatis!</h5>
+  <router-view :wines="wines"/>
+    <!-- <div class="row mt-5">
+
+        <wineItem 
+        v-for="wine in wines" :key="wine.id" 
+        :wine="wine"
+        />
+
+    </div> -->
   </div>
 </template>
 
 <script>
-import wineItem from '@/components/wineItem'
 import axios from '../api/axiosInstance'
 export default {
   name: 'winesPage',
@@ -19,13 +25,12 @@ export default {
     }
   },
   components: {
-    wineItem
   },
   methods: {
     getWines () {
       axios({
-        method: 'GET',
-        url: `/product`
+        method: 'get',
+        url: '/product'
       })
         .then(({ data }) => {
           // handle success

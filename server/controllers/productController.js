@@ -1,8 +1,10 @@
 const Product = require('../models/product')
 
 class productController{
-
+    
     static get(req, res, next){
+        // console.log('masuk db');
+        // res.send('masuk nih')
         Product.find()
         .then(data =>{
             res.status(200).json(data)

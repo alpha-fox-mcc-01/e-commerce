@@ -13,6 +13,7 @@ app.use(express.urlencoded({extended: false}))
 var cors = require('cors')
 app.use(cors())
 
+
 const db = require('./config/db')
 db.mongoosedb()
 

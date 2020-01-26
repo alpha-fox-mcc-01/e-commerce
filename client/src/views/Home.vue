@@ -22,6 +22,12 @@ export default {
     productShowcase,
     parallaxProm,
     reviewSection,
+  },
+  created: function(){
+    if(localStorage.getItem('access_token')){
+      this.$store.dispatch('getUser')
+    }  
+                       
   }
 }
 </script>

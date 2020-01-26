@@ -2,7 +2,7 @@
   <div id="app">
 
     <navbarHome/>
-    {{test}}
+   
 
     <router-view />
    

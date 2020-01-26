@@ -2,7 +2,7 @@
   <div class="container mt-5 mb-5">
     <carousel>
       <slide>
-        <img src="../assets/wine_1.png" alt />
+         <img src="../assets/wine_1.png" alt />
         <div>
           <h3 class="heading mb-1">
             <a href="#" @click.prevent="showDetail">Trius Cabernet France 2011</a>

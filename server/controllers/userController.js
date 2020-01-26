@@ -58,6 +58,9 @@ class userController {
     }
     static add (req, res, next){
         
+        console.log(req.body.product, 'ini product id nya');
+        
+
         let obj={
             product: req.body.product,
             jumlah: 1   
@@ -71,9 +74,11 @@ class userController {
             _id:req.currentUserid
         })
         .then(user =>{
+            // console.log(user);
+            
             const result = user.cart.filter(item => item.product == req.body.product);
             
-            // console.log(result.length, 'ini result');
+            console.log(result, 'ini result');
             if(result.length > 0){
                 console.log(result[0].jumlah, "[][][][][]");
                 let plus = result[0].jumlah +=1
@@ -143,9 +148,12 @@ class userController {
     static getCart (req, res, next){
 
         User.findById({
-            _id:req.currentUserid
-        }).populate('cart.product')
+            _id:req.currentUserid   
+        })
+        .populate('cart.product')
         .then(data => {
+            console.log(data);
+            
             res.status(200).json({ data })
 
         })
