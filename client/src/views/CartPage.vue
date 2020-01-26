@@ -27,7 +27,7 @@
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" @click="addQty(item.quantity, item.product.stock, item.product._id)">
         +
         </button></td>
-      <td class="px-4 py-2">IDR800000</td>
+      <td class="px-4 py-2">IDR {{(item.quantity * item.product.price)}}</td>
       <td class="px-4 py-2"><img id="trashicon" src="https://cdn1.iconfinder.com/data/icons/interface-line-3/64/Interface_Outline-39-512.png"></td>
     </tr>
   </tbody>
@@ -44,11 +44,11 @@
       <tbody>
         <tr>
           <td class="px-4 py-2">Total Items:</td>
-          <td class="px-4 py-2">2</td>
+          <td class="px-4 py-2">{{totalItem}}</td>
         </tr>
         <tr class="bg-gray-100">
           <td class="px-4 py-2">Total Cost:</td>
-          <td class="px-4 py-2">IDR800000</td>
+          <td class="px-4 py-2">IDR{{totalCost}}</td>
         </tr>
         <tr>
          <td class="px-4 py-2"></td>
@@ -68,10 +68,12 @@ export default {
   name: 'CartPage',
   created: function () {
     this.$store.dispatch('fetchCart')
+    this.total()
   },
   data () {
     return {
-      isEmpty: false
+      totalCost: '',
+      totalItem: ''
     }
   },
   computed: {
@@ -82,21 +84,32 @@ export default {
   methods: {
     addQty (qty, stock, productId) {
       if (stock >= (qty + 1)) {
-        console.log(qty, 
-      'vs', stock)
         this.$store.dispatch('addToCart', productId)
         this.$store.dispatch('fetchCart')
+        this.total()
       } else {
-       console.log(qty, 
-      'vs', stock)
         Swal.fire('Oops..', 'Insufficient stock', 'error')
       }
       this.$store.dispatch('fetchCart')
+      this.total()
     },
     minusQty (qty, stock, productId) {
       this.$store.dispatch('reduceQty', productId)
       this.$store.dispatch('fetchCart')
       Swal.fire('Nice', 'Quantity -1', 'success')
+      this.total()
+    },
+    total () {
+      let totalPrice = 0
+      let totalQty = 0
+      this.cart.forEach(item => {
+        if (item.quantity > 0) {
+          totalPrice += (Number(item.product.price) * Number(item.quantity))
+        }
+        totalQty += Number(item.quantity)
+      })
+      this.totalCost = totalPrice
+      this.totalItem = totalQty
     }
   }
 }
