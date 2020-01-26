@@ -1,7 +1,7 @@
 <template>
   <div id="store-items">
     <div class="container">
-      <div class="row">
+      <div class="row no-gutters">
 
         <StoreCard 
         v-for="item in items"
