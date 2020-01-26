@@ -2,54 +2,23 @@
   <div id="app">
     <div class="container" id="home">
       <div class="card center" id='landing-card' style="width: 90rem; height: 80vh;">
-        <Navbar @searchProducts="searchProducts"/>
-        <router-view  :products='products' @getProducts='getProducts'/>
+        <Navbar />
+        <router-view />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import Navbar from '@/components/Navbar'
 export default {
   name: 'app',
-  data () {
-    return {
-      products: []
-    }
-  },
-  methods: {
-    getProducts () {
-      axios({
-        method: 'GET',
-        url: 'http://localhost:3000/products'
-      })
-        .then(({ data }) => {
-          this.products = data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    searchProducts (keyword) {
-      axios({
-        method: 'GET',
-        url: 'http://localhost:3000/products/?keyword=' + keyword
-      })
-        .then(({ data }) => {
-          this.products = data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  },
   components: {
     Navbar
   },
   created () {
-    this.getProducts()
+    this.$store.dispatch('getProducts')
+    this.$store.dispatch('getCategories')
   }
 }
 </script>

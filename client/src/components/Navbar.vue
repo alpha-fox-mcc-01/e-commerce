@@ -6,7 +6,7 @@
       <router-link to="/register">Sign Up</router-link> -->
     </div>
     <div class='col-md-6'>
-      <form @submit.prevent="$emit('searchProducts', keyword)">
+      <form @submit.prevent="searchProducts">
         <div class="input-group mb-3">
           <input type="text" v-model='keyword' class="form-control" placeholder="Find an item..." aria-label="Recipient's username" aria-describedby="basic-addon2">
           <div class="input-group-append">
@@ -30,6 +30,11 @@ export default {
   data () {
     return {
       keyword: ''
+    }
+  },
+  methods: {
+    searchProducts () {
+      this.$store.dispatch('searchProducts', this.keyword)
     }
   }
 }

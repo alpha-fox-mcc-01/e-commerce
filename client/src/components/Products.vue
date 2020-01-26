@@ -12,9 +12,13 @@
 import ProductCard from '@/components/ProductCard.vue'
 export default {
   name: 'Products',
-  props: ['products'],
   components: {
     ProductCard
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
   }
 }
 </script>

@@ -69,5 +69,24 @@ module.exports = {
             .catch(err => {
                 next(err)
             })
+    },
+    getCategories(req, res, next) {
+        // console.log('wazzup')
+        Product.distinct('category')
+            .then(categories => {
+                res.status(200).json(categories)
+            })
+            .catch(err => {
+                next(err)
+            })
+    },
+    getOneCategory(req, res, next) {
+        Product.find({category: req.params.category})
+            .then(data => {
+                res.status(200).json(data)
+            })
+            .catch(err => {
+                next(err)
+            })
     }
 }

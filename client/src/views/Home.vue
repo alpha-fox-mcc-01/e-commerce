@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class='row' style='margin-top: 2rem;'>
         <Explore />
-        <Products :products="products"/>
+        <Products />
       </div>
     </div>
   </div>
@@ -20,16 +20,10 @@ export default {
     // HelloWorld
     Explore,
     Products
-  },
-  props: ['products'],
-  methods: {
-    getProducts () {
-      this.$emit('getProducts')
-    }
-  },
-  created () {
-    this.getProducts()
   }
+  // created () {
+  //   this.getProducts()
+  // }
 }
 </script>
 
