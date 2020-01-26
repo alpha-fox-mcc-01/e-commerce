@@ -44,10 +44,15 @@ export default new Vuex.Store({
     searchItem (context, payload) {
       axios.get(`http://localhost:3000/products/search/${payload}`)
         .then(({ data }) => {
-          context.commit('insertProductDetail', data.result)
+          if(data.result.length > 0 || data.result) {
+            router.push('/products/' + data.result[0]._id)
+          } else {
+            Swal.fire('Oops', `We can't find what you're looking for`, 'error')
+          }
+         
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire('Oops', `Product not found, try another keyword`, 'error')
         })
     },
     userLogin (context, payload) {

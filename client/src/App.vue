@@ -25,7 +25,6 @@ export default {
   },
   created: function () {
     this.$store.dispatch('getProducts')
-    this.$store.dispatch('fetchCart')
   }
 }
 </script>
