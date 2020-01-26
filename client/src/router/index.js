@@ -34,18 +34,17 @@ const routes = [
     ]
   },
   {
-    path: '/test',
-    name: 'test',
+    path: '/cart',
+    name: 'cart',
     // route level code-splitting
     // this generates a separate chunk (test.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "test" */ '../views/Test.vue'),
-    children: [
-      {
-        path: 'a',
-        component: () => import(/* webpackChunkName: "test" */ '../components/a')
-      }
-    ]
+    component: () => import(/* webpackChunkName: "test" */ '../views/Cart.vue'),
+    beforeEnter: (to, from, next) => {
+      const UserId = localStorage.getItem('activeUserId')
+      if (!UserId) next('/')
+      else next()
+    }
   }
 ]
 

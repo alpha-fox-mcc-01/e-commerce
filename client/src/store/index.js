@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     access_token: localStorage.getItem('access_token'),
     products: [],
-    userId: ''
+    userId: localStorage.getItem('activeUserId')
   },
   mutations: {
     stateToken(state, token) {
@@ -18,11 +18,13 @@ export default new Vuex.Store({
     removeToken(state) {
       state.access_token = ''
       localStorage.removeItem('access_token')
+      localStorage.removeItem('activeUserId')
     },
     setProduct(state, products) {
       state.products = products
     },
     setUserId(state, user_id) {
+      localStorage.setItem('activeUserId', user_id)
       state.userId = user_id
     }
   },
@@ -58,12 +60,30 @@ export default new Vuex.Store({
         method: 'post',
         url: 'http://localhost:3000/cart',
         data: {
-          UserId: this.userId,
+          UserId: this.state.userId,
           ProductId: data.id,
           quantity: data.qty
         },
         headers: {
           'access_token': localStorage.getItem('access_token')
+        }
+      })
+    },
+    fetchCart() {
+      return axios({
+        method: 'get',
+        url: 'http://localhost:3000/cart/' + this.state.userId,
+        headers: {
+          'access_token': this.state.access_token
+        }
+      })
+    },
+    deleteFromCart({ commit }, id) {
+      return axios({
+        method: 'delete',
+        url: 'http://localhost:3000/cart/' + id,
+        headers: {
+          'access_token': this.state.access_token
         }
       })
     }

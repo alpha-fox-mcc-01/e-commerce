@@ -27,6 +27,7 @@
           >Login</b-button>
 
           <b-nav-item-dropdown v-if="access_token" text="User" right>
+            <b-dropdown-item @click="toCart">Cart</b-dropdown-item>
             <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -52,9 +53,13 @@ export default {
     },
     logout () {
       this.$store.commit('removeToken')
+      this.$router.push('/')
     },
     catchError(err) {
       this.$emit('error-message', err)
+    },
+    toCart() {
+      this.$router.push('/cart')
     }
   }
 }

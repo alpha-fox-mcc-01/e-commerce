@@ -66,18 +66,9 @@ export default {
         this.$emit("got-error", "Password can't be blank")
       }   
       else {
-        // axios({
-        //   method: 'post',
-        //   url: 'http://localhost:3000/login',
-        //   data: {
-        //     email: this.email,
-        //     password: this.password
-        //   }
-        // })
         this.$store.dispatch('login', {email: this.email, password: this.password})
 
         .then(success => {
-          console.log('sukses login', success)
           this.$store.commit('stateToken', success.data.access_token)
           this.$store.commit('setUserId', success.data.userId)
           this.hide ()
