@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '@/router/index.js'
-Vue.use(Vuex)
 import Swal from 'sweetalert2'
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
@@ -39,14 +39,14 @@ export default new Vuex.Store({
     },
     searchItem (context, payload) {
       axios.get(`http://localhost:3000/products/search/${payload}`)
-      .then(({ data }) => {
-        context.commit('insertProductDetail', data.result)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(({ data }) => {
+          context.commit('insertProductDetail', data.result)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    userLogin(context, payload) {
+    userLogin (context, payload) {
       axios.post('http://localhost:3000/users/login', {
         email: payload.email,
         password: payload.password
@@ -61,32 +61,44 @@ export default new Vuex.Store({
           Swal.fire('Login failed', `Username/password wrong: ${err}`, 'error')
         })
     },
-    userRegister(context, payload) {
+    userRegister (context, payload) {
       axios.post('http://localhost:3000/users/register', {
         username: payload.username,
         email: payload.email,
         password: payload.password
       })
-          .then(({ data }) => {
-            Swal.fire('Register successful', 'You are now registered, please login', 'success')
-            router.push('/login')
-          })
-          .catch((err) => {
-            Swal.fire('Failed to register', `${err}`, 'error')
-          })
+        .then(({ data }) => {
+          Swal.fire('Register successful', 'You are now registered, please login', 'success')
+          router.push('/login')
+        })
+        .catch((err) => {
+          Swal.fire('Failed to register', `${err}`, 'error')
+        })
     },
     addToCart (context, payload) {
       axios.post('http://localhost:3000/users/cart', {
         product: payload
-      }, {headers: {
+      }, { headers: {
         access_token: localStorage.getItem('access_token')
-      }})
-            .then(({ data }) => {
-              Swal.fire('Yay!', 'Item successfully added to your cart', 'success')
-            })
-            .catch(err => {
-              Swal.fire('Oops..', `${err}`, 'error')
-            })
+      } })
+        .then(({ data }) => {
+          Swal.fire('Yay!', 'Item successfully added to your cart', 'success')
+        })
+        .catch(err => {
+          Swal.fire('Oops..', `${err}`, 'error')
+        })
+    },
+    logOut (context, payload) {
+      console.log(localStorage.getItem('access_token'))
+      axios.delete('http://localhost:3000/users/logout', { headers: { access_token: localStorage.getItem('access_token')}
+      })
+        .then(({ data }) => {
+          console.log(data)
+          Swal.fire('Success', 'You are now logged out', 'success')
+        })
+        .catch(err => {
+          Swal.fire('Oops..', `${err}`, 'error')
+        })
     }
   },
   modules: {

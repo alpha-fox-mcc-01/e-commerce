@@ -28,10 +28,11 @@ export default {
     searchItem () {
       this.$store.dispatch('searchItem', this.keyword)
     },
-    signOut() {
+    signOut () {
+      this.isLoggedIn()
+      this.$store.dispatch('logOut')
       localStorage.removeItem('access_token')
       localStorage.removeItem('username')
-      this.isLoggedIn()
     },
     isLoggedIn () {
       if (localStorage.getItem('access_token')) {
@@ -39,7 +40,7 @@ export default {
       } else {
         this.loggedIn = false
       }
-    } 
+    }
   },
   created: function () {
     this.isLoggedIn()

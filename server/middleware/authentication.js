@@ -3,8 +3,9 @@ const User = require('../models/usermodel')
 
 module.exports = function(req, res, next) {
     console.log('masuk authentication')
+    console.log(req.headers, 'ini headers')
     const token = req.headers.access_token
-    console.log(token)
+    console.log(token, 'token di authen')
     try {
         let decoded = jwt.verify(token, process.env.SECRET)
         console.log(decoded._id, 'id')
@@ -25,6 +26,7 @@ module.exports = function(req, res, next) {
                 
             }) 
             .catch(err => {
+                console.log('masuk error authent')
                 next(err)
             })
         
