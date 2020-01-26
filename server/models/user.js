@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const bcrypt = require('bcrypt')
 const uniqueValidator = require('mongoose-unique-validator')
 
 const userSchema = new Schema({
@@ -21,6 +22,12 @@ const userSchema = new Schema({
     minlength: [10, 'Minimum length of password is 10']
   },
   role: String
+})
+
+userSchema.pre('save', function () {
+  const salt = bcrypt.genSaltSync(10)
+  this.password = bcrypt.hashSync(this.password, salt)
+  next()
 })
 
 userSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
