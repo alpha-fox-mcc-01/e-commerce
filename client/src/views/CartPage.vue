@@ -127,7 +127,14 @@ export default {
         this.$store.dispatch('updateStock', payload)
       })
     }
+  },
+  beforeRouteEnter(to, from, next) {
+  if(localStorage.getItem('access_token')) {
+    next()
+  } else {
+    next('/login')
   }
+}
 }
 </script>
 

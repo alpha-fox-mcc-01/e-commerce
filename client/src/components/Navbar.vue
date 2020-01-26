@@ -1,9 +1,9 @@
 <template>
     <div class="flex mb-4 flex-wrap" style="box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);">
       <router-link to="/">Home</router-link>
-      <router-link v-if="!loggedIn" to="/login">Login</router-link>
-      <router-link v-if="!loggedIn"  to="/register">Register</router-link>
-      <button v-if="loggedIn" @click="signOut">Sign Out</button>
+      <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
+      <router-link v-if="!isLoggedIn"  to="/register">Register</router-link>
+      <button v-if="isLoggedIn" @click="signOut">Sign Out</button>
       <div class="w-1/4 flex border-grey-light border">
       <input v-model="keyword" class="w-full rounded ml-1" type="text" placeholder="Search...">
       <button @click="searchItem" class="bg-grey-lightest border-grey border-l shadow hover:bg-grey-lightest">
@@ -21,8 +21,12 @@ export default {
   name: 'NavBar',
   data () {
     return {
-      keyword: '',
-      loggedIn: false
+      keyword: ''
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.state.isLoggedIn
     }
   },
   methods: {
@@ -43,7 +47,6 @@ export default {
           this.$store.dispatch('logOut')
           localStorage.removeItem('access_token')
           localStorage.removeItem('username')
-          this.isLoggedIn()
           this.$router.push('/')
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire(
@@ -53,14 +56,14 @@ export default {
           )
         }
       })
-    },
-    isLoggedIn () {
-      if (localStorage.getItem('access_token')) {
-        this.loggedIn = true
-      } else {
-        this.loggedIn = false
-      }
     }
+    // isLoggedIn () {
+    //   if (localStorage.getItem('access_token')) {
+    //     this.loggedIn = true
+    //   } else {
+    //     this.loggedIn = false
+    //   }
+    // }
   },
   created: function () {
     this.isLoggedIn()

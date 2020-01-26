@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     product: {},
-    cart: []
+    cart: [],
+    isLoggedIn: false,
   },
   mutations: {
     insertAllProducts (state, payload) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     insertCart (state, payload) {
       state.cart = payload
+    },
+    setStatus(state, payload) {
+      state.isLoggedIn = payload
     }
   },
   actions: {
@@ -63,6 +67,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
           localStorage.setItem('username', data.username)
+          context.commit('setStatus', true)
           Swal.fire('Logged In', 'You have successfully logged in', 'success')
           router.push('/products')
         })
@@ -103,6 +108,7 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           console.log(data)
+          context.commit('setStatus', false)
           Swal.fire('Success', 'You are now logged out', 'success')
         })
         .catch(err => {

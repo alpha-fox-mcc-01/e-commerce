@@ -13,11 +13,6 @@ import PinkHeader from './components/PinkHeader'
 import FootBar from './components/FootBar'
 export default {
   name: 'App',
-  data () {
-    return {
-      loggedIn: false
-    }
-  },
   components: {
     NavBar,
     PinkHeader,

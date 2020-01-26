@@ -62,7 +62,7 @@ module.exports =  {
                     user.cart.forEach( (item, i, arr) => {
                         if (item.product == req.body.product) {
                             existing = true
-                            let newQty = item.quantity += 1
+                            let newQty = item.quantity + 1
                             User.updateOne({
                               'cart.product': item.product
                             }, {
