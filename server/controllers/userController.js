@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 var bcrypt = require('bcryptjs');
+const Product = require('../models/product')
 
 class userController {
 
@@ -58,7 +59,7 @@ class userController {
     }
     static add (req, res, next){
         
-        console.log(req.body.product, 'ini product id nya');
+        // console.log(req.body.product, 'ini product id nya');
         
 
         let obj={
@@ -78,11 +79,11 @@ class userController {
             
             const result = user.cart.filter(item => item.product == req.body.product);
             
-            console.log(result, 'ini result');
+            // console.log(result, 'ini result');
             if(result.length > 0){
-                console.log(result[0].jumlah, "[][][][][]");
+                // console.log(result[0].jumlah, "[][][][][]");
                 let plus = result[0].jumlah +=1
-                console.log(plus, 'ini plus');
+                // console.log(plus, 'ini plus');
                 
                 User.updateOne({ 'cart.product': result[0].product },
                 {
@@ -91,9 +92,16 @@ class userController {
                     }
                 })
                 .then((data) =>{
-                   console.log(data);
-                   res.status(200).json(data)
-        
+                //    console.log(data);
+                   Product.updateOne({_id: req.body.product}, 
+                    {"$inc": { stock: -1 }})
+                    .then(data =>{
+                        console.log(data,'berhasil ngurangin stock ============');
+                        
+                    })
+                    
+                    res.status(200).json(data)
+
                    
                 })
                 .catch(err =>{
@@ -108,9 +116,15 @@ class userController {
                     { $push: { cart: obj } }
                 )
                 .then((user) =>{
-                   console.log(user);
+                //    console.log(user);
                    res.status(200).json(user)
-        
+                    
+                   Product.updateOne({_id: req.body.product}, 
+                    {"$inc": { stock: -1 }})
+                    .then(data =>{
+                        console.log(data,'berhasil ngurangin stock ============');
+                        
+                    })
                    
                 })
                 .catch(err =>{

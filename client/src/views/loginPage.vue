@@ -113,6 +113,9 @@ export default {
     } else {
       next()
     }
+  },
+   created: function(){
+      this.$store.commit('checkLogin')
   }
 
 };

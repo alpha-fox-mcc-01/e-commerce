@@ -1,12 +1,15 @@
 <template>
 <!-- <h1>masuk {{wine}}</h1> -->
 <div class="col-sm mt-5" >
+  <!-- {{sisaStock}}
+  {{wine.stock}} -->
    <div class="card" style="width: 16rem;" >
           <img class=" mt-4" @click.prevent="detail(wine._id)" :src="wine.img" alt="Card image cap" />
      <div class="card-body">
           <h5 class="card-title mt-3">{{wine.name}}</h5>
           <h6 class="card-title mt-3">Rp. {{wine.price}}</h6>
-          <a href="#" class="btn btn-primary" @click.prevent="addToCart(wine._id)">Add To Cart</a>
+          <a href="#" class="btn btn-primary" @click.prevent="addToCart(wine._id)" v-if="sisaStock > 0">Add To Cart</a>
+          <h5 v-if="sisaStock < 1">maaf, stock sudah habis</h5>
           </div>
           </div>
           </div>
@@ -16,7 +19,9 @@
 import axios from '../api/axiosInstance'
 export default {
   data () {
-    return {}
+    return {
+      sisaStock:0
+    }
   },
   props:{
     wine: Object
@@ -38,6 +43,7 @@ export default {
       })
       .then(data => {
         console.log(data);
+        this.sisaStock -= 1
         this.$store.dispatch('getUser')
         
       })
@@ -46,6 +52,10 @@ export default {
         
       })
     }
+  },
+   created: function () {
+      this.sisaStock = this.wine.stock
+    
   }
 }
 </script>
