@@ -7,37 +7,53 @@
     <td class="product-name">
       <h2 class="h5 cart-product-title text-black">{{item.product.name}}</h2>
     </td>
-    <td>$55.00</td>
+    <td>Rp. {{item.product.price}}</td>
+    <td>{{item.jumlah}}</td>
+    <td>Rp. {{total}}</td>
     <td>
-      <div class="input-group mb-3" style="max-width: 120px;">
-        <div class="input-group-prepend">
-          <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-        </div>
-        <input
-          type="text"
-          class="form-control text-center border mr-0"
-          value="1"
-          placeholder
-          aria-label="Example text with button addon"
-          aria-describedby="button-addon1"
-        />
-        <div class="input-group-append">
-          <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-        </div>
-      </div>
-    </td>
-    <td>$49.00</td>
-    <td>
-      <a href="#" class="btn btn-primary height-auto btn-sm">X</a>
+      <a href="#" class="btn btn-primary height-auto btn-sm" @click.prevent="deleteCart(item.product._id)">X</a>
     </td>
   </tr>
 </template>
 
 <script>
 name: 'itemCart'
+import axios from '../api/axiosInstance'
 export default {
   props:{
     item:Object
+  },
+  methods:{
+    deleteCart(id){
+      // console.log(id);
+      axios({
+        method: "delete",
+        url: `/user/delete/${id}`,
+        data: {
+          email: this.email,
+          password: this.password
+        },
+         headers: {
+          access_token : localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          // this.$router.push('/')
+          // this.$store.state.cartData
+          this.$store.dispatch('getUser')
+
+
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  computed:{
+    total(){
+      let t = (this.item.product.price * this.item.jumlah)
+      return t
+    }
   }
 };
 </script>

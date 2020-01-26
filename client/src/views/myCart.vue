@@ -46,20 +46,12 @@
                     <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <span class="text-black">Subtotal</span>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <strong class="text-black">$230.00</strong>
-                  </div>
-                </div>
                 <div class="row mb-5">
                   <div class="col-md-6">
                     <span class="text-black">Total</span>
                   </div>
                   <div class="col-md-6 text-right">
-                    <strong class="text-black">$230.00</strong>
+                    <strong class="text-black">Rp. {{totalPrice}}</strong>
                   </div>
                 </div>
     
@@ -69,7 +61,7 @@
                       Checkout</button>
                   </div>
                 </div>
-                {{cartData}}
+                <!-- {{cartData}} -->
               </div>
             </div>
           </div>
@@ -80,14 +72,30 @@
 name: 'mayCart'
 import itemCart from '../components/itemCart'
 export default {
-
+  data () {
+    return {
+      cart: [],
+      totalharga: 0
+    }
+  },
   computed:{
     cartData () {
+      // console.log(this.$store.state.cartData, 'cartnya ini')
+      let arr = this.$store.state.cartData
+      this.cart = this.$store.state.cartData
+
+      arr.forEach(el => this.totalharga+= (el.product.price * el.jumlah));
       return this.$store.state.cartData
+    },
+    totalPrice(){
+     return this.totalharga
     }
   },
   components:{
     itemCart
+  },
+  created: function(){
+      this.cart = this.$store.state.cartData
   }
 }
 </script>

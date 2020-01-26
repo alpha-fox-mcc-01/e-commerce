@@ -128,16 +128,19 @@ class userController {
     }
 
     static delete (req, res, next){
-        let pr = req.params.targetid
-        // console.log(req.currentUserid);
+        let pr = req.params.id
+        console.log(req.currentUserid, '{}{}{}{}');
+        console.log(req.params.id);
+        
         
         User.findByIdAndUpdate(
             req.currentUserid,
-            { $pull: { 'cart': { _id: pr }
+            { $pull: { 'cart': { product: pr }
              } })
             .then(data => {
                 res.status(200).json({ data })
-
+                // console.log(data,'dapet data');
+                
             })
             .catch(err => {
                 next(err)

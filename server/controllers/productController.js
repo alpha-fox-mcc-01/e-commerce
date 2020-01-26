@@ -45,6 +45,18 @@ class productController{
 
     }
 
+    static getOneProduct (req, res, next){
+        Product.findById(req.params.id)
+        .then(data =>{
+            res.status(200).json(data)
+        })
+        .catch(err =>{
+            next(err)
+            console.log(err);
+            
+        })
+    }
+
     static delete(req, res, next){
 
         console.log(req.params.id, 'masuk delete');

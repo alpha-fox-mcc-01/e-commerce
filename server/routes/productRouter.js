@@ -4,6 +4,8 @@ const autheticatedAdmin = require('../middlewares/authenticatedAdmin')
 const images = require('../middlewares/images')
 
 router.get('/', productControler.get)
+router.get('/:id', productControler.getOneProduct)
+
 router.use(autheticatedAdmin)
 
 router.post('/add', images.multer.single('image'), 
