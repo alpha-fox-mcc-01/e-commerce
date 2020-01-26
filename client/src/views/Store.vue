@@ -1,15 +1,7 @@
 <template>
   <div id="store-items">
     <div class="container">
-      <div class="row no-gutters">
-
-        <StoreCard 
-        v-for="item in items"
-        :key="item._id"
-        :item="item"
-        />
-
-      </div>
+      <router-view />
     </div>
   </div>
 </template>

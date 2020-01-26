@@ -31,7 +31,17 @@ const routes = [
   {
     path: '/store',
     name: 'Store',
-    component: () => import('../views/Store.vue')
+    component: () => import('../views/Store.vue'),
+    children : [
+      {
+        path: '',
+        component: () => import('../components/AllItem.vue'),
+      },
+      {
+        path:':itemId',
+        component: ()=> import('../components/ItemDetail.vue'),
+      }
+    ]
   },
   {
     path: '/mycart',

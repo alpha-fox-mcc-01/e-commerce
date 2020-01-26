@@ -89,7 +89,9 @@ class UserController {
             }
             else {         
                console.log(`masuk else`);
-               let newQuantity = req.body.quantity   
+               let newQuantity = req.body.quantity + itemSearch[0].quantity
+               console.log(newQuantity, `ini new quantityyyyyyyyyyyyyyyy`);
+                
                User.updateOne({ 'cart.item': itemSearch[0].item },
                {
                    '$set': {
