@@ -3,11 +3,9 @@
       <router-link to="/">Home</router-link>
       <router-link to="/login">Login</router-link>
       <router-link to="/register">Register</router-link>
-      <router-link to="/checkout">Checkout</router-link>
-      <router-link to="/cart">Cart</router-link>
       <div class="w-1/4 flex border-grey-light border">
-      <input class="w-full rounded ml-1" type="text" placeholder="Search...">
-      <button class="bg-grey-lightest border-grey border-l shadow hover:bg-grey-lightest">
+      <input v-model="keyword" class="w-full rounded ml-1" type="text" placeholder="Search...">
+      <button @click="searchItem" class="bg-grey-lightest border-grey border-l shadow hover:bg-grey-lightest">
         <span class="w-auto flex justify-end items-center text-grey p-2 hover:text-grey-darkest">
           <i class="material-icons text-xs">search</i>
         </span>
@@ -18,7 +16,17 @@
 
 <script>
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  data () {
+    return {
+      keyword: ''
+    }
+  },
+  methods: {
+    searchItem () {
+      this.$store.dispatch('searchItem', this.keyword)
+    }
+  }
 }
 </script>
 

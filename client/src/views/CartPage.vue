@@ -30,13 +30,14 @@
   </tbody>
 </table>
     </div>
-    <div class="w-1/2">
+    <div id="ordersummary" class="w-1/2">
       <table id="summary"  class="table-auto">
       <thead>
         <tr>
-          <th class="px-4 py-2">Order Summary</th>
+          <h2>Order Summary</h2>
         </tr>
       </thead>
+       <br>
       <tbody>
         <tr>
           <td class="px-4 py-2">Total Items:</td>
@@ -49,7 +50,7 @@
         <tr>
          <td class="px-4 py-2"></td>
          <button class="bg-black hover:bg-red-200 text-white font-bold py-2 px-4 rounded">
-            Checkout
+           <router-link to="/checkout">Checkout</router-link>
           </button>
         </tr>
       </tbody>
@@ -75,9 +76,20 @@ export default {
 }
 .table-auto {
   border: none;
+  margin-left: 3em;
 }
 
 h2 {
   font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+div {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#ordersummary {
+  float: right;
 }
 </style>

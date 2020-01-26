@@ -15,7 +15,9 @@
       <div id="side-ui" class="w-1/3 h-12">
         <ul id="icon-list">
           <li><img id="navbar-ui1" alt="profile" src="@/assets/ui_profileicon.png"></li>
-          <li><img id="navbar-ui2" alt="cart" src="@/assets/UI-cart.png"></li>
+          <li><router-link to="/cart">
+          <img id="navbar-ui2" alt="cart" src="@/assets/UI-cart.png">
+          </router-link></li>
         </ul>
       </div>
    </div>
