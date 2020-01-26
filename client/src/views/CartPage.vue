@@ -2,11 +2,11 @@
 <div class="flex mb-4">
   <div class="w-1/2">
   <h2>Cart</h2>
-  <div v-if="isEmpty">
+  <table class="table-auto">
+  <div v-if="!cart">
     <p>Your cart is empty</p>
   </div>
-  <table v-if="!isEmpty" class="table-auto">
-  <thead>
+  <thead v-if="cart">
     <tr>
       <th class="px-4 py-2">Item</th>
       <th class="px-4 py-2">Price</th>

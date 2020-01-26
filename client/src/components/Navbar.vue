@@ -29,10 +29,10 @@ export default {
       this.$store.dispatch('searchItem', this.keyword)
     },
     signOut () {
-      this.isLoggedIn()
       this.$store.dispatch('logOut')
       localStorage.removeItem('access_token')
       localStorage.removeItem('username')
+      this.isLoggedIn()
     },
     isLoggedIn () {
       if (localStorage.getItem('access_token')) {
@@ -55,6 +55,10 @@ div {
   margin-bottom: 1em;
   align-items: center;
   justify-content: space-evenly;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  background-color: white;
 }
 a, h1 {
   text-align: center;

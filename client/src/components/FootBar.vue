@@ -1,6 +1,6 @@
 <template>
   <div>
-    ©2020. Fluffier
+    ©2020 Fluffier. This website is for assignment purposes only. All product image belongs to Glossier
   </div>
 </template>
 

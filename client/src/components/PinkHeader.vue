@@ -36,6 +36,7 @@ a {
 }
 #top {
   background-color: rgb(245, 227, 231); text-align: center;
+  
 }
 #icon-list {
     float: right;
@@ -65,4 +66,5 @@ a {
     text-align: center;
     /* padding: 0px 4px; */
 }
+
 </style>
