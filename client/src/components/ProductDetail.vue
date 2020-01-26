@@ -40,7 +40,7 @@
           </div>
           <div class="row border-bottom">
             <div class="col-4 text-left">
-              <form>
+              <form @submit.prevent="addToCart">
                 <div class="form-group p-4">
                   <label for="quantity">Quantity</label>
                   <input type="number" class="form-control" id="quantity"
@@ -48,7 +48,7 @@
                     :max="product.stock"
                     v-model="quantity"
                   >
-                  <input class="btn btn-dark mt-3" type="submit">
+                  <input class="btn btn-dark mt-3" type="submit" value="Add to Cart">
                 </div>
               </form>
             </div>
@@ -83,6 +83,27 @@ export default {
           console.log(err);
         });
     },
+    addToCart() {
+      const accessToken = localStorage.getItem('access_token');
+      axios({
+        method: 'POST',
+        url: `http://localhost:3000/user/add/${this.$route.params.id}`,
+        data: {
+          quantity: this.quantity,
+        },
+        headers: {
+          access_token: accessToken,
+        },
+      })
+        .then((result) => {
+          console.log(result);
+          this.$store.dispatch('getUserCart');
+          this.$router.push('/cart');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     this.showProduct();
@@ -96,6 +117,6 @@ export default {
   }
 
   .product-name {
-    color: red;
+    color: goldenrod;
   }
 </style>

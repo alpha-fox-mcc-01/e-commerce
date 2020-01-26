@@ -73,6 +73,7 @@ export default {
           this.user.email = '';
           this.user.password = '';
           this.$router.push('/');
+          this.$store.dispatch('getUserCart');
           this.$store.commit('changeIsLogin', true);
         })
         .catch((err) => {

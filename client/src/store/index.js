@@ -25,6 +25,9 @@ export default new Vuex.Store({
     changeIsLogin(state, status) {
       state.isLogin = status;
     },
+    changeUserCart(state, cart) {
+      state.userCart = cart;
+    },
   },
   actions: {
     register(_, payload) {
@@ -49,6 +52,21 @@ export default new Vuex.Store({
           password,
         },
       });
+    },
+    getUserCart(context) {
+      axios({
+        method: 'GET',
+        url: 'http://localhost:3000/user',
+        headers: {
+          access_token: localStorage.getItem('access_token'),
+        },
+      })
+        .then((user) => {
+          context.commit('changeUserCart', user.data.cart);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   getters: {

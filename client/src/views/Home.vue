@@ -30,11 +30,6 @@ export default {
   components: {
     ProductCard,
   },
-  created() {
-    if (localStorage.getItem('access_token')) {
-      this.$store.commit('changeIsLogin', true);
-    }
-  },
 };
 </script>
 

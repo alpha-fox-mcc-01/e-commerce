@@ -39,6 +39,9 @@ export default {
   },
   created() {
     this.homeProducts();
+    if (localStorage.getItem('access_token')) {
+      this.$store.commit('changeIsLogin', true);
+    }
   },
 };
 </script>
