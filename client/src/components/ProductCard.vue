@@ -7,9 +7,9 @@
       <h6 class="card-subtitle mb-2 text-muted">Rp. {{ product.price.toLocaleString() }}</h6>
       <p class="card-text">{{ product.description.slice(0, 100)}}<span v-if='product.description.length > 100'>...</span></p>
       <div id='row'>
-        <button class="btn btn-primary" @click="getOneItem">View More</button>
-        <p v-if='product.stocks > 0' class='stock-status'>In Stock.</p>
-        <p v-else class='stock-status' id='stock-empty'>Out of Stock.</p>
+        <button class="btn btn-light" @click="getOneItem">View More</button>
+        <p v-if='product.stocks > 0' class='stock-status'>In Stock.&nbsp;</p>
+        <p v-else class='stock-status' id='stock-empty'>&nbsp;Out of Stock.</p>
       </div>
     </div>
   </div>
@@ -40,6 +40,11 @@ export default {
   color: lightcoral;
 }
 .card {
+  font-family: 'Nunito', sans-serif;
   margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+.btn.btn-light {
+  color: indigo;
+  border-color: indigo;
 }
 </style>

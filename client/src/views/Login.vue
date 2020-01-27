@@ -17,7 +17,7 @@
         </ul>
         <hr>
         <form @submit.prevent="goSignUp">
-          <button type="submit" class="btn btn-primary">Sign Up</button>
+          <button type="submit" class="btn btn-light">Sign Up</button>
         </form>
       </div>
     </div>
@@ -41,6 +41,14 @@ export default {
 </script>
 
 <style scoped>
+.btn.btn-light {
+  border-color: indigo;
+  color: indigo;
+}
+.card-body {
+  font-family: 'Montserrat', sans-serif;
+  opacity: 1.5;
+}
 .container {
     position: absolute;
     top: 50%;

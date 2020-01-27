@@ -7,6 +7,7 @@
         <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <a href="#" class="card-link">Card link</a>
         <a href="#" class="card-link">Another link</a> -->
+        <hr>
         <form @submit.prevent="signIn">
           <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
@@ -16,7 +17,8 @@
               <label for="exampleInputPassword1">Password</label>
               <input type="password" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <hr>
+          <button type="submit" class="btn btn-light">Sign In</button>
         </form>
       </div>
     </div>
@@ -54,3 +56,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.btn.btn-light {
+  border-color: indigo;
+  color: indigo;
+}
+.card-body {
+  font-family: 'Montserrat', sans-serif;
+  opacity: 1.5;
+}
+</style>

@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const errorHandler = require('./middlewares/errorHandler')
 const cors = require('cors')
 
-mongoose.connect('mongodb://localhost/ecommerce', {useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify:true});
+mongoose.connect('mongodb://localhost/ecommerce', {useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify:false});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

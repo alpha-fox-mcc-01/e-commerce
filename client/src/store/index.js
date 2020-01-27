@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    categories: []
+    categories: [],
+    cart: []
   },
   mutations: {
     fillProducts (state, payload) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     setCategories (state, payload) {
       state.categories = payload
+    },
+    setCart (state, payload) {
+      state.cart = payload
     }
   },
   actions: {
@@ -62,6 +66,21 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('setCategories', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getCart (context) {
+      axios({
+        method: 'GET',
+        url: 'http://localhost:3000/users/cart',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          context.commit('setCart', data)
         })
         .catch(err => {
           console.log(err)

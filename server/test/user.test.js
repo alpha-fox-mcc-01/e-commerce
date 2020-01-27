@@ -126,4 +126,56 @@ describe('user routing', function() {
                 })
         })
     })
+    describe('/cart', function() {
+        it("should return the user's current cart form of array", function(done) {
+            chai.request(app)
+                .get('/users/cart')
+                .set('access_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTI2OThkMzMzM2IzNjMwYjA1MTQ2NGQiLCJpYXQiOjE1Nzk2NTg1NTZ9.vNIVrUg0T9hcZ0Bfzr1OVvs9HTvCcTr4-GgPSTpvUSE')
+                .end((err, res) => {
+                    expect(res).to.have.status(200)
+                    expect(res.body).to.be.an('array')
+                    done()
+                })
+        })
+        // it("should return the user's current cart status after adding", function(done) {
+        //     chai.request(app)
+        //         .post('/users/cart')
+        //         .set('access_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTI2OThkMzMzM2IzNjMwYjA1MTQ2NGQiLCJpYXQiOjE1Nzk2NTg1NTZ9.vNIVrUg0T9hcZ0Bfzr1OVvs9HTvCcTr4-GgPSTpvUSE')
+        //         .send({
+        //             productId: "5e2d82db84628d10a400f5d7",
+        //             quantity: 25
+        //         })
+        //         .end((err, res) => {
+        //             expect(res).to.have.status(200)
+        //             expect(res.body).to.be.an('object')
+        //             done()
+        //         })
+        // })
+        it("should return the user's current cart status after deleting", function(done) {
+            chai.request(app)
+                .delete('/users/cart')
+                .set('access_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTI2OThkMzMzM2IzNjMwYjA1MTQ2NGQiLCJpYXQiOjE1Nzk2NTg1NTZ9.vNIVrUg0T9hcZ0Bfzr1OVvs9HTvCcTr4-GgPSTpvUSE')
+                .send({
+                    productId: "5e2d82db84628d10a400f5d7",
+                })
+                .end((err, res) => {
+                    expect(res).to.have.status(200)
+                    expect(res.body).to.be.an('object')
+                    done()
+                })
+        })
+        it("should empty users cart and reduce stock on checkout", function(done) {
+            chai.request(app)
+                .delete('/users/checkout')
+                .set('access_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTI2OThkMzMzM2IzNjMwYjA1MTQ2NGQiLCJpYXQiOjE1Nzk2NTg1NTZ9.vNIVrUg0T9hcZ0Bfzr1OVvs9HTvCcTr4-GgPSTpvUSE')
+                .send({
+                    productId: "5e2d82db84628d10a400f5d7",
+                })
+                .end((err, res) => {
+                    expect(res).to.have.status(200)
+                    expect(res.body).to.be.an('object')
+                    done()
+                })
+        })
+    })
 })

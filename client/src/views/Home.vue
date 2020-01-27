@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id='main-body'>
     <div class="card-body">
-      <div class='row' style='margin-top: 2rem;'>
+      <div class='row'>
         <Explore />
         <Products />
       </div>
@@ -28,5 +28,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

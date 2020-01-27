@@ -1,6 +1,6 @@
 <template>
   <div class='col-md-2'>
-    <router-link to="/"><p>New In</p></router-link>
+    <p class='product-category' @click="productByCategory()">New In</p>
     <p class='product-category' v-for='(category, i) in categories' :key='i' @click="productByCategory(category)">{{ category }}</p>
     <!-- <router-link to="/enter"><p>New In</p></router-link><br> -->
     <!-- <router-link to="/enter"><p>New In</p></router-link><br>
@@ -29,6 +29,7 @@ export default {
 
 <style scoped>
 p {
+  font-family: 'Quicksand', sans-serif;
   color: black;
 }
 .product-category {

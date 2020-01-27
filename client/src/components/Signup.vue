@@ -3,7 +3,8 @@
     <div class="card container">
       <div class="card-body">
         <h5 class="card-title">Sign Up</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Start exploring a vast array of items to your needing</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Start exploring a vast array of items to your needing!</h6>
+        <hr>
         <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <a href="#" class="card-link">Card link</a>
         <a href="#" class="card-link">Another link</a> -->
@@ -21,7 +22,8 @@
               <label for="exampleInputPassword1">Password</label>
               <input type="password" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <hr>
+          <button type="submit" class="btn btn-light">Submit</button>
         </form>
       </div>
     </div>
@@ -63,10 +65,18 @@ export default {
 </script>
 
 <style scoped>
+.btn.btn-light {
+  border-color: indigo;
+  color: indigo;
+}
 .card.container {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5rem;
+  margin-top: 2rem;
+}
+.card-body {
+  font-family: 'Montserrat', sans-serif;
+  opacity: 1.5;
 }
 </style>

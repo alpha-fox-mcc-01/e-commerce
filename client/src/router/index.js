@@ -26,7 +26,14 @@ const routes = [
   {
     path: '/products/:id',
     name: 'product',
-    component: () => import (/* webpackChunkName: "product" */ '../views/ProductDetail.vue')
+    component: () => import (/* webpackChunkName: "product" */ '../views/ProductDetail.vue'),
+    children: [
+      {
+        path: 'cart',
+        name: 'userCart',
+        component: () => import (/* webpackChunkName: "userCart"  */ '../views/UserCart.vue')
+      }
+    ]
   },
   {
     path: '/register',
