@@ -31,7 +31,7 @@ export default {
         if (result.value) {
           axios({
             method: 'DELETE',
-            url: 'http://localhost:3000/users/cart',
+            url: 'http://35.187.233.73/users/cart',
             headers: {
               access_token: localStorage.getItem('access_token')
             },
