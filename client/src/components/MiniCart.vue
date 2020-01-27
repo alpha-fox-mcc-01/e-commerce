@@ -19,7 +19,7 @@ export default {
   name: 'miniCart',
   methods: {
     getToCart () {
-      this.$router.push(`/users/${cart.username}`)
+      this.$router.push(`/cart`)
     }
   },
   computed: {
