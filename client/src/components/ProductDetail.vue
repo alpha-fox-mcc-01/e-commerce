@@ -3,7 +3,11 @@
     <div>
       <Error v-if="error" :error="error" />
     </div>
-    <b-card no-body class="overflow-hidden container" style="max-width: 1000px;">
+    <b-card
+      no-body
+      class="overflow-hidden container"
+      style="max-width: 1000px;"
+    >
       <b-row no-gutters>
         <b-col md="6">
           <b-card-img class="rounded-0" :src="product.imageUrl"></b-card-img>
@@ -14,15 +18,15 @@
               <table>
                 <tr>
                   <th>Description</th>
-                  <td>{{product.description}}</td>
+                  <td>{{ product.description }}</td>
                 </tr>
                 <tr>
                   <th>Category</th>
-                  <td>{{product.category}}</td>
+                  <td>{{ product.category }}</td>
                 </tr>
                 <tr>
                   <th>Price</th>
-                  <td>Rp {{product.price.toLocaleString()}}</td>
+                  <td>Rp {{ product.price.toLocaleString() }}</td>
                 </tr>
                 <tr>
                   <th>Quantity</th>
@@ -35,7 +39,9 @@
             <button
               style="position: absolute; bottom:1rem; right:1rem"
               @click.prevent="addToCart"
-            >Add to Cart</button>
+            >
+              Add to Cart
+            </button>
           </b-card-body>
         </b-col>
       </b-row>
@@ -45,36 +51,41 @@
 </template>
 
 <script>
-import Error from '@/components/Error'
+import Error from "@/components/Error";
 export default {
-  data () {
+  data() {
     return {
       product: {},
       qty: 1,
-      error: ''
-    }
+      error: ""
+    };
   },
   methods: {
-    fetchProduct () {
-      this.$store.dispatch('fetchOneProduct', this.$route.params.id)
+    fetchProduct() {
+      this.$store
+        .dispatch("fetchOneProduct", this.$route.params.id)
         .then(({ data }) => {
-          this.product = data
+          this.product = data;
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
-    addToCart () {
+    addToCart() {
       if (this.product.stock >= this.qty) {
-        this.$store.dispatch('addToCart', {id: this.$route.params.id, qty: this.qty})
-        .then(() => {
-          this.errorHandler('Added to cart.')
-          this.qty=1
-        })
-        const stock = this.product.stock - this.qty
-        this.$store.dispatch('updateOneProductStock', {id: this.$route.params.id, stock})
+        this.$store
+          .dispatch("addToCart", { id: this.$route.params.id, qty: this.qty })
+          .then(() => {
+            this.errorHandler("Added to cart.");
+            this.qty = 1;
+          });
+        const stock = this.product.stock - this.qty;
+        this.$store.dispatch("updateOneProductStock", {
+          id: this.$route.params.id,
+          stock
+        });
       } else {
-        this.errorHandler('Sorry, that\'s too much for us.')
+        this.errorHandler("Sorry, that's too much for us.");
       }
     },
     errorHandler(err) {
@@ -84,19 +95,18 @@ export default {
       }, 2500);
     }
   },
-  created () {
-    this.fetchProduct()
-    console.log(this.$route.params.id)
+  created() {
+    this.fetchProduct();
   },
   watch: {
-    '$route.params.id': function () {
-      this.fetchProduct()
+    "$route.params.id": function() {
+      this.fetchProduct();
     }
   },
   components: {
     Error
   }
-}
+};
 </script>
 
 <style scoped>

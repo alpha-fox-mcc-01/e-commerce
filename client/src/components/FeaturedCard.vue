@@ -4,15 +4,18 @@
       @click="log"
       :title="title"
       :img-src="product.imageUrl"
+      img-height="175px"
+      float
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 16rem"
+      style="max-width: 16rem; height: 360px"
       class="mb-2"
     >
-      <b-card-text>{{ product.description }}</b-card-text>
       <b-card-text>Rp {{ product.price.toLocaleString() }}</b-card-text>
-      <b-button href="#" variant="primary">Selengkapnya</b-button>
+      <b-button :to="`/product/${product._id}`" variant="primary"
+        >Selengkapnya</b-button
+      >
     </b-card>
   </div>
 </template>
@@ -24,11 +27,11 @@ export default {
     product: Object
   },
   methods: {
-    log () {
-      console.log('featured di klik')
+    log() {
+      console.log("featured di klik");
     }
   }
-}
+};
 </script>
 
 <style>

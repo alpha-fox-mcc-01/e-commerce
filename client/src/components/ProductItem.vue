@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ItemDetail />
+    <!-- <ItemDetail /> -->
     <b-card
       :title="title"
       :img-src="product.imageUrl"
@@ -11,31 +11,33 @@
       header-class="prodTitle"
     >
       <b-card-text>Rp {{ product.price.toLocaleString() }}</b-card-text>
-      <b-button :to="`/product/${product._id}`" variant="primary">Detail</b-button>
+      <b-button :to="`/product/${product._id}`" variant="primary"
+        >Detail</b-button
+      >
     </b-card>
   </div>
 </template>
 
 <script>
-import ItemDetail from '@/components/ItemDetail'
+// import ItemDetail from "@/components/ItemDetail";
 
 export default {
   props: {
     title: String,
     product: Object
   },
-  components: {
-    ItemDetail
-  },
+  // components: {
+  //   ItemDetail
+  // },
   methods: {
-    show () {
-      this.$modal.show('item-detail')
+    show() {
+      this.$modal.show("item-detail");
     },
-    hide () {
-      this.$modal.hide('item-detail')
+    hide() {
+      this.$modal.hide("item-detail");
     }
   }
-}
+};
 </script>
 
 <style>
