@@ -26,14 +26,17 @@
     <li class="nav-item mr-3  ">
      <router-link to="cart">Cart</router-link>
     </li>
-    <li class="nav-item" v-if="check"> 
+    <li class="nav-item" v-if="!check"> 
      <router-link to="login" >logIn</router-link>
     </li>
-    <li class="nav-item" v-if="!check"> 
+    <li class="nav-item" v-if="check"> 
      <a  @click.prevent="logout">signOut</a>
     </li>
+      <li class="nav-item ml-3" v-if="checkStatus"> 
+     <router-link to="adminPage" >Admin's Page</router-link>
+    </li>
   </ul>
-
+ 
 </nav>
 </div>
 </div>
@@ -50,10 +53,12 @@ export default {
   },
   methods:{
     logout(){
+      localStorage.removeItem("access_token");
+      this.$store.commit('checkLogout')
+      // this.$router.push('/')
+
       console.log('akun logout');
       
-      localStorage.removeItem("access_token");
-      this.$router.push('/')
       
     }
   },
@@ -64,8 +69,11 @@ export default {
     // } else {
     //   return true
     // } 
-    console.log(this.$store.state.isLogin, '{}{}{}{}{');
+    console.log(this.$store.state.isLogin, '{}{}{}{}{ dr login');
      return this.$store.state.isLogin
+    },
+    checkStatus(){
+     return this.$store.state.userData.admin
     }
   },
   created: function(){

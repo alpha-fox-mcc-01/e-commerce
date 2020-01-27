@@ -88,7 +88,13 @@ class productController{
 
         Product.updateOne({
             _id:req.params.id
-        }, obj)
+        }, {
+            name: req.body.name,
+            stock: req.body.stock,
+            desc: req.body.desc,
+            price: req.body.price,
+            img: req.file.cloudStoragePublicUrl
+        })
         .then(data =>{
             res.status(200).json(data)
         })

@@ -24,6 +24,9 @@ export default {
     test () {
       return this.$store.state.bobby
     }
+  },
+   created: function(){
+      this.$store.commit('checkLogin')
   }
 }
 </script>

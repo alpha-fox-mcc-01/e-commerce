@@ -11,7 +11,8 @@ router.use(autheticatedAdmin)
 router.post('/add', images.multer.single('image'), 
 images.sendUploadToGCS, productControler.add)
 router.delete('/delete/:id', productControler.delete)
-router.put('/update/:id', productControler.update)
+router.put('/update/:id', images.multer.single('image'), 
+images.sendUploadToGCS,  productControler.update)
 
 
 module.exports = router

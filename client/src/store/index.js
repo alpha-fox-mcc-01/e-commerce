@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     cartData: [],
     userData: {},
-    isLogin: true
+    isLogin: false
   },
   mutations: {
     setUserData(state, payload){
@@ -17,10 +17,15 @@ export default new Vuex.Store({
       console.log(state.userData)
     },
     checkLogin(state){
-        state.isLogin = false
+        state.isLogin = true
         console.log('sampe mutation');
         
-    }
+    },
+    checkLogout(state){
+      state.isLogin = false
+      console.log('sampe mutation');
+      
+  }
 
   },
   actions: {
