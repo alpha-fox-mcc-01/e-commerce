@@ -14,7 +14,7 @@ export default new Vuex.Store({
       state.products = data
     },
     addIdUser (state, data) {
-      console.log('berhasil commit idUser');
+      console.log('berhasil commit idUser')
       state.idUser = data
     }
   },

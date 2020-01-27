@@ -40,7 +40,7 @@ const routes = [
     children: [{
       path: ':id',
       name: 'product-details',
-      component: () => import(/* webpackChunkName: "details" */ '../views/productDetails.vue')
+      component: () => import(/* webpackChunkName: "details" */ '../components/oneProduct.vue')
     }]
   }
 ]

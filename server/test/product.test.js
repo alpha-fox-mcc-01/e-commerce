@@ -5,6 +5,7 @@ const app = require('../app')
 const Product = require('../models/Product')
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
+const fs = require('fs')
 
 chai.use(chaiHttp)
 
@@ -679,6 +680,23 @@ describe('Product Routing', function () {
           })
       })
 
+    })
+
+    describe('upload /product/upload', function () {
+      let token
+      it('should have status 200 and return link of uploaded file', function(done) {
+        chai.request(app)
+          .post('/product/upload')
+          .attach('file', fs.readFileSync('img-test/mini.png'), 'mini.png')
+          .end((err, res) => {
+            console.log(res.body)
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            expect(res.body).to.have.property('message').to.equal('Your file is successfully uploaded'),
+            expect(res.body).to.have.property('link')
+            done()
+          })
+      })
     })
 
   })

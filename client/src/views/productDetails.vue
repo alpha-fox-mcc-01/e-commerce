@@ -9,11 +9,11 @@
 <script>
 export default {
   name: 'detailsProduct',
-  data() {
+  data () {
     return {
       data: this.$route.params
     }
-  },
+  }
 }
 </script>
 
