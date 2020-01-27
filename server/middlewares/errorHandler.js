@@ -2,7 +2,7 @@ module.exports = (err, req, res, next) => {
   let status = 500
   let message = 'Internal Server Error'
   let errors 
-  console.log(err.name, 'ini di error handler')
+  console.log(err, 'ini di error handler')
 
   if(err.name === 'ValidationError') {
     status = 400

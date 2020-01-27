@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'product',
   data() {
@@ -67,6 +68,24 @@ export default {
     },
     addToCart () {
       this.$bvModal.hide('addCart')
+      axios({
+        method: 'post',
+        url: `http://localhost:3000/cart/${this.idUser}`,
+        headers: {
+          token: this.token
+        },
+        data: {
+          productId: this.productId,
+          quantity: this.quantity
+        }
+      })
+        .then (({ data }) => {
+          console.log(data)
+          this.quantity = ''
+        })
+        .catch (err => {
+          console.log(err.response)
+        })
     }
   },
 }
