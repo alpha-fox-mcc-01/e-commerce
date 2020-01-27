@@ -2,6 +2,7 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 var bcrypt = require('bcryptjs');
 const Product = require('../models/product')
+var nodemailer = require('nodemailer');
 
 class userController {
 
@@ -178,6 +179,50 @@ class userController {
             next(err)
 
         })
+    }
+
+    static checkout (req, res, next){
+        console.log('sampe ke controller checkout', req.currentUserid);
+        
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                   user: 'hyura.log@gmail.com',
+                   pass: 'benyamin10'
+               }
+           });
+
+           
+        //    User.findById({
+        //        _id:req.currentUserid   
+        //     })
+        //     .then(user => {
+        //         console.log(user);
+                
+                // const mailOptions = {
+                // from: 'sender@email.com', // sender address
+                // to: 'to@email.com', // list of receivers
+                // subject: 'Subject of your email', // Subject line
+                // html: '<p>Your html here</p>'// plain text body
+                // };
+
+                // transporter.sendMail(mailOptions, function (err, info) {
+                //     if(err)
+                //       console.log(err)
+                //     else
+                //       console.log(info);
+                //       res.status(200).json(info)
+                //  });
+
+
+        // })
+        // .catch(err => {
+        //     next(err)
+
+        // })
+
+
+        
     }
 }
 

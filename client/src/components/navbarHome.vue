@@ -29,6 +29,9 @@
     <li class="nav-item" v-if="check"> 
      <router-link to="login" >logIn</router-link>
     </li>
+    <li class="nav-item" v-if="!check"> 
+     <a  @click.prevent="logout">signOut</a>
+    </li>
   </ul>
 
 </nav>
@@ -43,6 +46,15 @@ export default {
   data () {
     return {
       page: true
+    }
+  },
+  methods:{
+    logout(){
+      console.log('akun logout');
+      
+      localStorage.removeItem("access_token");
+      this.$router.push('/')
+      
     }
   },
   computed:{

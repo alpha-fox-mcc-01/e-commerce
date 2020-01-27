@@ -57,7 +57,7 @@
     
                 <div class="row">
                   <div class="col-md-12">
-                    <button class="btn btn-primary btn-lg btn-block" onclick="window.location='checkout.html'">Proceed To
+                    <button class="btn btn-primary btn-lg btn-block" @click.prevent="checkout">Proceed To
                       Checkout</button>
                   </div>
                 </div>
@@ -71,6 +71,7 @@
 <script>
 name: 'mayCart'
 import itemCart from '../components/itemCart'
+import axios from '../api/axiosInstance'
 export default {
   data () {
     return {
@@ -78,6 +79,29 @@ export default {
       totalharga: 0
     }
   },
+  methods:{
+    checkout(){
+      console.log(localStorage.getItem('access_token'), 'test node mailer');
+      
+      axios({
+        method: "post",
+        url: "/user/checkout",
+        data: {
+          total: this.totalPrice,
+        },
+        headers: {
+          access_token : localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          console.log(data);
+          
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },  
   computed:{
     cartData () {
       // console.log(this.$store.state.cartData, 'cartnya ini')
