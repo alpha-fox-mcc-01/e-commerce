@@ -301,9 +301,6 @@ axios.put('/products/:id', {
    `product id=[integer]`
 
 * **Success Response:**
-  
-  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
-
   * **Code:** 200 <br />
     **Content:** `{ message : 'Delete successful'}`
  
@@ -320,4 +317,87 @@ axios.put('/products/:id', {
 * **Sample Call:**
 
  axios.delete('/products/:id')
+
+
+ **LOG OUT AND REMOVE CART**
+----
+* **URL**
+
+ /cart
+
+* **Method:**
+  `DELETE` 
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ id : 12 }`
+ 
+* **Error Response:**
+
+  * **Code:** 500  <br />
+    **Content:** `{ error : "Internal Server Error" }`
+
+* **Sample Call:**
+    axios.delete('/users/logout', { headers: { access_token: localStorage.getItem('access_token') }
+    })
+
+**FETCH CART**
+----
+
+* **URL**
+
+/users/cart
+
+* **Method:**
+  `GET` 
+
+
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Content:** `{ cart : [{
+        product: 
+        quantity: 
+    }]
+     }`
+ 
+* **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ error : "You have to be logged in" }`
+
+
+* **Sample Call:**
+   
+   axios.get('/users/cart', { headers: { access_token: localStorage.getItem('access_token') }
+      })
+
+**ADD TO CART**
+----
+
+* **URL**
+ /POST
+
+* **Method:**
+  
+  <_The request type_>
+
+  `POST`
+  
+
+* **Data Params**
+
+  {product: productId}
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ message : 'Product successfully added }`
+ 
+* **Sample Call:**
+ axios.post('http://35.240.238.247/users/cart', {
+        product: payload
+      }, { headers: {
+        access_token: localStorage.getItem('access_token')
+      } })
 

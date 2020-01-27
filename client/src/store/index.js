@@ -28,7 +28,7 @@ export default new Vuex.Store({
   },
   actions: {
     getProducts (context) {
-      axios.get('http://localhost:3000/products')
+      axios.get('http://35.240.238.247/products')
         .then(({ data }) => {
           context.commit('insertAllProducts', data.result)
           if (localStorage.getItem('access_token')) {
@@ -40,7 +40,7 @@ export default new Vuex.Store({
         })
     },
     getDetail (context, payload) {
-      axios.get(`http://localhost:3000/products/${payload}`)
+      axios.get(`http://35.240.238.247/products/${payload}`)
         .then(({ data }) => {
           context.commit('insertProductDetail', data.result)
           if (localStorage.getItem('access_token')) {
@@ -52,7 +52,7 @@ export default new Vuex.Store({
         })
     },
     searchItem (context, payload) {
-      axios.get(`http://localhost:3000/products/search/${payload}`)
+      axios.get(`http://35.240.238.247/products/search/${payload}`)
         .then(({ data }) => {
           if (data.result.length > 0 || data.result) {
             router.push('/products/' + data.result[0]._id)
@@ -65,7 +65,7 @@ export default new Vuex.Store({
         })
     },
     userLogin (context, payload) {
-      axios.post('http://localhost:3000/users/login', {
+      axios.post('http://35.240.238.247/users/login', {
         email: payload.email,
         password: payload.password
       })
@@ -81,7 +81,7 @@ export default new Vuex.Store({
         })
     },
     userRegister (context, payload) {
-      axios.post('http://localhost:3000/users/register', {
+      axios.post('http://35.240.238.247/users/register', {
         username: payload.username,
         email: payload.email,
         password: payload.password
@@ -95,7 +95,7 @@ export default new Vuex.Store({
         })
     },
     addToCart (context, payload) {
-      axios.post('http://localhost:3000/users/cart', {
+      axios.post('http://35.240.238.247/users/cart', {
         product: payload
       }, { headers: {
         access_token: localStorage.getItem('access_token')
@@ -108,7 +108,7 @@ export default new Vuex.Store({
         })
     },
     logOut (context, payload) {
-      axios.delete('http://localhost:3000/users/logout', { headers: { access_token: localStorage.getItem('access_token') }
+      axios.delete('http://35.240.238.247/users/logout', { headers: { access_token: localStorage.getItem('access_token') }
       })
         .then(({ data }) => {
           context.commit('setStatus', false)
@@ -119,7 +119,7 @@ export default new Vuex.Store({
         })
     },
     fetchCart (context, payload) {
-      axios.get('http://localhost:3000/users/cart', { headers: { access_token: localStorage.getItem('access_token') }
+      axios.get('http://35.240.238.247/users/cart', { headers: { access_token: localStorage.getItem('access_token') }
       })
         .then(({ data }) => {
           context.commit('insertCart', data.cart)
@@ -130,7 +130,7 @@ export default new Vuex.Store({
         })
     },
     reduceQty (context, payload) {
-      axios.put('http://localhost:3000/users/cart', {
+      axios.put('http://35.240.238.247/users/cart', {
         product: payload
       }, { headers: { access_token: localStorage.getItem('access_token') }
       })
@@ -141,7 +141,7 @@ export default new Vuex.Store({
         })
     },
     updateStock (context, payload) {
-      axios.put('http://localhost:3000/products/' + payload.productId, {
+      axios.put('http://35.240.238.247/products/' + payload.productId, {
         stock: payload.newStock
       }, { headers: { access_token: localStorage.getItem('access_token') }
       })

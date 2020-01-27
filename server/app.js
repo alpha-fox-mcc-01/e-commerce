@@ -7,6 +7,8 @@ const router = require('./routes')
 const errorHandler = require('./middleware/error_handler')
 const cors = require('cors')
 const logger = require('morgan')
+const ATLAS_CONNECT = 'mongodb+srv://vaniairnanda:vaniairnanda@cluster0-snvnr.gcp.mongodb.net/ecommerce?retryWrites=true&w=majority'
+
 mongoose.connect('mongodb://localhost/ecommerce' + `${process.env.NODE_ENV}`, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 var db = mongoose.connection;
