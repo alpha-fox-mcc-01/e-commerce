@@ -20,7 +20,7 @@ export default {
     checkout () {
       axios({
         method: 'DELETE',
-        url: 'http://localhost:3000/users/checkout',
+        url: 'http://35.187.233.73/users/checkout',
         headers: {
           access_token: localStorage.getItem('access_token')
         }

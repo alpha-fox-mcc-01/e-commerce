@@ -42,7 +42,7 @@ export default {
     getDetail () {
       axios({
         method: 'GET',
-        url: `http://localhost:3000/products/${this.$route.params.id}`
+        url: `http://35.187.233.73/products/${this.$route.params.id}`
       })
         .then(({ data }) => {
           this.product = data
@@ -54,7 +54,7 @@ export default {
     addToCart (id) {
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/users/cart',
+        url: 'http://35.187.233.73/users/cart',
         headers: {
           access_token: localStorage.getItem('access_token')
         },

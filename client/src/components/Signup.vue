@@ -43,7 +43,7 @@ export default {
     signUp () {
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/users/signup',
+        url: 'http://35.187.233.73/users/signup',
         data: {
           username: this.username,
           email: this.email,

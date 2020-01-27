@@ -26,7 +26,7 @@ export default new Vuex.Store({
       if (!payload) {
         axios({
           method: 'GET',
-          url: 'http://localhost:3000/products'
+          url: 'http://35.187.233.73/products'
         })
           .then(({ data }) => {
             context.commit('fillProducts', data)
@@ -37,7 +37,7 @@ export default new Vuex.Store({
       } else {
         axios({
           method: 'GET',
-          url: 'http://localhost:3000/products/categories/' + payload
+          url: 'http://35.187.233.73/products/categories/' + payload
         })
           .then(({ data }) => {
             context.commit('fillProducts', data)
@@ -50,7 +50,7 @@ export default new Vuex.Store({
     searchProducts (context, payload) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/products/?keyword=' + payload
+        url: 'http://35.187.233.73/products/?keyword=' + payload
       })
         .then(({ data }) => {
           context.commit('fillProducts', data)
@@ -62,7 +62,7 @@ export default new Vuex.Store({
     getCategories (context) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/products/categories'
+        url: 'http://35.187.233.73/products/categories'
       })
         .then(({ data }) => {
           context.commit('setCategories', data)
@@ -74,7 +74,7 @@ export default new Vuex.Store({
     getCart (context) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/users/cart',
+        url: 'http://35.187.233.73/users/cart',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
