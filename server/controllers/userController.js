@@ -182,44 +182,44 @@ class userController {
     }
 
     static checkout (req, res, next){
-        console.log('sampe ke controller checkout', req.currentUserid);
+        console.log('sampe ke controller checkout', req.body.total);
         
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                   user: 'hyura.log@gmail.com',
+                   user: 'hyura.logi@gmail.com',
                    pass: 'benyamin10'
                }
            });
 
            
-        //    User.findById({
-        //        _id:req.currentUserid   
-        //     })
-        //     .then(user => {
-        //         console.log(user);
+           User.findById({
+               _id:req.currentUserid   
+            })
+            .then(user => {
+                console.log(user);
                 
-                // const mailOptions = {
-                // from: 'sender@email.com', // sender address
-                // to: 'to@email.com', // list of receivers
-                // subject: 'Subject of your email', // Subject line
-                // html: '<p>Your html here</p>'// plain text body
-                // };
+                const mailOptions = {
+                from: 'sender@email.com', // sender address
+                to: `${user.email}`, // list of receivers
+                subject: 'bill anda', // Subject line
+                html: `<p>total harga yg perlu anda bayar Rp. ${req.body.total} </p>`// plain text body
+                };
 
-                // transporter.sendMail(mailOptions, function (err, info) {
-                //     if(err)
-                //       console.log(err)
-                //     else
-                //       console.log(info);
-                //       res.status(200).json(info)
-                //  });
+                transporter.sendMail(mailOptions, function (err, info) {
+                    if(err)
+                      console.log(err)
+                    else
+                      console.log(info);
+                      res.status(200).json(info)
+                 });
 
 
-        // })
-        // .catch(err => {
-        //     next(err)
+        })
+        .catch(err => {
+            next(err)
 
-        // })
+        })
 
 
         

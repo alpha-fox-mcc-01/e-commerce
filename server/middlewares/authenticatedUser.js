@@ -11,7 +11,7 @@ module.exports =
             const authenticated = jwt.verify(access_token, process.env.SECRET);
             if (authenticated) {
                 req.currentUserid = authenticated._id;
-                console.log(req.currentUserid, 'dari authenticated');
+                console.log(req.currentUserid, 'dari authenticated {}{}{}');
                 
                 //FIND email
                 User.findOne({ _id: authenticated })
