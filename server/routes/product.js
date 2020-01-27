@@ -12,6 +12,6 @@ router.use('/', authentication);
 
 router.post('/', authorization, ProductController.addProduct);
 router.put('/:id', ProductController.editProduct);
-router.delete('/:id', ProductController.deleteProduct);
+router.delete('/:id', authorization, ProductController.deleteProduct);
 
 module.exports = router;

@@ -25,7 +25,7 @@ export default {
     fetchProducts() {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/product',
+        url: 'http://e-commerce.ivantjendra.xyz/product',
       })
         .then(({ data }) => {
           this.products = data;

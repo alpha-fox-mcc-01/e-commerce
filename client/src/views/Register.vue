@@ -89,7 +89,6 @@ export default {
           this.$router.push('/login');
         })
         .catch((err) => {
-          console.log(err.response);
           if (err.response.data.errors) {
             this.$store.commit('changeErrors', err.response.data.errors);
             setTimeout(() => {

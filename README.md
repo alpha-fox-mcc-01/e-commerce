@@ -36,9 +36,23 @@
   * **Code:** 400 VALIDATION ERROR <br />
     **Content:** `{ msg : "Validation Error", errors : [ "Please fill a valid email address", "Password minimum length is 8", "Name is required", "Email address is required", "Password is required" ] }`
 
+  OR
+
+  * **Code:** 500 <br />
+    **Content:** `{ msg : "Internal Server Error" }`
+
 * **Sample Call:**
 
   ```javascript
+  axios({
+    method: 'POST',
+    url: 'http://localhost:3000/user/register',
+    data: {
+      name,
+      email,
+      password,
+    },
+  });
   ```
 
 
@@ -48,7 +62,7 @@
 
 * **URL**
 
-  /users/login
+  /user/login
 
 * **Method:**
 
@@ -78,5 +92,251 @@
 * **Sample Call:**
 
   ```javascript
-    
+  axios({
+    method: 'POST',
+    url: 'http://localhost:3000/user/login',
+    data: {
+      email,
+      password,
+    },
+  });
+  ```
+
+
+  **Get User**
+----
+  Returns user data.
+
+* **URL**
+
+  /user
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   None
+
+* **Data Params**
+
+  None
+
+* **Headers**
+
+  access_token
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `user with cart`
+ 
+* **Error Response:**
+
+  * **Code:** 500 <br />
+    **Content:** `{ msg : "Internal Server Error" }`
+
+
+* **Sample Call:**
+
+  ```javascript
+  axios({
+    method: 'GET',
+    url: 'http://localhost:3000/user',
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+  })
+  ```
+
+
+  **Add to Cart**
+----
+  Add product to cart field in user.
+
+* **URL**
+
+  /user/add/:id
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   None
+
+* **Data Params**
+
+  **Required:**
+  **Content:** `{ quantity: this.quantity }`
+
+* **Headers**
+
+  access_token
+
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** `user with cart`
+ 
+* **Error Response:**
+
+  * **Code:** 500 <br />
+    **Content:** `{ msg : "Internal Server Error" }`
+
+
+* **Sample Call:**
+
+  ```javascript
+  axios({
+    method: 'POST',
+    url: `http://localhost:3000/user/add/${this.$route.params.id}`,
+    data: {
+      quantity: this.quantity,
+    },
+    headers: {
+      access_token: accessToken,
+    },
+  })
+  ```
+
+
+  **Delete in cart**
+----
+  Delete product in cart field in user.
+
+* **URL**
+
+  /user/:id
+
+* **Method:**
+
+  `DELETE`
+  
+*  **URL Params**
+
+   None
+
+* **Data Params**
+
+  None
+
+* **Headers**
+
+  access_token
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `None`
+ 
+* **Error Response:**
+
+  * **Code:** 500 <br />
+    **Content:** `{ msg : "Internal Server Error" }`
+
+
+* **Sample Call:**
+
+  ```javascript
+  axios({
+    method: 'DELETE',
+    url: `http://localhost:3000/user/${id}`,
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+  })
+  ```
+
+
+
+  **Show All Product**
+----
+  Show all products.
+
+* **URL**
+
+  /product
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   None
+
+* **Data Params**
+
+  None
+
+* **Headers**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `Products data`
+ 
+* **Error Response:**
+
+  * **Code:** 500 <br />
+    **Content:** `{ msg : "Internal Server Error" }`
+
+
+* **Sample Call:**
+
+  ```javascript
+  axios({
+    method: 'GET',
+    url: 'http://localhost:3000/product',
+  })
+  ```
+
+
+    **Show 12 Product**
+----
+  Show 12 products for home page.
+
+* **URL**
+
+  /product/starter
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   None
+
+* **Data Params**
+
+  None
+
+* **Headers**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `12 products data`
+ 
+* **Error Response:**
+
+  * **Code:** 500 <br />
+    **Content:** `{ msg : "Internal Server Error" }`
+
+
+* **Sample Call:**
+
+  ```javascript
+  axios({
+    method: 'GET',
+    url: 'http://localhost:3000/product/starter',
+  })
   ```

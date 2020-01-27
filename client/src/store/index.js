@@ -34,7 +34,7 @@ export default new Vuex.Store({
       const { name, email, password } = payload;
       return axios({
         method: 'POST',
-        url: 'http://localhost:3000/user/register',
+        url: 'http://e-commerce.ivantjendra.xyz/user/register',
         data: {
           name,
           email,
@@ -46,7 +46,7 @@ export default new Vuex.Store({
       const { email, password } = payload;
       return axios({
         method: 'POST',
-        url: 'http://localhost:3000/user/login',
+        url: 'http://e-commerce.ivantjendra.xyz/user/login',
         data: {
           email,
           password,
@@ -56,7 +56,7 @@ export default new Vuex.Store({
     getUserCart(context) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/user',
+        url: 'http://e-commerce.ivantjendra.xyz/user',
         headers: {
           access_token: localStorage.getItem('access_token'),
         },

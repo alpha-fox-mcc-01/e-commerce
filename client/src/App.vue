@@ -27,7 +27,7 @@ export default {
     homeProducts() {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/product/starter',
+        url: 'http://e-commerce.ivantjendra.xyz/product/starter',
       })
         .then(({ data }) => {
           this.productsStarter = data;

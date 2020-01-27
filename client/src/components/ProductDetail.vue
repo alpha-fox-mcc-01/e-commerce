@@ -74,7 +74,7 @@ export default {
     showProduct() {
       axios({
         method: 'GET',
-        url: `http://localhost:3000/product/${this.$route.params.id}`,
+        url: `http://e-commerce.ivantjendra.xyz/product/${this.$route.params.id}`,
       })
         .then(({ data }) => {
           this.product = data;
@@ -87,7 +87,7 @@ export default {
       const accessToken = localStorage.getItem('access_token');
       axios({
         method: 'POST',
-        url: `http://localhost:3000/user/add/${this.$route.params.id}`,
+        url: `http://e-commerce.ivantjendra.xyz/user/add/${this.$route.params.id}`,
         data: {
           quantity: this.quantity,
         },

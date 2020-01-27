@@ -37,7 +37,7 @@ export default {
       console.log(id);
       axios({
         method: 'DELETE',
-        url: `http://localhost:3000/user/${id}`,
+        url: `http://e-commerce.ivantjendra.xyz/user/${id}`,
         headers: {
           access_token: localStorage.getItem('access_token'),
         },
