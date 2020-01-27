@@ -7,15 +7,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    idUser: ''
+    idUser: '',
+    oneProduct: {}
   },
   mutations: {
     fetchProduct (state, data) {
       state.products = data
     },
     addIdUser (state, data) {
-      console.log('berhasil commit idUser');
+      console.log('berhasil commit idUser')
       state.idUser = data
+    },
+    fetchOneProduct (state, data) {
+      state.oneProduct = data
     }
   },
   actions: {
@@ -27,6 +31,20 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data)
           context.commit('fetchProduct', data)
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
+    },
+    fetchOneProduct (context, idProduct) {
+      console.log(idProduct, 'ini fetch one product')
+      axios({
+        method: 'get',
+        url: 'http://localhost:3000/product/' + idProduct
+      })
+        .then(({ data }) => {
+          console.log(data)
+          context.commit('fetchOneProduct', data)
         })
         .catch(err => {
           console.log(err.response.data)

@@ -6,7 +6,10 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  created () {
+    this.$store.dispatch('fetchProduct')
+  }
 }
 </script>
 <style>

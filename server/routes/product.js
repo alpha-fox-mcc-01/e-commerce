@@ -2,6 +2,18 @@ const router = require('express').Router()
 const Product = require('../models/Product')
 const authentication = require('../middlewares/authentication')
 const authorization = require('../middlewares/authorization')
+const files = require('../middlewares/files')
+
+router.post('/upload',
+  files.multer.single('file'),
+  files.sendUploadToGCS,
+  (req, res) => {
+    res.send({
+      status: 200,
+      message: 'Your file is successfully uploaded',
+      link: req.file.cloudStoragePublicUrl
+    })
+  })
 
 router.post('/', authentication, authorization,(req, res, next)=>{
     const {name, price, stock, description, image} = req.body
