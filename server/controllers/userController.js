@@ -66,13 +66,13 @@ class UserController {
          quantity: req.body.quantity
       }
 
-      User.findOne({ _id: req.currentUserId })
+      User.findOne({ _id: req.currentUserId }).populate('cart.item')
          .then(user => {
-            // console.log(user);
+            console.log(user, `ini userrrrrrrrrrrrrrrrrrrrrrrr`);
 
             let itemSearch = user.cart.filter(data => {
                // console.log(data, `ini data`)
-               return data.item == req.body.itemId
+               return data.item._id == req.body.itemId
             })
             console.log(itemSearch, `ini itemSearchhhhhhhhhhhhhh`);
 
@@ -87,28 +87,30 @@ class UserController {
                      next(err)
                   })
             }
-            else {         
+            else {
                console.log(`masuk else`);
-               let newQuantity = req.body.quantity + itemSearch[0].quantity
-               console.log(newQuantity, `ini new quantityyyyyyyyyyyyyyyy`);
-                
-               User.updateOne({ 'cart.item': itemSearch[0].item },
-               {
-                   '$set': {
-                       'cart.$.quantity': newQuantity,
-                   }
-               })
-                  .then(data => {
-                     console.log(`masuk then`);
-                     
-                     console.log(data, `ini hasil update item di cartttttt`);
-                     res.status(201).json(data)
-                  })
-                  .catch(err => {
-                     console.log(`masuk err`);
-                     
-                     next(err)
-                  })
+               console.log(itemSearch[0]);
+
+               let newQuantity = Number(req.body.quantity) + Number(itemSearch[0].quantity)
+               if (newQuantity > itemSearch[0].item.stock) {
+                  next(err)
+               }
+               else {
+                  User.updateOne({ 'cart.item': itemSearch[0].item },
+                     {
+                        '$set': {
+                           'cart.$.quantity': newQuantity,
+                        }
+                     })
+                     .then(data => {
+                        console.log(data, `ini hasil update item di cartttttt`);
+                        res.status(201).json(data)
+                     })
+                     .catch(err => {
+                        // console.log(`masuk err`);
+                        next(err)
+                     })
+               }
             }
          })
          .catch(err => {
@@ -117,28 +119,28 @@ class UserController {
          })
    }
 
-   static deleteCart (req, res, next) {
+   static deleteCart(req, res, next) {
       const idCart = req.params.cartId
       User.findOneAndUpdate({
-         _id : req.currentUserId
+         _id: req.currentUserId
       }, {
-        $pull : {'cart': {_id : idCart}} 
+         $pull: { 'cart': { _id: idCart } }
       })
          .then(data => {
             res.status(200).json(data)
          })
-         .catch (err => {
+         .catch(err => {
             // console.log(err);
             next(err)
          })
    }
 
-   static getCart (req, res, next) {
-      User.findOne ({_id : req.currentUserId}).populate('cart.item')
+   static getCart(req, res, next) {
+      User.findOne({ _id: req.currentUserId }).populate('cart.item')
          .then(data => {
             res.status(200).json(data)
          })
-         .catch (err => {
+         .catch(err => {
             next(err)
          })
    }

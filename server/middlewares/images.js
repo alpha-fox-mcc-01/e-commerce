@@ -11,6 +11,8 @@ const getPublicUrl = (filename) => {
   return `https://storage.googleapis.com/${CLOUD_BUCKET}/${filename}`
 }
 const sendUploadToGCS = (req, res, next) => {
+  // console.log(req.file, `ini log middlewareeeeeeeeeeeee`);
+  
   if (!req.file) {
     return next()
   }
@@ -21,14 +23,26 @@ const sendUploadToGCS = (req, res, next) => {
       contentType: req.file.mimetype
     }
   })
+  // console.log(gcsname,`111111111`);
+
+  // console.log(file, `2222222`);
+  // console.log(stream, `333333333`);
+
+  
   stream.on('error', (err) => {
+    console.log(err);
+    
     req.file.cloudStorageError = err
     next(err)
   })
   stream.on('finish', () => {
+    console.log(`finishhh`);
+    
     req.file.cloudStorageObject = gcsname
     file.makePublic().then(() => {
+      
       req.file.cloudStoragePublicUrl = getPublicUrl(gcsname)
+      // console.log(req.file,` ini log 222222222222222222`);
       next()
     })
   })

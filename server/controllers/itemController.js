@@ -2,14 +2,15 @@ const Item = require('../models/itemModel')
 
 class ItemController {
    static add(req, res, next) {
-      // console.log(req.file.cloudStoragePublicUrl, '{}{}{}')
+      console.log(req.file.cloudStoragePublicUrl, '{}{}{}')
       // console.log(req.body);
       let newData = {
          name: req.body.name,
          description: req.body.description,
          price: req.body.price,
          stock: req.body.stock,
-         image: req.body.image
+         image: req.file.cloudStoragePublicUrl,
+         // image: req.body.image
       }
       Item.create(newData)
          .then(data => {
