@@ -6,11 +6,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    idUser: ''
   },
   mutations: {
     fetchProduct (state, data) {
       state.products = data
+    },
+    addIdUser (state, data) {
+      console.log('berhasil commit idUser');
+      state.idUser = data
     }
   },
   actions: {
@@ -26,7 +31,6 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err.response.data)
         })
-
     }
   },
   modules: {
