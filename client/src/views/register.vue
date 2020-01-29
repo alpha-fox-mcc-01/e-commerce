@@ -91,6 +91,7 @@ export default {
         .then(({ data }) => {
           console.log(data.token)
           localStorage.setItem('access_token', data.token)
+          this.$store.commit('addIdUser', data._id)
           this.$bvModal.show('bv-modal-example')
           setTimeout(() => {
             this.$router.push({ name: 'home' })
