@@ -4,7 +4,10 @@ const Schema = mongoose.Schema
 const productSchema = new Schema({
   name: String,
   description: String,
-  price: Number,
+  price: {
+    type: Number,
+    min: [1000, 'Minimum price is 1000']
+  },
   stocks: Number,
   imageUrl: String
 })

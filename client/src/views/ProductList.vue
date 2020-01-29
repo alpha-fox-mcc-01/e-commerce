@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <h1>This is POST PAGES</h1>
     <div class="row">
-      <div class="col-3">
+      <div class="col-4">
         <Sidebar :products="products"/>
       </div>
       <div class="col-8">
@@ -14,13 +13,34 @@
 
 <script>
 import Sidebar from '../components/Sidebar'
+import axios from 'axios'
 export default {
   name: 'ProductList',
-  props: {
-    products: Array
+  data () {
+    return {
+      products: []
+    }
+  },
+  methods: {
+    getAllProducts () {
+      axios({
+        method: 'GET',
+        url: 'http://localhost:3000/products/all'
+      })
+        .then(({ data }) => {
+          console.log(data)
+          this.products = data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   components: {
     Sidebar
+  },
+  created () {
+    this.getAllProducts()
   }
 }
 </script>

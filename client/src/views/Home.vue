@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <Slider />
-    <div class="row">
+    <Slider :products="products"/>
+    <div class="row justify-content-center">
       <ProductCard
         v-for="product in products"
         :key="product._id"

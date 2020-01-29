@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
-    <div class="mt-5 pt-3">
+    <div class="mt-5 pt-3 container">
       <router-view
       :products="products"
       />
@@ -26,7 +26,7 @@ export default {
     Footer
   },
   methods: {
-    getAllProducts () {
+    getProducts () {
       axios({
         method: 'GET',
         url: 'http://localhost:3000/products'
@@ -41,7 +41,7 @@ export default {
     }
   },
   created () {
-    this.getAllProducts()
+    this.getProducts()
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    SIDEBAR
+    <h4>Product List</h4>
     <div class="row">
       <ProductCard
         v-for="product in products"

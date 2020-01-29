@@ -1,4 +1,4 @@
-const Product = require('../models/ProductModel')
+const Product = require('../models/productModel')
 
 class ProductController {
 
@@ -20,7 +20,19 @@ class ProductController {
       })
   }
 
-  static getAllProduct(req, res, next){
+  static getProducts(req, res, next){
+    Product
+      .find()
+      .limit(6)
+      .then(products => {
+        res.status(200).json(products)
+      })
+      .catch(err => {
+        next(err)
+      })
+  }
+
+  static getAllProducts(req, res, next){
     Product
       .find()
       .then(products => {
