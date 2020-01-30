@@ -98,6 +98,13 @@ export default {
           this.stock = "";
           this.imageUrl = [];
           console.log("added", success);
+          this.$swal({
+            icon: "success",
+            title: "Added successfully.",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.$router.push("/admin");
         })
         .catch(err => console.log(err));
     }

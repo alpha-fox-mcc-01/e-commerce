@@ -21,7 +21,6 @@ import HomeHeader from "@/components/Header.vue";
 import HomeFeatured from "@/components/Featured.vue";
 import RegisterForm from "@/components/Register.vue";
 import Error from "@/components/Error.vue";
-import axios from "axios";
 
 export default {
   name: "home",

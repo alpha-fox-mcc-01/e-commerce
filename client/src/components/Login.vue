@@ -63,9 +63,19 @@ export default {
     },
     userLogin() {
       if (this.email === "") {
-        this.$emit("got-error", "Email can't be blank");
+        // this.$emit("got-error", "Email can't be blank");
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: "Email can't be blank."
+        });
       } else if (this.password === "") {
-        this.$emit("got-error", "Password can't be blank");
+        // this.$emit("got-error", "Password can't be blank");
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: "Password can't be blank."
+        });
       } else {
         this.$store
           .dispatch("login", { email: this.email, password: this.password })
@@ -78,7 +88,14 @@ export default {
           })
           .catch(err => {
             console.log(err);
-            this.$emit("got-error", "Username or password incorrect.");
+            // this.$emit("got-error", "Username or password incorrect.");
+            this.$swal({
+              icon: "error",
+              title: "Oops...",
+              text: "Username or password incorrect."
+            });
+            this.email = "";
+            this.password = "";
           });
       }
     }

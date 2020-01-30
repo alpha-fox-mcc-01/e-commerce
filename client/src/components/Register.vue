@@ -82,17 +82,47 @@ export default {
     },
     userRegister() {
       if (this.username === "") {
-        this.$emit("error-message", "Username can't be blank");
+        // this.$emit("error-message", "Username can't be blank");
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: "Username can't be blank."
+        });
       } else if (this.username.length < 10) {
-        this.$emit("error-message", "The minimum length of username is 10");
+        // this.$emit("error-message", "The minimum length of username is 10");
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: "The minimum length of username is 10."
+        });
       } else if (this.email === "") {
-        this.$emit("error-message", "Email can't be blank");
+        // this.$emit("error-message", "Email can't be blank");
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: "Email can't be blank."
+        });
       } else if (this.password === "") {
-        this.$emit("error-message", "Password can't be blank");
+        // this.$emit("error-message", "Password can't be blank");
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: "Password can't be blank."
+        });
       } else if (this.password.length < 10) {
-        this.$emit("error-message", "The minimum length of password is 10");
+        // this.$emit("error-message", "The minimum length of password is 10");
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: "The minimum length of password is 10."
+        });
       } else if (this.password !== this.retype) {
-        this.$emit("error-message", "Password and retype do not match");
+        // this.$emit("error-message", "Password and retype do not match");
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: "Password and retype do not match."
+        });
       } else {
         this.$store
           .dispatch("register", {
@@ -101,12 +131,17 @@ export default {
             password: this.password
           })
           .then(success => {
-            console.log("sukses register", success);
+            // console.log("sukses register", success);
             this.hide();
           })
           .catch(err => {
             console.log(err);
-            this.$emit("error-message", "Username or email already taken.");
+            // this.$emit("error-message", "Username or email already taken.");
+            this.$swal({
+              icon: "error",
+              title: "Oops...",
+              text: "Username or email already taken."
+            });
           });
       }
     }

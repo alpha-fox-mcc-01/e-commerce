@@ -39,7 +39,16 @@ export default {
     deleteProduct() {
       this.$store
         .dispatch("deleteProduct", this.product._id)
-        .then(() => console.log("deleted"))
+        .then(() => {
+          console.log("deleted");
+          this.$swal({
+            icon: "success",
+            title: "Item deleted.",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.$router.go();
+        })
         .catch(err => console.log(err));
     },
     edit() {

@@ -14,14 +14,14 @@
 </template>
 
 <script>
-import CartItem from '@/components/CartItem'
-import CartSidebar from '@/components/CartSidebar'
+import CartItem from "@/components/CartItem";
+import CartSidebar from "@/components/CartSidebar";
 
 export default {
-  data () {
+  data() {
     return {
       cartList: []
-    }
+    };
   },
   components: {
     CartItem,
@@ -29,19 +29,22 @@ export default {
   },
   methods: {
     getCartList() {
-      this.$store.dispatch('fetchCart')
-      .then(list => this.cartList = list.data)
-      .catch(err => console.log(err))
+      this.$store
+        .dispatch("fetchCart")
+        .then(({ data }) => {
+          this.cartList = data;
+        })
+        .catch(err => console.log(err));
     },
     deleteItem(id) {
-      this.$store.dispatch('deleteFromCart', id)
-      this.getCartList()
+      this.$store.dispatch("deleteFromCart", id);
+      this.getCartList();
     }
   },
   created() {
-    this.getCartList()
+    this.getCartList();
   }
-}
+};
 </script>
 
 <style>

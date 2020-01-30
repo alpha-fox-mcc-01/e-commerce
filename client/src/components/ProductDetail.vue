@@ -79,7 +79,13 @@ export default {
         this.$store
           .dispatch("addToCart", { id: this.$route.params.id, qty: this.qty })
           .then(() => {
-            this.errorHandler("Added to cart.");
+            // this.errorHandler("Added to cart.");
+            this.$swal({
+              icon: "success",
+              title: "Added to cart.",
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.qty = 1;
           });
         const stock = this.product.stock - this.qty;
@@ -88,7 +94,12 @@ export default {
           stock
         });
       } else {
-        this.errorHandler("Sorry, that's too much for us.");
+        // this.errorHandler("Sorry, that's too much for us.");
+        this.$swal({
+          icon: "error",
+          title: "Sorry.",
+          text: "That's too much for us."
+        });
       }
     },
     errorHandler(err) {
