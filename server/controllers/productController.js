@@ -67,34 +67,6 @@ module.exports = {
       })
   },
 
-  // addProduct(req, res, next) {
-  //   const { name, description, category, price, stock, imageUrl } = req.body
-  //   Product.create({
-  //     name,
-  //     description,
-  //     category,
-  //     price,
-  //     stock,
-  //     imageUrl
-  //   })
-  //     .then(product => {
-  //       res
-  //         .status(201)
-  //         .json({
-  //           _id: product._id,
-  //           name: product.name,
-  //           description: product.description,
-  //           category: product.category,
-  //           price: product.price,
-  //           stock: product.stock,
-  //           imageUrl: product.imageUrl
-  //         })
-  //     })
-  //     .catch(err => {
-  //       next(err)
-  //     })
-  // },
-
   getProduct(req, res, next) {
     Product.find({})
       .then(product => {

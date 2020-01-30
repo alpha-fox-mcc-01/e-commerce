@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     access_token: localStorage.getItem('access_token'),
     products: [],
-    userId: localStorage.getItem('activeUserId')
+    userId: localStorage.getItem('activeUserId'),
+    userRole: localStorage.getItem('userRole')
   },
   mutations: {
     stateToken(state, token) {
@@ -19,6 +20,7 @@ export default new Vuex.Store({
       state.access_token = ''
       localStorage.removeItem('access_token')
       localStorage.removeItem('activeUserId')
+      localStorage.removeItem('userRole')
     },
     setProduct(state, products) {
       state.products = products
@@ -26,6 +28,10 @@ export default new Vuex.Store({
     setUserId(state, user_id) {
       localStorage.setItem('activeUserId', user_id)
       state.userId = user_id
+    },
+    setRole(state, role) {
+      localStorage.setItem('userRole', role)
+      state.userRole = role
     }
   },
   actions: {
@@ -107,6 +113,32 @@ export default new Vuex.Store({
           username: user.username,
           email: user.email,
           password: user.password
+        }
+      })
+    },
+    deleteProduct(context, id) {
+      return axios({
+        method: 'delete',
+        url: 'http://54.85.108.180:3000/api/product/' + id,
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        }
+      })
+    },
+    editProduct(context, data) {
+      return axios({
+        method: 'put',
+        url: 'http://54.85.108.180:3000/api/product/' + data.id,
+        data: {
+          name: data.name,
+          description: data.description,
+          category: data.category,
+          price: data.price,
+          stock: data.stock,
+          imageUrl: data.imageUrl
+        },
+        headers: {
+          access_token: localStorage.getItem("access_token")
         }
       })
     }

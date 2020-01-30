@@ -16,7 +16,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Admin.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/AdminDashboard.vue')
   },
   {
     path: '/product',
@@ -45,6 +45,16 @@ const routes = [
       if (!UserId) next('/')
       else next()
     }
+  },
+  {
+    path: '/add',
+    name: 'add product',
+    component: () => import(/* webpackChunkName: "test" */ '../components/Add.vue')
+  },
+  {
+    path: '/edit/:id',
+    name: 'edit product',
+    component: () => import(/* webpackChunkName: "test" */ '../components/Edit.vue')
   }
 ]
 

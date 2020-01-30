@@ -31,21 +31,21 @@
 </style>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-import Error from '@/components/Error.vue'
+import Navbar from "@/components/Navbar.vue";
+import Error from "@/components/Error.vue";
 export default {
-  data () {
+  data() {
     return {
-      error: ''
-    }
+      error: ""
+    };
   },
   components: {
     Navbar,
     Error
   },
   computed: {
-    access_token () {
-      return this.$store.state.access_token
+    access_token() {
+      return this.$store.state.access_token;
     }
   },
   methods: {
@@ -55,6 +55,9 @@ export default {
         this.error = "";
       }, 2500);
     }
+  },
+  created() {
+    this.$store.dispatch("fetchProducts");
   }
-}
+};
 </script>

@@ -36,13 +36,14 @@
                 </tr>
               </table>
             </b-card-text>
-            <button
+            <b-button
               v-if="access_token"
               style="position: absolute; bottom:1rem; right:1rem"
               @click.prevent="addToCart"
+              variant="primary"
             >
               Add to Cart
-            </button>
+            </b-button>
           </b-card-body>
         </b-col>
       </b-row>

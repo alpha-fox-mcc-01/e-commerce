@@ -73,6 +73,7 @@ export default {
           .then(success => {
             this.$store.commit("stateToken", success.data.access_token);
             this.$store.commit("setUserId", success.data.userId);
+            this.$store.commit("setRole", success.data.role);
             this.hide();
           })
           .catch(err => {
