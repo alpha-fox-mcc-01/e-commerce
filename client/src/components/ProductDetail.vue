@@ -17,27 +17,21 @@
             <b-card-text style="margin-top: 3rem;">
               <table>
                 <tr>
-                  <th>Description</th>
+                  <th valign="top">Description</th>
                   <td>{{ product.description }}</td>
                 </tr>
                 <tr>
-                  <th>Category</th>
+                  <th valign="top">Category</th>
                   <td>{{ product.category }}</td>
                 </tr>
                 <tr>
-                  <th>Price</th>
+                  <th valign="top">Price</th>
                   <td>Rp {{ product.price.toLocaleString() }}</td>
                 </tr>
-                <tr>
+                <tr v-if="access_token">
                   <th>Quantity</th>
                   <td>
-                    <input
-                      type="number"
-                      name="qty"
-                      id="qty"
-                      v-model="qty"
-                      v-if="access_token"
-                    />
+                    <input type="number" name="qty" id="qty" v-model="qty" />
                   </td>
                 </tr>
               </table>
