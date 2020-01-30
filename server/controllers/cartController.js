@@ -3,20 +3,36 @@ const Cart = require('../models/cart')
 module.exports = {
   addToCart(req, res, next) {
     const { UserId, ProductId, quantity } = req.body
-    Cart.create({
-      UserId,
-      ProductId,
-      quantity
-    })
-      .then(cart => {
-        res
-          .status(201)
-          .json({
-            _id: cart._id,
-            UserId: cart.UserId,
-            ProductId: cart.ProductId,
-            quantity: cart.quantity
+    Cart.find({ UserId })
+      .then(found => {
+        let isExist = false
+        for (item in found) {
+          if (item.ProductId == ProductId) {
+            isExist = true
+          }
+        }
+        if (!isExist) {
+          Cart.create({
+            UserId,
+            ProductId,
+            quantity
           })
+            .then(cart => {
+              res
+                .status(201)
+                .json({
+                  _id: cart._id,
+                  UserId: cart.UserId,
+                  ProductId: cart.ProductId,
+                  quantity: cart.quantity
+                })
+            })
+            .catch(err => {
+              next(err)
+            })
+        } else {
+          throw new Error('Item already exist')
+        }
       })
       .catch(err => {
         next(err)
