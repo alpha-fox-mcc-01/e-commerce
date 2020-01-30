@@ -10,7 +10,10 @@
               class="rounded-0 loginImage"
             ></b-card-img>
           </b-col>
-          <b-col md="6" style="display: flex; align-items: center; text-align: center;">
+          <b-col
+            md="6"
+            style="display: flex; align-items: center; text-align: center;"
+          >
             <form method="post" v-on:submit.prevent="userLogin">
               <input
                 type="email"
@@ -33,7 +36,8 @@
                   variant="primary"
                   type="submit"
                   style="border-radius: 40px; width: 250px;"
-                >Submit</b-button>
+                  >Submit</b-button
+                >
               </p>
             </form>
           </b-col>
@@ -46,41 +50,39 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  data () {
+  data() {
     return {
-      email: '',
-      password: '',
-    }
+      email: "",
+      password: ""
+    };
   },
   methods: {
-    hide () {
-      this.$modal.hide('login')
+    hide() {
+      this.$modal.hide("login");
     },
-    userLogin () {
+    userLogin() {
       if (this.email === "") {
-        this.$emit("got-error", "Email can't be blank")
-      } 
-      else if (this.password === "") {
-        this.$emit("got-error", "Password can't be blank")
-      }   
-      else {
-        this.$store.dispatch('login', {email: this.email, password: this.password})
+        this.$emit("got-error", "Email can't be blank");
+      } else if (this.password === "") {
+        this.$emit("got-error", "Password can't be blank");
+      } else {
+        this.$store
+          .dispatch("login", { email: this.email, password: this.password })
 
-        .then(success => {
-          this.$store.commit('stateToken', success.data.access_token)
-          this.$store.commit('setUserId', success.data.userId)
-          this.hide ()
-        })
-        .catch(err => {
-          console.log(err)
-          this.$emit("got-error", "Username or password incorrect.");
-        })
+          .then(success => {
+            this.$store.commit("stateToken", success.data.access_token);
+            this.$store.commit("setUserId", success.data.userId);
+            this.hide();
+          })
+          .catch(err => {
+            console.log(err);
+            this.$emit("got-error", "Username or password incorrect.");
+          });
       }
     }
   }
-}
+};
 </script>
 <style scoped>
 .modalBox {

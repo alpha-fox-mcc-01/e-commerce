@@ -31,12 +31,19 @@
                 <tr>
                   <th>Quantity</th>
                   <td>
-                    <input type="number" name="qty" id="qty" v-model="qty" />
+                    <input
+                      type="number"
+                      name="qty"
+                      id="qty"
+                      v-model="qty"
+                      v-if="access_token"
+                    />
                   </td>
                 </tr>
               </table>
             </b-card-text>
             <button
+              v-if="access_token"
               style="position: absolute; bottom:1rem; right:1rem"
               @click.prevent="addToCart"
             >
@@ -52,6 +59,7 @@
 
 <script>
 import Error from "@/components/Error";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -95,6 +103,7 @@ export default {
       }, 2500);
     }
   },
+  computed: mapState(["access_token"]),
   created() {
     this.fetchProduct();
   },

@@ -10,7 +10,10 @@
               class="rounded-0 loginImage"
             ></b-card-img>
           </b-col>
-          <b-col md="6" style="display: flex; align-items: center; text-align: center;">
+          <b-col
+            md="6"
+            style="display: flex; align-items: center; text-align: center;"
+          >
             <form method="post" v-on:submit.prevent="userRegister">
               <input
                 type="text"
@@ -49,7 +52,8 @@
                   variant="primary"
                   type="submit"
                   style="border-radius: 40px; width: 250px;"
-                >Submit</b-button>
+                  >Submit</b-button
+                >
               </p>
             </form>
           </b-col>
@@ -62,61 +66,52 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-  data () {
+  data() {
     return {
-      username: '',
-      email: '',
-      password: '',
-      retype: ''
-    }
+      username: "",
+      email: "",
+      password: "",
+      retype: ""
+    };
   },
   methods: {
-    hide () {
-      this.$modal.hide('register')
+    hide() {
+      this.$modal.hide("register");
     },
-    userRegister () {
+    userRegister() {
       if (this.username === "") {
-        this.$emit("error-message", "Username can't be blank")
-      }
-      else if (this.username.length < 10) {
-        this.$emit("error-message", "The minimum length of username is 10")
-      }
-      else if (this.email === "") {
-        this.$emit("error-message", "Email can't be blank")
-      } 
-      else if (this.password === "") {
-        this.$emit("error-message", "Password can't be blank")
-      }   
-      else if (this.password.length < 10) {
-        this.$emit("error-message", "The minimum length of password is 10")
-      }
-      else if (this.password !== this.retype) {
+        this.$emit("error-message", "Username can't be blank");
+      } else if (this.username.length < 10) {
+        this.$emit("error-message", "The minimum length of username is 10");
+      } else if (this.email === "") {
+        this.$emit("error-message", "Email can't be blank");
+      } else if (this.password === "") {
+        this.$emit("error-message", "Password can't be blank");
+      } else if (this.password.length < 10) {
+        this.$emit("error-message", "The minimum length of password is 10");
+      } else if (this.password !== this.retype) {
         this.$emit("error-message", "Password and retype do not match");
-      }
-      else {
-        axios({
-          method: 'post',
-          url: 'http://localhost:3000/register',
-          data: {
+      } else {
+        this.$store
+          .dispatch("register", {
             username: this.username,
             email: this.email,
             password: this.password
-          }
-        })
-        .then(success => {
-          console.log('sukses register', success)
-          this.hide ()
-        })
-        .catch(err => {
-          console.log(err)
-          this.$emit("error-message", "Username or email already taken.");
-        })
+          })
+          .then(success => {
+            console.log("sukses register", success);
+            this.hide();
+          })
+          .catch(err => {
+            console.log(err);
+            this.$emit("error-message", "Username or email already taken.");
+          });
       }
     }
   }
-}
+};
 </script>
 <style scoped>
 .modalBox {

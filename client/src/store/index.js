@@ -32,7 +32,7 @@ export default new Vuex.Store({
     fetchProducts() {
       axios({
         method: 'get',
-        url: 'http://localhost:3000/api/product',
+        url: 'http://54.85.108.180:3000/api/product',
       })
         .then(products => {
           this.commit('setProduct', products.data)
@@ -42,13 +42,13 @@ export default new Vuex.Store({
     fetchOneProduct({ commit }, id) {
       return axios({
         method: 'get',
-        url: 'http://localhost:3000/api/product/' + id
+        url: 'http://54.85.108.180:3000/api/product/' + id
       })
     },
     updateOneProductStock({ commit }, data) {
       return axios({
         method: 'patch',
-        url: 'http://localhost:3000/api/product/' + data.id,
+        url: 'http://54.85.108.180:3000/api/product/' + data.id,
         data: {
           stock: data.stock
         },
@@ -60,7 +60,7 @@ export default new Vuex.Store({
     login({ commit }, user) {
       return axios({
         method: 'post',
-        url: 'http://localhost:3000/login',
+        url: 'http://54.85.108.180:3000/login',
         data: {
           email: user.email,
           password: user.password
@@ -70,7 +70,7 @@ export default new Vuex.Store({
     addToCart({ commit }, data) {
       return axios({
         method: 'post',
-        url: 'http://localhost:3000/cart',
+        url: 'http://54.85.108.180:3000/cart',
         data: {
           UserId: this.state.userId,
           ProductId: data.id,
@@ -84,7 +84,7 @@ export default new Vuex.Store({
     fetchCart() {
       return axios({
         method: 'get',
-        url: 'http://localhost:3000/cart/' + this.state.userId,
+        url: 'http://54.85.108.180:3000/cart/' + this.state.userId,
         headers: {
           'access_token': this.state.access_token
         }
@@ -93,55 +93,22 @@ export default new Vuex.Store({
     deleteFromCart({ commit }, id) {
       return axios({
         method: 'delete',
-        url: 'http://localhost:3000/cart/' + id,
+        url: 'http://54.85.108.180:3000/cart/' + id,
         headers: {
           'access_token': this.state.access_token
         }
       })
+    },
+    register({ commit }, user) {
+      return axios({
+        method: 'post',
+        url: 'http://54.85.108.180:3000/register',
+        data: {
+          username: user.username,
+          email: user.email,
+          password: user.password
+        }
+      })
     }
-    // fetchTodos() {
-    //   db.collection('todos')
-    //     .onSnapshot((doc) => {
-    //       const todos = []
-    //       doc.docs.forEach((document) => {
-    //         const data = document.data()
-    //         data.id = document.id
-    //         todos.push(data)
-    //       })
-    //       this.commit('storeTodo', todos)
-    //     })
-    // },
-    // deleteCard({ commit }, id) {
-    //   return db.collection('todos').doc(id).delete()
-    // },
-    // prevCat({ commit }, data) {
-    //   const cats = this.state.category
-    //   console.log(data.id)
-    //   let index = cats.indexOf(data.cat)
-    //   index -= 1
-    //   const category = cats[index]
-    //   return db.collection('todos').doc(data.id).update({
-    //     category
-    //   })
-    // },
-    // nextCat({ commit }, data) {
-    //   const cats = this.state.category
-    //   console.log(data.id)
-    //   let index = cats.indexOf(data.cat)
-    //   index += 1
-    //   const category = cats[index]
-    //   return db.collection('todos').doc(data.id).update({
-    //     category
-    //   })
-    // },
-    // addCard({ commit }, data) {
-    //   return db.collection('todos').add({
-    //     title: data.title,
-    //     description: data.description,
-    //     assigned: data.assigned,
-    //     priority: data.priority,
-    //     category: 'backlog'
-    //   })
-    // }
   }
 })
