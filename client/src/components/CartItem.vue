@@ -5,7 +5,9 @@
     > -->
     <b-card-text style="margin-bottom: 0px;"
       >Quantity: <input type="number" v-model="quantity" style="width: 3rem" />
-      <b-button style="margin-left: 1rem;" size="sm">SET</b-button></b-card-text
+      <b-button style="margin-left: 1rem;" size="sm" @click="updateQuantity"
+        >SET</b-button
+      ></b-card-text
     >
 
     <b-card-text

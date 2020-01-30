@@ -47,5 +47,19 @@ module.exports = {
       .catch(err => {
         next(err)
       })
+  },
+
+  editQuantity(req, res, next) {
+    const { id } = req.params
+    const { qty } = req.body
+    Cart.findByIdAndUpdate({ _id: id }, { $set: { quantity: qty } })
+      .then(() => {
+        res
+          .status(200)
+          .json({ msg: "Quantity updated successfully" })
+      })
+      .catch(err => {
+        next(err)
+      })
   }
 }
