@@ -3,6 +3,7 @@
     <logo />
     <b-card header="REGISTER">
       <b-form @submit.prevent="onSubmit">
+        <b-alert show variant="danger" v-if="alert">{{ alert }}</b-alert>
         <b-form-group id="input-group-3" label="Name:" label-for="input-3">
             <b-form-input
               id="input-3"
@@ -68,7 +69,8 @@ export default {
     return {
       email: '',
       password: '',
-      name: ''
+      name: '',
+      alert: ''
     }
   },
   components: {
@@ -91,6 +93,7 @@ export default {
         .then(({ data }) => {
           console.log(data.token)
           localStorage.setItem('access_token', data.token)
+          this.$store.commit('setCurrentUserData', data)
           this.$store.commit('addIdUser', data._id)
           this.$bvModal.show('bv-modal-example')
           setTimeout(() => {
@@ -98,6 +101,10 @@ export default {
           }, 5000)
         })
         .catch(err => {
+          this.alert = err.response.data.errors[0]
+          setTimeout(() => {
+            this.alert = ''
+          }, 3000)
           console.log(err.response)
         })
     },

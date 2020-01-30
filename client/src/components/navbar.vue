@@ -15,15 +15,9 @@
             <b-navbar-nav>
               <b-nav-item href="#">
                 <router-link to="/">Home</router-link>
+                Cart: {{ chart }}
               </b-nav-item>
-              <!-- <b-nav-item href="#">
-                <router-link to="/register">Register</router-link>
-              </b-nav-item>
-              <b-nav-item href="#">
-                <router-link to="/login" >Login</router-link>
-              </b-nav-item> -->
           </b-navbar-nav>
-
             <b-nav-item-dropdown right>
               <!-- Using 'button-content' slot -->
               <template v-slot:button-content>
@@ -55,6 +49,11 @@ export default {
     logout () {
       localStorage.clear()
       this.$router.push({ name: 'login' })
+    }
+  },
+  computed: {
+    chart () {
+      return this.$store.state.currentUserData.cartLists.length
     }
   }
 }
