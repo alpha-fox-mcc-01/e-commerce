@@ -145,7 +145,7 @@ export default new Vuex.Store({
     editQuantity(context, data) {
       return axios({
         method: "patch",
-        url: 'http://54.85.108.180:3000/api/product/' + data.id,
+        url: 'http://54.85.108.180:3000/cart/' + data.id,
         data: {
           quantity: data.quantity
         },

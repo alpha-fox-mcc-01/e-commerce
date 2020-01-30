@@ -51,9 +51,10 @@ module.exports = {
 
   editQuantity(req, res, next) {
     const { id } = req.params
-    const { qty } = req.body
-    Cart.findByIdAndUpdate({ _id: id }, { $set: { quantity: qty } })
-      .then(() => {
+    const { quantity } = req.body
+    Cart.findOneAndUpdate({ _id: id }, { $set: { quantity } })
+      .then(success => {
+        console.log(success)
         res
           .status(200)
           .json({ msg: "Quantity updated successfully" })
