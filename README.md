@@ -1,5 +1,6 @@
 # e-commerce
-Url : **http://e-commerce.nafies.tech/login**
+Url : **http://e-commerce.nafies.tech/**
+
 Base API url : **http://api-e-commerce.nafies.tech/**
 
 ## Home
