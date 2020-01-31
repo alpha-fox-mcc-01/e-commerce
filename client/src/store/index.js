@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     products: [],
     idUser: '',
+    currentUserData: '',
     oneProduct: {}
   },
   mutations: {
@@ -20,6 +21,10 @@ export default new Vuex.Store({
     },
     fetchOneProduct (state, data) {
       state.oneProduct = data
+    },
+    setCurrentUserData (state, data) {
+      console.log('berhasil masuk currentUserData')
+      state.currentUserData = data
     }
   },
   actions: {

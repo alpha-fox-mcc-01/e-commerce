@@ -64,12 +64,17 @@ export default {
         .then(({ data }) => {
           console.log(data)
           localStorage.setItem('access_token', data.token)
+          this.$store.commit('setCurrentUserData', data)
           this.$store.commit('addIdUser', data._id)
           setTimeout(() => {
             this.$router.push({ name: 'home' })
           }, 1000)
         })
         .catch(err => {
+          this.alert = true
+          setTimeout(() => {
+            this.alert = false
+          }, 3000)
           console.log(err.response.data)
         })
     },
