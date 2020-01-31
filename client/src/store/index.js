@@ -31,7 +31,7 @@ export default new Vuex.Store({
     fetchProduct (context) {
       axios({
         method: 'get',
-        url: 'http://localhost:3000/product'
+        url: 'http://api-e-commerce.nafies.tech/product'
       })
         .then(({ data }) => {
           console.log(data)
@@ -45,7 +45,7 @@ export default new Vuex.Store({
       console.log(idProduct, 'ini fetch one product')
       axios({
         method: 'get',
-        url: 'http://localhost:3000/product/' + idProduct
+        url: 'http://api-e-commerce.nafies.tech/product/' + idProduct
       })
         .then(({ data }) => {
           console.log(data)

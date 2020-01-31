@@ -83,7 +83,7 @@ export default {
       console.log(this.name)
       axios({
         method: 'post',
-        url: 'http://localhost:3000/user/register',
+        url: 'http://api-e-commerce.nafies.tech/user/register',
         data: {
           name: this.name,
           email: this.email,

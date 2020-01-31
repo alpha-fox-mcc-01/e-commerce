@@ -44,7 +44,7 @@ export default {
       this.$bvModal.hide('addCart')
       axios({
         method: 'post',
-        url: `http://localhost:3000/cart/${this.idUser}`,
+        url: `http://api-e-commerce.nafies.tech/cart/${this.idUser}`,
         headers: {
           token: this.token
         },
