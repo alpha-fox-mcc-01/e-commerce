@@ -9,7 +9,9 @@ import StoreCard from "./StoreCard";
 export default {
   name: `Store`,
   data() {
-    return {};
+    return {
+      
+    };
   },
   components: {
     StoreCard

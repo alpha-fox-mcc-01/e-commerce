@@ -1,9 +1,9 @@
 <template>
   <div class="container mt-5 mb-5">
     <div class="row">
-       <div class="col">
-        <img :src="item.image" alt="Product image" class="shadow"/>
-       </div>
+      <div class="col">
+        <img :src="item.image" alt="Product image" class="shadow" />
+      </div>
       <div class="col-lg-6 justify-content-center flex-row">
         <div class="container-fluid">
           <div class="row border-bottom">
@@ -40,6 +40,7 @@
           </div>
           <div class="row border-bottom">
             <div class="col-4 text-left">
+              
               <form @submit.prevent="addToCart">
                 <div class="form-group p-4">
                   <label for="quantity">Quantity</label>
@@ -64,7 +65,7 @@
 
 <script>
 import axios from "axios";
-
+import Swal from "sweetalert2";
 export default {
   name: `ItemDetail`,
   data() {
@@ -80,44 +81,84 @@ export default {
         url: `http://localhost:3000/items/${this.$route.params.itemId}`
       })
         .then(({ data }) => {
-           console.log(data);
-            this.item = data
+          console.log(data);
+          this.item = data;
         })
         .catch(err => {
-          console.log(err.message)
+          console.log(err.message);
         });
     },
-    addToCart () {
-       axios({
-          method : `POST`,
-          url : `http://localhost:3000/users/addcart`,
-          data : {
-             itemId : this.item._id,
-             quantity : this.quantity
-          },
-          headers : {
-             token : localStorage.getItem('token')
+    addToCart() {
+      if (!localStorage.getItem(`token`)) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          onOpen: toast => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
           }
-       })
-         .then (({data}) => {
+        });
+
+        Toast.fire({
+          icon: "warning",
+          title: "You need to login first"
+        });
+        this.$router.push("/login");
+      } else {
+        axios({
+          method: `POST`,
+          url: `http://localhost:3000/users/addcart`,
+          data: {
+            itemId: this.item._id,
+            quantity: this.quantity
+          },
+          headers: {
+            token: localStorage.getItem("token")
+          }
+        })
+          .then(({ data }) => {
             console.log(data);
-            this.$router.push('/mycart')
-         })
-         .catch(err => {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              onOpen: toast => {
+                toast.addEventListener("mouseenter", Swal.stopTimer);
+                toast.addEventListener("mouseleave", Swal.resumeTimer);
+              }
+            });
+
+            Toast.fire({
+              icon: "success",
+              title: "Added to cart!"
+            });
+            this.$router.push("/mycart");
+          })
+          .catch(err => {
             console.log(err.message);
-         })
+            Swal.fire({
+              icon: "error",
+              title: "Oops... Stock barang abis nih bos!",
+              text: "coba check cart anda",
+            });
+          });
+      }
     }
   },
   created() {
     this.showItem();
-
   }
 };
 </script>
 
 <style scoped>
 img {
-   max-width: 400px;
-   max-height: 500px
+  max-width: 400px;
+  max-height: 500px;
 }
 </style>

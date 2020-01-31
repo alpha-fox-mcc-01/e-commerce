@@ -30,13 +30,14 @@
 
 <script>
 import ItemCart from "../components/ItemCart";
+import Swal from 'sweetalert2'
 export default {
   name: `MyCart`,
   data() {
     return {};
   },
-  components : {
-     ItemCart
+  components: {
+    ItemCart
   },
   methods: {},
   computed: {
@@ -49,6 +50,22 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     if (!localStorage.getItem(`token`)) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        onOpen: toast => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        }
+      });
+
+      Toast.fire({
+        icon: "warning",
+        title: "you need to sign in first"
+      });
       next("/login");
     } else {
       next();

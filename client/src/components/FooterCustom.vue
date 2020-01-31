@@ -12,7 +12,7 @@
       <div class="col-md-4 mx-auto">
 
         <!-- Content -->
-        <h5 class="font-weight-bold text-uppercase mt-3 mb-3">Footer Content</h5>
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-3">About ChibiStore</h5>
         <p>Chibi store has since it was founded in 2020 grown into 
             one of the world's leading fashion companies. 
             The content of this site is copyright-protected and is the property of Atticus-G group.</p>

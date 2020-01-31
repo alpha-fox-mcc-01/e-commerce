@@ -7,16 +7,13 @@
 </template>
 
 <script>
-import StoreCard from '../components/StoreCard'
+// import StoreCard from '../components/S
 export default {
   name: `Store`,
   data () {
     return {
 
     }
-  },
-  components : {
-    StoreCard
   },
   created () {
     this.$store.dispatch('getAllItem')

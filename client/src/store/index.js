@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     items : [],
-    cart : []
+    cart : [],
+    isLogin : ''
   },
   mutations: {
     setItems (state, items) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     setCart (state, items) {
       state.cart = items
+    },
+    setIsLogin (state, item) {
+      state.isLogin = item
     }
   },
   actions: {
@@ -39,14 +43,15 @@ export default new Vuex.Store({
           token : localStorage.getItem('token')
         }
       })
-        .then(({data}) => {
-          // console.log(data.cart);
-          // console.log(`getCart jalan`);
+        .then(({data}) => {    
           commit('setCart', data.cart)
         })
         .catch (err => {
           console.log(err);       
         })
+    },
+    isLoginAction (context, payload) {
+      context.commit('setIsLogin', payload)
     }
   },
   modules: {

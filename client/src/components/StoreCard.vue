@@ -1,5 +1,5 @@
 <template>
-  <div class="col p-4">
+  <div class="col-4 p-4">
     <div class="card shadow" style="width: 18rem; cursor: pointer;" @click="getItemDetail(item._id)">
       <img
         class="card-img-top mb-2"

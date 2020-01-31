@@ -68,13 +68,10 @@ class UserController {
 
       User.findOne({ _id: req.currentUserId }).populate('cart.item')
          .then(user => {
-            console.log(user, `ini userrrrrrrrrrrrrrrrrrrrrrrr`);
-
+            
             let itemSearch = user.cart.filter(data => {
-               // console.log(data, `ini data`)
                return data.item._id == req.body.itemId
             })
-            console.log(itemSearch, `ini itemSearchhhhhhhhhhhhhh`);
 
             if (itemSearch.length < 1) {
                User.updateOne({ _id: req.currentUserId }, { $push: { cart: newItem } })
