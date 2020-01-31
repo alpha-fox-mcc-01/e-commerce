@@ -1,6 +1,6 @@
 # e-commerce
-
-Base url : **http://localhost:3000**
+Url : **http://e-commerce.nafies.tech/login**
+Base API url : **http://api-e-commerce.nafies.tech/**
 
 ## Home
 Route | Method | Request(s) | Response(s) | Description

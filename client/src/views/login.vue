@@ -55,7 +55,7 @@ export default {
     onSubmit () {
       axios({
         method: 'post',
-        url: 'http://localhost:3000/user/login',
+        url: 'http://api-e-commerce.nafies.tech/user/login',
         data: {
           email: this.email,
           password: this.password
