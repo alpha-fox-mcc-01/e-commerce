@@ -26,6 +26,8 @@ export default {
   created: function(){
     if(localStorage.getItem('access_token')){
       this.$store.dispatch('getUser')
+      // this.cart = this.$store.state.cartData
+
     }  
                        
   }

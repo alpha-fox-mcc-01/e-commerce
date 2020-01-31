@@ -94,12 +94,12 @@ class userController {
                 })
                 .then((data) =>{
                 //    console.log(data);
-                   Product.updateOne({_id: req.body.product}, 
-                    {"$inc": { stock: -1 }})
-                    .then(data =>{
-                        console.log(data,'berhasil ngurangin stock ============');
+                //    Product.updateOne({_id: req.body.product}, 
+                //     {"$inc": { stock: -1 }})
+                //     .then(data =>{
+                //         console.log(data,'berhasil ngurangin stock ============');
                         
-                    })
+                //     })
                     
                     res.status(200).json(data)
 
@@ -120,12 +120,12 @@ class userController {
                 //    console.log(user);
                    res.status(200).json(user)
                     
-                   Product.updateOne({_id: req.body.product}, 
-                    {"$inc": { stock: -1 }})
-                    .then(data =>{
-                        console.log(data,'berhasil ngurangin stock ============');
+                //    Product.updateOne({_id: req.body.product}, 
+                //     {"$inc": { stock: -1 }})
+                //     .then(data =>{
+                //         console.log(data,'berhasil ngurangin stock ============');
                         
-                    })
+                //     })
                    
                 })
                 .catch(err =>{
@@ -183,7 +183,9 @@ class userController {
 
     static checkout (req, res, next){
         console.log('sampe ke controller checkout', req.body.total);
+        console.log(req.body.daftar);
         
+        let arr = req.body.daftar
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -199,6 +201,26 @@ class userController {
             .then(user => {
                 console.log(user);
                 
+                for (i=0; i<arr.length; i++){
+
+                    Product.updateOne({_id: req.body.product}, 
+                    {"$inc": { stock: -1 }})
+                    .then(data =>{
+                        console.log(data,'berhasil ngurangin stock ============');
+                        
+                    })
+
+                }
+
+                User.findByIdAndUpdate(
+                    req.currentUserid,
+                    { $set: { 'cart': []
+                     } })
+                    .then(data => {
+                        // res.status(200).json({ data })
+                        console.log(data,'dapet data');
+                        
+                    })
                 const mailOptions = {
                 from: 'sender@email.com', // sender address
                 to: `${user.email}`, // list of receivers

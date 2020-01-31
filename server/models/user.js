@@ -35,10 +35,6 @@ userSchema.pre('save', function(next) {
     }
   });
 
-//   userSchema.pre('update', function(next) {
-//     if(this.cart.product){}
-// });
-
 var User = mongoose.model('User', userSchema);
 
 module.exports = User

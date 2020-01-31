@@ -62,6 +62,7 @@
                   </div>
                 </div>
                 <!-- {{cartData}} -->
+                <!-- {{setDaftar}} -->
               </div>
             </div>
           </div>
@@ -76,7 +77,8 @@ export default {
   data () {
     return {
       cart: [],
-      totalharga: 0
+      totalharga: 0,
+      daftar:[]
     }
   },
   methods:{
@@ -88,6 +90,7 @@ export default {
         url: "/user/checkout",
         data: {
           total: this.totalPrice,
+          daftar: this.setDaftar
         },
         headers: {
           access_token : localStorage.getItem('access_token')
@@ -105,22 +108,37 @@ export default {
   },  
   computed:{
     cartData () {
-      // console.log(this.$store.state.cartData, 'cartnya ini')
-      let arr = this.$store.state.cartData
+      console.log(this.$store.state.cartData, 'cartnya ini')
       this.cart = this.$store.state.cartData
 
-      arr.forEach(el => this.totalharga+= (el.product.price * el.jumlah));
       return this.$store.state.cartData
     },
     totalPrice(){
+      this.totalharga = 0
+      let arr = this.$store.state.cartData
+      arr.forEach(el => this.totalharga+= (el.product.price * el.jumlah));
+
      return this.totalharga
+    },
+    setDaftar(){
+      // this.totalharga = 0
+      let arr = this.$store.state.cartData
+      arr.forEach(el => this.daftar.push(el.product._id));
+      console.log(this.daftar);
+      
+     return this.daftar
     }
   },
   components:{
     itemCart
   },
   created: function(){
+    if(localStorage.getItem('access_token')){
+      this.$store.dispatch('getUser')
       this.cart = this.$store.state.cartData
+
+    }  
+                       
   }
 }
 </script>

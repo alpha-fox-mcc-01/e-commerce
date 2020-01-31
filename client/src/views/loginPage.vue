@@ -106,16 +106,16 @@ export default {
         });
     }
   },
-     beforeRouteEnter (to, from, next) {
-    // proses untuk dia udah login belom
+  beforeRouteEnter (to, from, next) {
+  // proses untuk dia udah login belom
     if (localStorage.getItem('access_token')) {
       next('/')
     } else {
       next()
     }
   },
-   created: function(){
-      this.$store.commit('checkLogin')
+  created: function(){
+    this.$store.commit('checkLogin')
   }
 
 };

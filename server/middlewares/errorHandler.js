@@ -4,7 +4,7 @@ module.exports = (err, req, res, next) => {
     let message = 'Internal Server Error'
     let errors
 
-    console.log(err, 'asadasdasdasdasdasdsadasdsada');
+    // console.log(err, 'asadasdasdasdasdasdsadasdsada');
     
 
     if (err.name === 'ValidationError') {

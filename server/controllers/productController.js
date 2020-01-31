@@ -86,6 +86,8 @@ class productController{
             img: req.body.img
         }
 
+        console.log(obj);
+        
         Product.updateOne({
             _id:req.params.id
         }, {
@@ -96,6 +98,7 @@ class productController{
             img: req.file.cloudStoragePublicUrl
         })
         .then(data =>{
+            
             res.status(200).json(data)
         })
         .catch(err =>{

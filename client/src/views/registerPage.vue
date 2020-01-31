@@ -84,7 +84,7 @@ export default {
           this.password = "";
           localStorage.setItem("access_token", data.token);
           // this.changePage("home");
-            this.$routes.push('/')
+            this.$router.push('/')
 
         })
         .catch(err => {
