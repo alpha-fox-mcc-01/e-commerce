@@ -1,0 +1,36 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "TDD",
+  "main": "app.js",
+  "dependencies": {
+    "aws-sdk": "^2.610.0",
+    "bcrypt": "^3.0.7",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.9",
+    "mongoose-unique-validator": "^2.0.3",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "dotenv": "^8.2.0",
+    "mocha": "^7.0.0"
+  },
+  "scripts": {
+    "test": "NODE_ENV=testing mocha --exit",
+    "dev": "NODE_ENV=development nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninoloid/e-commerce.git"
+  },
+  "author": "Ahmad MSA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ninoloid/e-commerce/issues"
+  },
+  "homepage": "https://github.com/ninoloid/e-commerce#readme"
+}
